@@ -1,41 +1,39 @@
-# Mini Project E2E - Frontend (Flutter)
+# StaffOps Management - Mobile App (Flutter)
 
-Aplikasi mobile sederhana untuk manajemen task yang dibangun menggunakan Flutter dan terintegrasi dengan REST API Laravel.
-
-Project ini dibuat sebagai bagian dari technical assessment.
+A mobile application for task management built with Flutter and integrated with a Laravel-based RESTful API.
 
 ---
 
 ## 🚀 Tech Stack
 
 * **Framework**: Flutter
-* **Bahasa**: Dart
+* **Language**: Dart
 * **State Management**: GetX
 * **HTTP Client**: Dio
-* **Arsitektur**: Clean Architecture (feature-based)
+* **Architecture**: Clean Architecture (feature-based)
 
 ---
 
-## 📱 Fitur Aplikasi
+## 📱 Features
 
-* Autentikasi:
+### 🔐 Authentication
 
-  * Login
-  * Register
+* Login
+* Register
 
-* Task Management:
+### 📝 Task Management
 
-  * Menampilkan daftar task
-  * Melihat detail task
-  * Membuat task
-  * Update task
-  * Menghapus task
+* View task list
+* View task details
+* Create task
+* Update task
+* Delete task
 
 ---
 
-## 🔌 Integrasi API
+## 🔌 API Integration
 
-Aplikasi terhubung dengan backend Laravel melalui REST API.
+The application communicates with a Laravel-based REST API.
 
 ### Base URL
 
@@ -45,29 +43,29 @@ class ApiConfig {
 }
 ```
 
-> Base URL saat ini menggunakan **ngrok** untuk kebutuhan development.
+> Note: The base URL can be configured depending on your environment (local, ngrok, or deployed API).
 
 ---
 
-## 🏗️ Arsitektur
+## 🏗️ Architecture
 
-Project ini menggunakan pendekatan **Clean Architecture (feature-based)** dengan pembagian:
+This project follows a **Clean Architecture (feature-based)** approach:
 
 * `features/`
 
-  * `data/` → datasource & model
-  * `domain/` → entity & usecase
+  * `data/` → datasource & models
+  * `domain/` → entities & use cases
   * `presentation/` → UI & state (GetX)
 
-* `core/` → shared utilities
+* `shared/` → shared utilities
 
-* `app/` → konfigurasi aplikasi (routing, dependency injection)
+* `app/` → app configuration (routing, dependency injection)
 
 ---
 
-## ⚙️ Cara Menjalankan Project
+## ⚙️ Getting Started
 
-### 1. Install Dependency
+### 1. Install Dependencies
 
 ```bash
 flutter pub get
@@ -75,44 +73,45 @@ flutter pub get
 
 ---
 
-### 2. Jalankan Aplikasi
+### 2. Run the App
 
 ```bash
 flutter run
 ```
 
-Pastikan:
+Make sure:
 
-* Emulator atau device sudah berjalan
-* Backend API aktif (Laravel server)
+* Emulator or physical device is running
+* Backend API server is active
 
 ---
 
-## ⚠️ Konfigurasi Penting
+## ⚠️ Configuration
 
 ### API Endpoint
 
-Pastikan URL pada `ApiConfig` sesuai dengan backend yang sedang berjalan:
+Update the API base URL in:
 
 ```dart
 static const String uri = 'YOUR_BACKEND_URL/api';
 ```
 
-Jika menggunakan localhost:
+For local development:
 
-* Gunakan IP lokal (bukan `localhost`) untuk device fisik
+* Use `10.0.2.2` for Android emulator
+* Use your local IP for physical devices
 
 ---
 
 ## 🔄 State Management
 
-Aplikasi menggunakan **GetX** untuk:
+The app uses **GetX** for:
 
 * State management
 * Dependency injection
 * Navigation
 
-State handling yang sudah diimplementasikan:
+Implemented states:
 
 * Loading state
 * Error state
@@ -120,31 +119,31 @@ State handling yang sudah diimplementasikan:
 
 ---
 
-## 📦 Dependency Utama
+## 📦 Main Dependencies
 
 * `get` → state management & navigation
 * `dio` → HTTP client
-* `intl` → formatting data
+* `intl` → data formatting
 
 ---
 
-## 🧠 Catatan
+## 🔗 Related Repository
 
-* Endpoint aksi task (`start`, `complete`) sudah tersedia di backend,
-  namun belum diintegrasikan ke frontend karena keterbatasan waktu.
+Backend API:
 
-* Konfigurasi API masih menggunakan hardcoded base URL (ngrok) untuk kebutuhan development.
-
----
-
-## 📌 Prasyarat
-
-* Flutter SDK (disarankan versi terbaru stabil)
-* Emulator / device Android
-* Backend API harus aktif
+* `staffops-management-api`
 
 ---
 
-## 👨‍💻 Author
+## 🧠 Notes
 
-Dikembangkan sebagai bagian dari technical interview assignment.
+* Task action endpoints (`start`, `complete`) are available in the backend but not yet integrated into the mobile app.
+* API configuration currently uses a configurable base URL for development purposes.
+
+---
+
+## 📌 Requirements
+
+* Flutter SDK (latest stable recommended)
+* Android emulator or physical device
+* Running backend API server
