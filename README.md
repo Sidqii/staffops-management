@@ -131,7 +131,7 @@ Implemented states:
 
 Backend API:
 
-* `staffops-management-api`
+* [staffops-management-api](https://github.com/Sidqii/staffops-management-api)
 
 ---
 
