@@ -93,10 +93,10 @@ class AuthenticationPage extends GetView<SignInController> {
 
   Widget _contentContainer(List<Widget> children) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Stack(
           children: [
-            // main content
             LayoutBuilder(
               builder: (context, constraints) {
                 return SingleChildScrollView(
@@ -128,7 +128,6 @@ class AuthenticationPage extends GetView<SignInController> {
               },
             ),
 
-            // logo
             Positioned(right: 20, bottom: 20, child: OpsLogo()),
           ],
         ),

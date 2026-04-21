@@ -7,7 +7,9 @@ import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasour
 import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
 import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
+import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_in_controller.dart';
+import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_out_controller.dart';
 
 class AuthBindings extends Bindings {
   @override
@@ -29,9 +31,17 @@ class AuthBindings extends Bindings {
       return SignInUsecase(Get.find<AuthRepository>());
     });
 
+    Get.lazyPut<SignOutUsecase>(() {
+      return SignOutUsecase(Get.find<AuthRepository>());
+    });
+
     // controller
     Get.lazyPut<SignInController>(() {
       return SignInController(Get.find<SignInUsecase>());
+    });
+
+    Get.lazyPut<SignOutController>(() {
+      return SignOutController(Get.find<SignOutUsecase>());
     });
   }
 }

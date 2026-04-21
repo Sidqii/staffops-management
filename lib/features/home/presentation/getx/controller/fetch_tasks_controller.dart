@@ -68,12 +68,7 @@ class FetchTasksController extends GetxController {
 
       final nextPage = currentPage.value + 1;
 
-      final newQuery = TaskQueryParams(
-        page: nextPage,
-        search: query.value.search,
-      );
-
-      query.value = newQuery;
+      query.value = query.value.copyWith(page: nextPage);
 
       final result = await usecase.execute(query.value);
 
@@ -84,9 +79,9 @@ class FetchTasksController extends GetxController {
       if (currentPage.value >= lastPage.value) {
         showMore(true);
 
-        Future.delayed(const Duration(seconds: 2), () {
-          showMore(false);
-        });
+        // Future.delayed(const Duration(seconds: 2), () {
+        //   showMore(false);
+        // }); TODO: visible dan invisible showMore.value
 
         return;
       }
@@ -105,16 +100,16 @@ class FetchTasksController extends GetxController {
     isLoading(true);
 
     try {
-      final newQuery = TaskQueryParams(page: 1, search: query.value.search);
+      query.value = query.value.copyWith(page: 1);
 
-      query.value = newQuery;
-
-      final result = await usecase.execute(newQuery);
+      final result = await usecase.execute(query.value);
 
       tasks.assignAll(result.taskList);
 
       currentPage.value = result.currentPage;
       lastPage.value = result.lastPage;
+
+      _refreshNotification('Everything is up to date!');
     } on ServerException catch (e) {
       _failedNotification(e.message);
     } catch (e) {
@@ -123,6 +118,12 @@ class FetchTasksController extends GetxController {
       _errorNotification('Something wrong on refresh');
     } finally {
       isLoading(false);
+    }
+  }
+
+  void _refreshNotification(String message) {
+    if (!Get.isSnackbarOpen) {
+      Get.snackbar('Refresh', message);
     }
   }
 

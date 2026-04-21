@@ -1,30 +1,29 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/dto/sign_in_params.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
+import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_out_usecase.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
-class SignInController extends GetxController {
-  final SignInUsecase signInUsecase;
+class SignOutController extends GetxController {
+  final SignOutUsecase usecase;
 
-  SignInController(this.signInUsecase);
+  SignOutController(this.usecase);
 
   RxBool isLoading = false.obs;
 
-  Future<void> signIn(SignInParams params) async {
+  Future<void> signOut() async {
     isLoading(true);
 
     try {
-      final user = await signInUsecase.execute(params);
+      await usecase.execute();
 
-      _successNotification('Good to see you again, ${user.name}!');
+      _successNotification('Logged out successfully. Have a great day!');
 
-      Future.delayed(const Duration(milliseconds: 1800), () {
-        Get.offAllNamed('/home');
+      Future.delayed(const Duration(milliseconds: 1500), () {
+        Get.offAllNamed('/auth');
       });
     } on ServerException catch (e) {
       _failedNotification(e.message);
     } catch (e) {
-      _errorNotification('Oops! We’re having trouble signing you in.');
+      _errorNotification("Oops! We couldn't sign you out. Please try again.");
     } finally {
       isLoading(false);
     }

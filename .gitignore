@@ -33,6 +33,9 @@ migrate_working_dir/
 /build/
 /coverage/
 
+# Local conifg
+/lib/config/network/api_config.dart
+
 # Symbolication related
 app.*.symbols
 

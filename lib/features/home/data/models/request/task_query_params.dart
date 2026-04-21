@@ -21,6 +21,54 @@ class TaskQueryParams {
     this.search,
   });
 
+  TaskQueryParams copyWith({
+    int? page,
+    int? perPage,
+    String? sortBy,
+    String? order,
+    String? title,
+    String? description,
+    String? status,
+    String? priority,
+    String? search,
+  }) {
+    return TaskQueryParams(
+      page: page ?? this.page,
+      perPage: perPage ?? this.perPage,
+      sortBy: sortBy ?? this.sortBy,
+      order: order ?? this.order,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      priority: priority ?? this.priority,
+      search: search ?? this.search,
+    );
+  }
+
+  // TaskQueryParams copyWith({
+  //   int? page,
+  //   int? perPage,
+  //   String? sortBy,
+  //   String? order,
+  //   Nullable<String>? title,
+  //   Nullable<String>? description,
+  //   Nullable<String>? status,
+  //   Nullable<String>? priority,
+  //   Nullable<String>? search,
+  // }) {
+  //   return TaskQueryParams(
+  //     page: page ?? this.page,
+  //     perPage: perPage ?? this.perPage,
+  //     sortBy: sortBy ?? this.sortBy,
+  //     order: order ?? this.order,
+  //     title: title != null ? title.value : this.title,
+  //     description: description != null ? description.value : this.description,
+  //     status: status != null ? status.value : this.status,
+  //     priority: priority != null ? priority.value : this.priority,
+  //     search: search != null ? search.value : this.search,
+  //   );
+  // }
+
   Map<String, dynamic> toQuery() {
     return {
       'page': page,
@@ -35,3 +83,9 @@ class TaskQueryParams {
     }..removeWhere((key, value) => value == null);
   }
 }
+
+class Nullable<T> {
+  final T? value;
+
+  const Nullable(this.value);
+} // TODO: helper untuk nilai nullable di copWith
