@@ -38,9 +38,12 @@ class TasksUser extends GetView<FetchTasksController> {
                 behavior: HitTestBehavior.translucent,
                 onTap: () async => await controller.refresh(),
 
-                child: const Text(
-                  'refresh here.',
-                  style: TextStyle(color: AppColor.primary),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: Text(
+                    'refresh here.',
+                    style: TextStyle(color: AppColor.primary),
+                  ),
                 ),
               ),
             ],

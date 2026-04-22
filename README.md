@@ -10,7 +10,7 @@ A mobile application for task management built with Flutter and integrated with 
 * **Language**: Dart
 * **State Management**: GetX
 * **HTTP Client**: Dio
-* **Architecture**: Clean Architecture (feature-based)
+* **Architecture**: Feature-based layered architecture
 
 ---
 
@@ -49,7 +49,7 @@ class ApiConfig {
 
 ## 🏗️ Architecture
 
-This project follows a **Clean Architecture (feature-based)** approach:
+This project uses a **feature-based layered structure** inspired by Clean Architecture principles:
 
 * `features/`
 
