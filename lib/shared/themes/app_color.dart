@@ -21,6 +21,7 @@ class AppColor {
   static const softWhite = Color(0xFFFAFAFA);
 
   // ERROR
+  static const warning = Color(0xFFEF9A9A);
   static const error = Color(0xFFD32F2F);
 
   // SUCCESS

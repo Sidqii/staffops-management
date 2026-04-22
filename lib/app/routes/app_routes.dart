@@ -7,8 +7,8 @@ abstract class _Paths {
   static const TASK_VIEW = '/task/view';
   static const TASK_LIST = '/task/list';
   static const TASK_DETAIL = '/task/detail';
-  static const CREATE_TASK = '/create/task';
-  static const UPDATE_TASK = '/update/task';
+  static const TASK_CREATE = '/task/create';
+  static const TASK_UPDATE = '/task/update';
 }
 
 abstract class AppRoutes {
@@ -18,6 +18,6 @@ abstract class AppRoutes {
   static const TASK_VIEW = _Paths.TASK_VIEW;
   static const TASK_LIST = _Paths.TASK_LIST;
   static const TASK_DETAIL = _Paths.TASK_DETAIL;
-  static const CREATE_TASK = _Paths.CREATE_TASK;
-  static const UPDATE_TASK = _Paths.UPDATE_TASK;
+  static const TASK_CREATE = _Paths.TASK_CREATE;
+  static const TASK_UPDATE = _Paths.TASK_UPDATE;
 }

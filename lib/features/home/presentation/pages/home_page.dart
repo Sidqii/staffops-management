@@ -88,7 +88,7 @@ class HomePage extends GetView<FetchCredentialController> {
                       ),
 
                       CreateTaskActionBtn(
-                        onPressed: () => print('navigate to create task form'),
+                        onPressed: () => Get.toNamed('/task/create'),
                       ),
                     ],
                   );
