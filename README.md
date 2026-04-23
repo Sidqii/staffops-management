@@ -96,8 +96,6 @@ Update the API base URL in:
 static const String uri = 'YOUR_BACKEND_URL/api';
 ```
 
----
-
 ### ⚠️ Important
 
 Make sure to update the API base URL inside `app/network/dio_client.dart` before running the app:
