@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/fetch_credential_controller.dart';
-import 'package:mini_project_e2e_app/features/task/presentation/getx/controller/create_task_controller.dart';
-import 'package:mini_project_e2e_app/features/task/presentation/widgets/form/custom_dropdown_field.dart';
-import 'package:mini_project_e2e_app/features/task/presentation/widgets/form/input_desc_text_field.dart';
-import 'package:mini_project_e2e_app/features/task/presentation/widgets/form/input_title_text_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/create_task_controller.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_priority_controller.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/custom_dropdown_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_desc_text_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_title_text_field.dart';
 
 class CreateTaskForm extends GetView<CreateTaskController> {
   const CreateTaskForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final userController = Get.find<FetchCredentialController>();
+    final priorityController = Get.find<ListOfPriorityController>();
 
     return Scaffold(
       body: SafeArea(
@@ -34,24 +34,11 @@ class CreateTaskForm extends GetView<CreateTaskController> {
               ]),
 
               _contentWrapper([
-                Text('Assigned to'),
-                Obx(() {
-                  return CustomDropdownField(
-                    value: controller.selectedUserId.value,
-                    items: controller.users.map((e) => e['id'] as int).toList(),
-                    labelBuilder: (id) {
-                      final user = controller.users.firstWhere((element) {
-                        return element['id'] == id;
-                      });
-
-                      return user['name'] as String;
-                    },
-                    hintText: 'Assigned to ...',
-                    onChanged: (value) {
-                      controller.selectedUserId.value = value;
-                    },
-                  );
-                }),
+                Text('Priority'),
+                _priorityDropdownMenu(
+                  priorityController.priority.toList(),
+                  priorityController.hintText,
+                ),
               ]),
             ],
           ),
@@ -70,7 +57,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
   Widget _headerContent() {
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 10,
@@ -94,5 +81,30 @@ class CreateTaskForm extends GetView<CreateTaskController> {
         ],
       ),
     );
+  }
+
+  Widget _priorityDropdownMenu(List items, String hintText) {
+    return Obx(() {
+      return CustomDropdownField(
+        value: controller.selectedPriority.value,
+        items: items,
+
+        hintText: hintText,
+
+        labelBuilder: (priority) {
+          final name = priority.name;
+
+          return name[0].toUpperCase() + name.substring(1);
+        },
+
+        onChanged: (value) {
+          if (controller.selectedPriority.value == value) {
+            controller.selectedPriority.value = null;
+          } else {
+            controller.selectedPriority.value = value;
+          }
+        },
+      );
+    });
   }
 }

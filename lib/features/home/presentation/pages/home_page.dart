@@ -83,12 +83,14 @@ class HomePage extends GetView<FetchCredentialController> {
                     children: [
                       UserSummarySection(
                         name: controller.credential.value?.name ?? 'Guest',
-                        current: taskController.currentPage.toString(),
+                        current: taskController.tasks.length.toString(),
                         total: taskController.total.toString(),
                       ),
 
                       CreateTaskActionBtn(
-                        onPressed: () => Get.toNamed('/task/create'),
+                        onPressed: () async {
+                          await Get.toNamed('/task/create');
+                        },
                       ),
                     ],
                   );

@@ -1,8 +1,12 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/data/model/request/create_task_request.dart';
-import 'package:mini_project_e2e_app/features/task/domain/usecase/create_task_usecase.dart';
+import 'package:mini_project_e2e_app/features/create_task/data/model/request/create_task_request.dart';
+import 'package:mini_project_e2e_app/features/create_task/domain/entities/priority_list.dart';
+import 'package:mini_project_e2e_app/features/create_task/domain/entities/some_funny_hints/description_hints.dart';
+import 'package:mini_project_e2e_app/features/create_task/domain/entities/some_funny_hints/title_hints.dart';
+import 'package:mini_project_e2e_app/features/create_task/domain/entities/user_list.dart';
+import 'package:mini_project_e2e_app/features/create_task/domain/usecase/create_task_usecase.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
 class CreateTaskController extends GetxController {
@@ -10,40 +14,13 @@ class CreateTaskController extends GetxController {
 
   CreateTaskController(this.usecase);
 
+  Rxn<UserList> selectedUser = Rxn<UserList>();
+  Rxn<PriorityList> selectedPriority = Rxn<PriorityList>();
+
   RxBool isLoading = false.obs;
 
-  final selectedUserId = Rxn<int>();
-
-  final users = [
-    {'id': 1, 'name': 'John Doe'},
-    {'id': 2, 'name': 'Jane Smith'},
-    {'id': 3, 'name': 'Alex Johnson'},
-  ];
-
-  final hints = [
-    "e.g. fix-auth-bug-before-coffee ☕",
-    "e.g. works-on-my-machine 🧠",
-    "e.g. task-tracker-api",
-    "e.g. update-user-profile-feature",
-    "e.g. improve-login-experience",
-    "e.g. add-payment-method",
-    "e.g. fix-notification-issue",
-    "e.g. optimize-loading-time ⚡",
-    "e.g. redesign-homepage-ui 🎨",
-    "e.g. sync-data-with-server",
-    "e.g. handle-error-gracefully",
-    "e.g. enhance-search-function",
-    "e.g. clean-up-unused-code 🧹",
-  ];
-
-  final descs = [
-    "Describe what needs to be done...",
-    "Explain the task so future you won't be confused 🤔",
-    "What’s the goal of this task?",
-    "Add details, steps, or notes here...",
-    "Why does this task exist? 👀",
-    "Give context so your team understands",
-  ];
+  final title = TitleHints.values;
+  final descs = DescriptionHints.values;
 
   late final String hintText;
   late final String descText;
@@ -51,7 +28,7 @@ class CreateTaskController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    hintText = hints[Random().nextInt(hints.length)];
+    hintText = title[Random().nextInt(title.length)];
     descText = descs[Random().nextInt(descs.length)];
   }
 

@@ -9,6 +9,7 @@ class FetchCredentialController extends GetxController {
   FetchCredentialController(this.usecase);
 
   RxBool isLoading = false.obs;
+
   Rxn<User> credential = Rxn<User>();
 
   @override

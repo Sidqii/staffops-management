@@ -19,19 +19,6 @@ class CustomDropdownField<T> extends StatelessWidget {
     this.width,
   });
 
-  // TODO: Panduan penggunaan dengan menggunakan models <user>
-
-  // CustomDropdownField<User>(
-  //   value: controller.selectedUser.value,
-  //   items: controller.users,
-
-  //   labelBuilder: (user) => user.name,
-  //   hintText: 'Assigned to ...',
-  //   onChanged: (value) {
-  //     controller.selectedUser.value = value;
-  //   },
-  // ),
-
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
@@ -39,8 +26,9 @@ class CustomDropdownField<T> extends StatelessWidget {
 
       width: width ?? MediaQuery.of(context).size.width * 0.9,
 
-      hintText: hintText,
       initialSelection: value,
+
+      hintText: hintText,
 
       menuStyle: MenuStyle(
         backgroundColor: WidgetStatePropertyAll(AppColor.softWhite),
@@ -51,6 +39,7 @@ class CustomDropdownField<T> extends StatelessWidget {
 
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+        hintStyle: TextStyle(color: AppColor.grey600),
       ),
 
       onSelected: (selected) {

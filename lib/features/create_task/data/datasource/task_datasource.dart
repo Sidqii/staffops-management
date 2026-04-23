@@ -1,0 +1,11 @@
+import 'package:mini_project_e2e_app/features/create_task/data/model/request/create_task_request.dart';
+import 'package:mini_project_e2e_app/features/create_task/data/model/response/list_of_priority.dart';
+import 'package:mini_project_e2e_app/features/create_task/data/model/response/list_of_user.dart';
+
+abstract class TaskDatasource {
+  Future<List<ListOfUser>> fetchListOfUsers();
+
+  Future<List<ListOfPriority>> fetchListOfPriority();
+
+  Future<void> createTask(CreateTaskRequest body);
+}
