@@ -24,7 +24,7 @@ class CustomDropdownField<T> extends StatelessWidget {
     return DropdownMenu(
       key: ValueKey(value),
 
-      width: width ?? MediaQuery.of(context).size.width * 0.9,
+      width: width ?? MediaQuery.of(context).size.width * 0.43,
 
       initialSelection: value,
 

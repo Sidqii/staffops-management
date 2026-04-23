@@ -11,7 +11,7 @@ class ListOfUser {
   }
 
   factory ListOfUser.fromJson(Map<String, dynamic> json) {
-    return ListOfUser(id: json['data']['id'], name: json['data']['name']);
+    return ListOfUser(id: json['id'], name: json['name']);
   }
 
   Map<String, dynamic> toJson() {

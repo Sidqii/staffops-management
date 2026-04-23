@@ -13,7 +13,7 @@ class TaskDatasourceImpl implements TaskDatasource {
   Future<List<ListOfUser>> fetchListOfUsers() async {
     final response = await dio.get('/users');
 
-    final data = response.data;
+    final data = response.data['data'];
 
     return (data as List).map((e) => ListOfUser.fromJson(e)).toList();
   }

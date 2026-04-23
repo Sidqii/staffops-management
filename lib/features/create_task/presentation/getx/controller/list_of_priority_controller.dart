@@ -10,8 +10,7 @@ class ListOfPriorityController extends GetxController {
 
   ListOfPriorityController(this.usecase);
 
-  RxList<PriorityList> priority = <PriorityList>[].obs;
-
+  RxList<PriorityList> priorities = <PriorityList>[].obs;
   RxBool isLoading = false.obs;
 
   final priorHint = PriorityHints.values;
@@ -22,21 +21,18 @@ class ListOfPriorityController extends GetxController {
   void onInit() {
     super.onInit();
 
-    loadMore();
+    fetchListOfPriority();
 
     hintText = priorHint[Random().nextInt(priorHint.length)];
   }
 
-  Future<void> loadMore() async {
-    try {
-      isLoading(true);
+  Future<void> fetchListOfPriority() async {
+    isLoading(true);
 
+    try {
       final result = await usecase.execute();
 
-      priority.value = result;
-    } catch (e) {
-      // TODO: nanti dihapus ini yak
-      print(e.toString());
+      priorities.value = result;
     } finally {
       isLoading(false);
     }

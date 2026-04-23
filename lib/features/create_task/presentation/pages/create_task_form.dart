@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/create_task_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_priority_controller.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_user_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/custom_dropdown_field.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_desc_text_field.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_title_text_field.dart';
@@ -12,6 +13,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
   @override
   Widget build(BuildContext context) {
     final priorityController = Get.find<ListOfPriorityController>();
+    final usersController = Get.find<ListOfUserController>();
 
     return Scaffold(
       body: SafeArea(
@@ -33,13 +35,54 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                 InputDescTextField(descText: controller.descText),
               ]),
 
-              _contentWrapper([
-                Text('Priority'),
-                _priorityDropdownMenu(
-                  priorityController.priority.toList(),
-                  priorityController.hintText,
-                ),
-              ]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _contentWrapper([
+                    Text('Priority'),
+                    Obx(() {
+                      return _dorpdownField(
+                        value: controller.selectedPriority.value,
+                        items: priorityController.priorities.toList(),
+                        hintText: priorityController.hintText,
+                        labelBuilder: (priority) {
+                          final name = priority.name;
+
+                          return name[0].toUpperCase() + name.substring(1);
+                        },
+                        onChanged: (value) {
+                          if (controller.selectedPriority.value == value) {
+                            controller.selectedPriority.value = null;
+                          } else {
+                            controller.selectedPriority.value = value;
+                          }
+                        },
+                      );
+                    }),
+                  ]),
+
+                  _contentWrapper([
+                    Text('Assigned to'),
+                    Obx(() {
+                      return _dorpdownField(
+                        value: controller.selectedUser.value,
+                        items: usersController.users.toList(),
+                        hintText: 'Assigned to ...',
+                        labelBuilder: (user) => user.name,
+                        onChanged: (value) {
+                          if (controller.selectedUser.value == value) {
+                            controller.selectedUser.value = null;
+                          } else {
+                            controller.selectedUser.value = value;
+                          }
+                        },
+                      );
+                    }),
+                  ]),
+                ],
+              ),
+
+              // TODO: implement upload file here & add scrollChild
             ],
           ),
         ),
@@ -83,28 +126,19 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     );
   }
 
-  Widget _priorityDropdownMenu(List items, String hintText) {
-    return Obx(() {
-      return CustomDropdownField(
-        value: controller.selectedPriority.value,
-        items: items,
-
-        hintText: hintText,
-
-        labelBuilder: (priority) {
-          final name = priority.name;
-
-          return name[0].toUpperCase() + name.substring(1);
-        },
-
-        onChanged: (value) {
-          if (controller.selectedPriority.value == value) {
-            controller.selectedPriority.value = null;
-          } else {
-            controller.selectedPriority.value = value;
-          }
-        },
-      );
-    });
+  Widget _dorpdownField<T>({
+    required T? value,
+    required List<T> items,
+    required String hintText,
+    required String Function(T) labelBuilder,
+    required Function(T?) onChanged,
+  }) {
+    return CustomDropdownField<T>(
+      value: value,
+      items: items,
+      hintText: hintText,
+      labelBuilder: labelBuilder,
+      onChanged: onChanged,
+    );
   }
 }
