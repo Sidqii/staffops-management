@@ -7,6 +7,7 @@ environment:
   sdk: ^3.11.4
 
 dependencies:
+  date_picker_plus: ^7.0.0
   dio: ^5.9.2
   flutter:
     sdk: flutter

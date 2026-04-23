@@ -16,6 +16,7 @@ class AppColor {
   static const grey300 = Color(0xFFE0E0E0);
 
   // SOFT SCALE
+  static const blueTiran = Color(0xff56B6C6);
   static const greenPalm = Color(0xffDAF9DE);
   static const blueWhale = Color(0xffCFECF3);
   static const softWhite = Color(0xFFFAFAFA);

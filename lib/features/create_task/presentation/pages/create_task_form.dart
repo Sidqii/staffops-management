@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/create_task_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_priority_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_user_controller.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/calendar_input_field.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/custom_dropdown_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/dialog/date_picker_show_dialog.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_desc_text_field.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_title_text_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/upload_files_or_images.dart';
+import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class CreateTaskForm extends GetView<CreateTaskController> {
   const CreateTaskForm({super.key});
@@ -17,21 +21,21 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 30,
+            spacing: 20,
             children: [
               _headerContent(),
 
               _contentWrapper([
-                Text('Title'),
+                const Text('Title'),
                 InputTitleTextField(hintText: controller.hintText),
               ]),
 
               _contentWrapper([
-                Text('Description'),
+                const Text('Description'),
                 InputDescTextField(descText: controller.descText),
               ]),
 
@@ -39,17 +43,19 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _contentWrapper([
-                    Text('Priority'),
+                    const Text('Priority'),
                     Obx(() {
                       return _dorpdownField(
                         value: controller.selectedPriority.value,
                         items: priorityController.priorities.toList(),
-                        hintText: priorityController.hintText,
+
+                        hintText: 'Is this urgent?',
                         labelBuilder: (priority) {
                           final name = priority.name;
 
                           return name[0].toUpperCase() + name.substring(1);
                         },
+
                         onChanged: (value) {
                           if (controller.selectedPriority.value == value) {
                             controller.selectedPriority.value = null;
@@ -62,13 +68,15 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                   ]),
 
                   _contentWrapper([
-                    Text('Assigned to'),
+                    const Text('Assigned to'),
                     Obx(() {
                       return _dorpdownField(
                         value: controller.selectedUser.value,
                         items: usersController.users.toList(),
-                        hintText: 'Assigned to ...',
+
+                        hintText: 'Who’s responsible?',
                         labelBuilder: (user) => user.name,
+
                         onChanged: (value) {
                           if (controller.selectedUser.value == value) {
                             controller.selectedUser.value = null;
@@ -82,7 +90,29 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                 ],
               ),
 
-              // TODO: implement upload file here & add scrollChild
+              _contentWrapper([
+                const Text('Set due date'),
+                GestureDetector(
+                  onTap: () async {
+                    final result = await DatePickerShowDialog.show(context);
+
+                    if (result != null) {
+                      controller.selectedDate(result);
+                    }
+                  },
+
+                  child: Obx(() {
+                    return CalendarInputField(
+                      date: controller.selectedDate.value,
+                    );
+                  }),
+                ),
+              ]),
+
+              _contentWrapper([
+                const Text('Upload files?'),
+                UploadFilesOrImages(hintText: 'Browse some data', onTap: () {}),
+              ]),
             ],
           ),
         ),
@@ -100,26 +130,30 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
   Widget _headerContent() {
     return Padding(
-      padding: const EdgeInsets.only(top: 30),
+      padding: const EdgeInsets.only(top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         spacing: 10,
         children: [
-          Icon(Icons.assignment_outlined),
+          const Icon(Icons.assignment_outlined, color: AppColor.grey600),
 
-          Text(
+          const Text(
             'Define your task',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: AppColor.grey600,
+            ),
           ),
 
-          Spacer(),
+          const Spacer(),
 
           IconButton(
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
-            onPressed: () => Get.back(),
+            onPressed: () => Get.back(result: true),
 
-            icon: Icon(Icons.close_rounded),
+            icon: const Icon(Icons.close_rounded),
           ),
         ],
       ),

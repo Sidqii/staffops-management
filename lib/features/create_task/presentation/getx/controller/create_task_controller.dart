@@ -14,7 +14,9 @@ class CreateTaskController extends GetxController {
 
   CreateTaskController(this.usecase);
 
+  Rxn<DateTime> selectedDate = Rxn<DateTime>();
   Rxn<UserList> selectedUser = Rxn<UserList>();
+
   Rxn<PriorityList> selectedPriority = Rxn<PriorityList>();
 
   RxBool isLoading = false.obs;
