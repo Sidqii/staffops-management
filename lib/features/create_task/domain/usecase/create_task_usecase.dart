@@ -6,7 +6,7 @@ class CreateTaskUsecase {
 
   CreateTaskUsecase(this.repository);
 
-  Future<void> execute(CreateTaskRequest body) async {
-    await repository.createTask(body);
+  Future<void> execute(CreateTaskRequest request) async {
+    await repository.createTask(await request.toFormData());
   }
 }

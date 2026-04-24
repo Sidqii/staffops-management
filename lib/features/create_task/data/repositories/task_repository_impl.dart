@@ -1,5 +1,5 @@
+import 'package:dio/src/form_data.dart';
 import 'package:mini_project_e2e_app/features/create_task/data/datasource/task_datasource.dart';
-import 'package:mini_project_e2e_app/features/create_task/data/model/request/create_task_request.dart';
 import 'package:mini_project_e2e_app/features/create_task/data/repositories/task_repository.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/priority_list.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/user_list.dart';
@@ -24,7 +24,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<void> createTask(CreateTaskRequest body) async {
-    await datasource.createTask(body);
+  Future<void> createTask(FormData formData) async {
+    await datasource.createTask(formData);
   }
 }

@@ -1,16 +1,17 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class UploadFilesOrImages extends StatelessWidget {
   final String hintText;
-  final String? fileName;
+  final List<PlatformFile> files;
   final VoidCallback onTap;
 
   const UploadFilesOrImages({
     super.key,
     required this.hintText,
     required this.onTap,
-    this.fileName,
+    required this.files,
   });
 
   static const uploadFiles = Icon(Icons.cloud_upload_rounded);
@@ -18,7 +19,7 @@ class UploadFilesOrImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEmpty = fileName == null;
+    final isEmpty = files.isEmpty;
 
     return GestureDetector(
       onTap: onTap,
@@ -50,9 +51,11 @@ class UploadFilesOrImages extends StatelessWidget {
   Widget _uploadedFilesContent() {
     return Column(
       children: [
-        Icon(uploadedFiles.icon, color: AppColor.grey600, size: 30),
+        Icon(uploadedFiles.icon, color: AppColor.success, size: 30),
 
-        Expanded(child: Text(fileName!, overflow: TextOverflow.ellipsis)),
+        ...files.map((file) {
+          return Text(file.name, overflow: TextOverflow.ellipsis);
+        },)
       ],
     );
   }

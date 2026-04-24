@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/create_task/data/model/request/create_task_request.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/priority_list.dart';
@@ -18,6 +19,7 @@ class CreateTaskController extends GetxController {
   Rxn<UserList> selectedUser = Rxn<UserList>();
 
   Rxn<PriorityList> selectedPriority = Rxn<PriorityList>();
+  RxList<PlatformFile> selectedFiles = RxList<PlatformFile>();
 
   RxBool isLoading = false.obs;
 
@@ -50,6 +52,18 @@ class CreateTaskController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  Future<void> pickFiles() async {
+    final result = await FilePicker.pickFiles(allowMultiple: true);
+
+    if (result != null) {
+      selectedFiles.assignAll(result.files);
+    }
+  }
+
+  Future<void> removeFiles(PlatformFile file) async {
+    selectedFiles.remove(file);
   }
 
   void _successNotification(String message) {

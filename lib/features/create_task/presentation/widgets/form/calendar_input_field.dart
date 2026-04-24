@@ -10,8 +10,8 @@ class CalendarInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+      width: MediaQuery.of(context).size.width * 0.42 - 1.1,
+      padding: const EdgeInsets.only(left: 15, top: 18, bottom: 18),
 
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.grey600),

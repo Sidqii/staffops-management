@@ -40,12 +40,12 @@ class CreateTaskForm extends GetView<CreateTaskController> {
               ]),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: 20,
                 children: [
                   _contentWrapper([
                     const Text('Priority'),
                     Obx(() {
-                      return _dorpdownField(
+                      return _dorpdownFieldPriority(
                         value: controller.selectedPriority.value,
                         items: priorityController.priorities.toList(),
 
@@ -68,51 +68,67 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                   ]),
 
                   _contentWrapper([
-                    const Text('Assigned to'),
-                    Obx(() {
-                      return _dorpdownField(
-                        value: controller.selectedUser.value,
-                        items: usersController.users.toList(),
+                    const Text('Set due date'),
+                    GestureDetector(
+                      onTap: () async {
+                        final result = await DatePickerShowDialog.show(context);
 
-                        hintText: 'Who’s responsible?',
-                        labelBuilder: (user) => user.name,
+                        if (result != null) {
+                          controller.selectedDate(result);
+                        }
+                      },
 
-                        onChanged: (value) {
-                          if (controller.selectedUser.value == value) {
-                            controller.selectedUser.value = null;
-                          } else {
-                            controller.selectedUser.value = value;
-                          }
-                        },
-                      );
-                    }),
+                      child: Obx(() {
+                        return CalendarInputField(
+                          date: controller.selectedDate.value,
+                        );
+                      }),
+                    ),
                   ]),
                 ],
               ),
 
               _contentWrapper([
-                const Text('Set due date'),
-                GestureDetector(
-                  onTap: () async {
-                    final result = await DatePickerShowDialog.show(context);
+                const Text('Assigned to'),
+                Obx(() {
+                  return _dorpdownFieldAssigned(
+                    MediaQuery.of(context).size.width * 0.9,
+                    value: controller.selectedUser.value,
+                    items: usersController.users.toList(),
 
-                    if (result != null) {
-                      controller.selectedDate(result);
-                    }
-                  },
+                    hintText: usersController.hintText,
+                    labelBuilder: (user) => user.name,
 
-                  child: Obx(() {
-                    return CalendarInputField(
-                      date: controller.selectedDate.value,
-                    );
-                  }),
-                ),
+                    onChanged: (value) {
+                      if (controller.selectedUser.value == value) {
+                        controller.selectedUser.value = null;
+                      } else {
+                        controller.selectedUser.value = value;
+                      }
+                    },
+                  );
+                }),
               ]),
 
               _contentWrapper([
                 const Text('Upload files?'),
-                UploadFilesOrImages(hintText: 'Browse some data', onTap: () {}),
+
+                Obx(() {
+                  return UploadFilesOrImages(
+                    hintText: 'Browse here',
+                    files: controller.selectedFiles.toList(),
+                    onTap: controller.pickFiles,
+                  );
+                }),
               ]),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Create Task'),
+                ),
+              ),
             ],
           ),
         ),
@@ -160,7 +176,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     );
   }
 
-  Widget _dorpdownField<T>({
+  Widget _dorpdownFieldPriority<T>({
     required T? value,
     required List<T> items,
     required String hintText,
@@ -169,6 +185,24 @@ class CreateTaskForm extends GetView<CreateTaskController> {
   }) {
     return CustomDropdownField<T>(
       value: value,
+      items: items,
+      hintText: hintText,
+      labelBuilder: labelBuilder,
+      onChanged: onChanged,
+    );
+  }
+
+  Widget _dorpdownFieldAssigned<T>(
+    double width, {
+    required T? value,
+    required List<T> items,
+    required String hintText,
+    required String Function(T) labelBuilder,
+    required Function(T?) onChanged,
+  }) {
+    return CustomDropdownField<T>(
+      value: value,
+      width: width,
       items: items,
       hintText: hintText,
       labelBuilder: labelBuilder,
