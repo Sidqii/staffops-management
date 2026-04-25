@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/create_task/data/model/request/create_task_request.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/priority_list.dart';
@@ -14,6 +15,9 @@ class CreateTaskController extends GetxController {
   final CreateTaskUsecase usecase;
 
   CreateTaskController(this.usecase);
+
+  final titleController = TextEditingController();
+  final descsController = TextEditingController();
 
   Rxn<DateTime> selectedDate = Rxn<DateTime>();
   Rxn<UserList> selectedUser = Rxn<UserList>();
@@ -36,13 +40,35 @@ class CreateTaskController extends GetxController {
     descText = descs[Random().nextInt(descs.length)];
   }
 
+  Future<void> onSubmit() async {
+    final user = selectedUser.value;
+    final prio = selectedPriority.value;
+    final date = selectedDate.value;
+
+    if (user == null || prio == null || date == null) {
+      print('data input kosong kocak');
+      return;
+    }
+
+    final request = CreateTaskRequest(
+      title: titleController.text,
+      description: descsController.text,
+      assignedTo: user.id,
+      dueDate: date,
+      priorityId: prio.id,
+      filePath: selectedFiles.map((element) {
+        return element.path!;
+      }).toList(),
+    );
+
+    await submitForm(request);
+  }
+
   Future<void> submitForm(CreateTaskRequest request) async {
     isLoading(true);
 
     try {
       await usecase.execute(request);
-
-      _successNotification('Task created successfully!');
 
       Get.back(result: true);
     } on ServerException catch (e) {
@@ -64,12 +90,6 @@ class CreateTaskController extends GetxController {
 
   Future<void> removeFiles(PlatformFile file) async {
     selectedFiles.remove(file);
-  }
-
-  void _successNotification(String message) {
-    if (!Get.isSnackbarOpen) {
-      Get.snackbar('Suceess', message);
-    }
   }
 
   void _failedNotification(String message) {

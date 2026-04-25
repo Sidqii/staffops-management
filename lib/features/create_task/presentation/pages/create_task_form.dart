@@ -31,12 +31,18 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
               _contentWrapper([
                 const Text('Title'),
-                InputTitleTextField(hintText: controller.hintText),
+                InputTitleTextField(
+                  hintText: controller.hintText,
+                  controller: controller.titleController,
+                ),
               ]),
 
               _contentWrapper([
                 const Text('Description'),
-                InputDescTextField(descText: controller.descText),
+                InputDescTextField(
+                  descText: controller.descText,
+                  controller: controller.descsController,
+                ),
               ]),
 
               Row(
@@ -122,10 +128,24 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                 }),
               ]),
 
+              const SizedBox(height: 10),
+
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.all(20),
+
+                    backgroundColor: AppColor.grey900,
+                    foregroundColor: AppColor.softWhite,
+
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+
+                  onPressed: controller.onSubmit,
+
                   child: const Text('Create Task'),
                 ),
               ),
@@ -167,7 +187,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
           IconButton(
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
-            onPressed: () => Get.back(result: true),
+            onPressed: () => Get.back(),
 
             icon: const Icon(Icons.close_rounded),
           ),

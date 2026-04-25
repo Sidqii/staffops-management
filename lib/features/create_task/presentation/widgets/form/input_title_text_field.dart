@@ -3,12 +3,18 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class InputTitleTextField extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
 
-  const InputTitleTextField({super.key, required this.hintText});
+  const InputTitleTextField({
+    super.key,
+    required this.hintText,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       textCapitalization: TextCapitalization.sentences,
 
       cursorWidth: 1,

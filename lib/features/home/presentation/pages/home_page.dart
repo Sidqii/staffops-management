@@ -89,7 +89,9 @@ class HomePage extends GetView<FetchCredentialController> {
 
                       CreateTaskActionBtn(
                         onPressed: () async {
-                          await Get.toNamed('/task/create');
+                          final result = await Get.toNamed('/task/create');
+
+                          _successNotification(result);
                         },
                       ),
                     ],
@@ -103,5 +105,11 @@ class HomePage extends GetView<FetchCredentialController> {
         ),
       ),
     );
+  }
+
+  void _successNotification(bool result) {
+    if (result == true) {
+      Get.snackbar('Success', "Task created! You're all set");
+    }
   }
 }
