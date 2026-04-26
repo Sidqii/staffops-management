@@ -1,6 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/state_manager.dart';
+import 'package:get/get.dart';
+import 'package:mini_project_e2e_app/config/network/dio_client.dart';
+import 'package:mini_project_e2e_app/config/storage/token/token_storage.dart';
+import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasource.dart';
+import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/dto/sign_in_params.dart';
+import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
+import 'package:mini_project_e2e_app/features/auth/presentation/getx/binding/auth_bindings.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_in_controller.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/widgets/email_input_widget.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/widgets/button/login_button_widget.dart';
@@ -128,10 +135,46 @@ class AuthenticationPage extends GetView<SignInController> {
               },
             ),
 
-            Positioned(right: 20, bottom: 20, child: OpsLogo()),
+            Positioned(
+              right: 20,
+              bottom: 20,
+              child: GestureDetector(
+                onTap: () async {
+                  final result = await Get.toNamed('/configuration');
+
+                  if (result == true) {
+                    refreshDependenciesAfterConfig();
+                  }
+                },
+
+                child: OpsLogo(),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  void refreshDependenciesAfterConfig() {
+    // 1. delete auth chain
+    Get.delete<SignInController>(force: true);
+    Get.delete<SignInUsecase>(force: true);
+    Get.delete<AuthRepository>(force: true);
+    Get.delete<AuthDatasource>(force: true);
+
+    // 2. delete core
+    Get.delete<Dio>(force: true);
+    Get.delete<DioClient>(force: true);
+
+    // 3. recreate core
+    final tokenStorage = Get.find<TokenStorage>();
+
+    final dioClient = DioClient(tokenStorage);
+    Get.put(dioClient);
+    Get.put(dioClient.dio);
+
+    // 4. re-inject auth
+    AuthBindings().dependencies();
   }
 }

@@ -16,6 +16,7 @@ class SignInController extends GetxController {
     try {
       final user = await signInUsecase.execute(params);
 
+
       _successNotification('Good to see you again, ${user.name}!');
 
       Future.delayed(const Duration(milliseconds: 1800), () {

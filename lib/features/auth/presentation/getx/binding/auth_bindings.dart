@@ -8,6 +8,7 @@ import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_reposi
 import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_out_usecase.dart';
+import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/base_url_controller.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_in_controller.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_out_controller.dart';
 
@@ -36,6 +37,10 @@ class AuthBindings extends Bindings {
     });
 
     // controller
+    Get.lazyPut<BaseUrlController>(() {
+      return BaseUrlController();
+    });
+
     Get.lazyPut<SignInController>(() {
       return SignInController(Get.find<SignInUsecase>());
     });

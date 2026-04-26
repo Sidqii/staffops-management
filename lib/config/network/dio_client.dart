@@ -9,7 +9,7 @@ class DioClient {
   DioClient(this.tokenStorage) {
     dio = Dio(
       BaseOptions(
-        baseUrl: ApiConfig.url,
+        baseUrl: '${ApiConfig.baseUrl}/api',
         connectTimeout: const Duration(seconds: 10),
         receiveTimeout: const Duration(seconds: 15),
         headers: {'Accept': 'application/json'},
