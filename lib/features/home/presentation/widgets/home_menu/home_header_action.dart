@@ -24,7 +24,7 @@ class HomeHeaderAction extends StatelessWidget {
                 ),
 
                 Text(
-                  DateFormat('d MMM').format(DateTime.now()),
+                  DateFormat('d MMMM').format(DateTime.now()),
                   style: TextStyle(fontSize: 30),
                 ),
 

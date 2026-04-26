@@ -15,7 +15,7 @@ class CreateTaskActionBtn extends StatelessWidget {
 
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColor.grey900,
-          foregroundColor: AppColor.softWhite,
+          foregroundColor: AppColor.greenPalm,
 
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusGeometry.circular(20),

@@ -7,6 +7,7 @@ import 'package:mini_project_e2e_app/features/home/presentation/widgets/dialog/s
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/create_task_action_btn.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/home_header_action.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/task_list_container.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/total_task_completed.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/user_summary_section.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar/drawer_menu_body.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar/drawer_menu_footer.dart';
@@ -102,10 +103,14 @@ class HomePage extends GetView<FetchCredentialController> {
                                   final result = await Get.toNamed(
                                     '/task/create',
                                   );
-                                  _successNotification(result);
+                                  _successNotification(result, taskController);
                                 },
                               )
-                            : const SizedBox.shrink(),
+                            : Obx(() {
+                                return TotalTaskCompleted(
+                                  totalCompleted: taskController.totalCompleted,
+                                );
+                              }),
                       ],
                     );
                   }),
@@ -120,8 +125,10 @@ class HomePage extends GetView<FetchCredentialController> {
     );
   }
 
-  void _successNotification(bool? result) {
+  void _successNotification(bool? result, FetchTasksController taskController) {
     if (result == true) {
+      taskController.refresh();
+
       Get.snackbar('Success', "Task created! You're all set");
     }
   }

@@ -23,10 +23,10 @@ class CustomDropdownField<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isError = errorText != null;
+
     return DropdownMenu(
       key: ValueKey(value),
-
-      errorText: errorText,
 
       width: width ?? MediaQuery.of(context).size.width * 0.43,
 
@@ -46,22 +46,9 @@ class CustomDropdownField<T> extends StatelessWidget {
 
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColor.grey600),
-        ),
-
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColor.grey900, width: 2),
-        ),
-
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColor.error),
-        ),
-
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColor.error, width: 2),
+          borderSide: isError
+              ? BorderSide(color: AppColor.error)
+              : BorderSide(color: AppColor.grey600),
         ),
       ),
 

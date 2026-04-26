@@ -20,6 +20,7 @@ class FetchTasksController extends GetxController {
   RxInt currentPage = 1.obs;
   RxInt lastPage = 1.obs;
   RxInt total = 0.obs;
+  // RxInt totalCompleted = 0.obs;
 
   final scrollController = ScrollController();
 
@@ -138,4 +139,8 @@ class FetchTasksController extends GetxController {
       Get.snackbar('Error', message);
     }
   }
+
+  int get totalCompleted => tasks.where((task) {
+    return task.status == 'completed';
+  }).length;
 }

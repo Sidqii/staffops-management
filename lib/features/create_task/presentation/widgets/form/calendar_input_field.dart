@@ -18,6 +18,7 @@ class CalendarInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isError = errorText != null;
     final controller = TextEditingController(text: _formateDate(date));
 
     return SizedBox(
@@ -30,30 +31,26 @@ class CalendarInputField extends StatelessWidget {
         onTap: onTap,
 
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 19, horizontal: 10),
-          errorText: errorText,
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 19,
+            horizontal: 10,
+          ),
 
           hintText: 'Select due date',
           hintStyle: TextStyle(color: AppColor.grey600),
 
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: AppColor.grey600),
+            borderSide: isError
+                ? BorderSide(color: AppColor.error)
+                : BorderSide(color: AppColor.grey600),
           ),
 
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: AppColor.grey900),
-          ),
-
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: AppColor.warning),
-          ),
-
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: AppColor.error),
+            borderSide: isError
+                ? BorderSide(color: AppColor.error)
+                : BorderSide(color: AppColor.grey600),
           ),
         ),
       ),

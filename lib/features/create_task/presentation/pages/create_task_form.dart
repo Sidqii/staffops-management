@@ -22,57 +22,106 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 20,
-            children: [
-              _headerContent(),
-
-              _contentWrapper([
-                const Text('Title'),
-                Obx(() {
-                  return InputTitleTextField(
-                    hintText: controller.hintText,
-                    errorText: controller.titleError.value,
-                    controller: controller.titleController,
-                  );
-                }),
-              ]),
-
-              _contentWrapper([
-                const Text('Description'),
-                InputDescTextField(
-                  descText: controller.descText,
-                  controller: controller.descsController,
-                ),
-              ]),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 20,
                 children: [
+                  _headerContent(),
+
                   _contentWrapper([
-                    const Text('Priority'),
+                    const Text('Title'),
                     Obx(() {
-                      return _dorpdownFieldPriority(
-                        value: controller.selectedPriority.value,
-                        items: priorityController.priorities.toList(),
+                      return InputTitleTextField(
+                        hintText: controller.hintText,
+                        errorText: controller.titleError.value,
+                        controller: controller.titleController,
+                      );
+                    }),
+                  ]),
 
-                        hintText: 'Is this urgent?',
-                        errorText: controller.priorityError.value,
+                  _contentWrapper([
+                    const Text('Description?'),
+                    InputDescTextField(
+                      descText: controller.descText,
+                      controller: controller.descsController,
+                    ),
+                  ]),
 
-                        labelBuilder: (priority) {
-                          final name = priority.name;
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _contentWrapper([
+                        const Text('Priority'),
+                        Obx(() {
+                          return _dorpdownFieldPriority(
+                            value: controller.selectedPriority.value,
+                            items: priorityController.priorities.toList(),
 
-                          return name[0].toUpperCase() + name.substring(1);
-                        },
+                            hintText: 'Is this urgent?',
+                            errorText: controller.priorityError.value,
+
+                            labelBuilder: (priority) {
+                              final name = priority.name;
+
+                              return name[0].toUpperCase() + name.substring(1);
+                            },
+
+                            onChanged: (value) {
+                              if (controller.selectedPriority.value == value) {
+                                controller.selectedPriority.value = null;
+                              } else {
+                                controller.selectedPriority.value = value;
+                              }
+                            },
+                          );
+                        }),
+                      ]),
+
+                      _contentWrapper([
+                        const Text('Set due date'),
+
+                        Obx(() {
+                          return CalendarInputField(
+                            date: controller.selectedDate.value,
+                            errorText: controller.dateError.value,
+
+                            onTap: () async {
+                              final result = await DatePickerShowDialog.show(
+                                context,
+                              );
+
+                              if (result != null) {
+                                controller.selectedDate(result);
+                              }
+                            },
+                          );
+                        }),
+                      ]),
+                    ],
+                  ),
+
+                  _contentWrapper([
+                    const Text('Assigned to'),
+                    Obx(() {
+                      return _dorpdownFieldAssigned(
+                        MediaQuery.of(context).size.width * 0.9,
+                        value: controller.selectedUser.value,
+                        items: usersController.users.toList(),
+
+                        hintText: usersController.hintText,
+                        errorText: controller.userError.value,
+
+                        labelBuilder: (user) => user.name,
 
                         onChanged: (value) {
-                          if (controller.selectedPriority.value == value) {
-                            controller.selectedPriority.value = null;
+                          if (controller.selectedUser.value == value) {
+                            controller.selectedUser.value = null;
                           } else {
-                            controller.selectedPriority.value = value;
+                            controller.selectedUser.value = value;
                           }
                         },
                       );
@@ -80,73 +129,43 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                   ]),
 
                   _contentWrapper([
-                    const Text('Set due date'),
+                    const Text('Upload files?'),
 
                     Obx(() {
-                      return CalendarInputField(
-                        date: controller.selectedDate.value,
-                        errorText: controller.dateError.value,
-
-                        onTap: () async {
-                          final result = await DatePickerShowDialog.show(
-                            context,
-                          );
-
-                          if (result != null) {
-                            controller.selectedDate(result);
-                          }
-                        },
+                      return UploadFilesOrImages(
+                        hintText: 'Browse here',
+                        files: controller.selectedFiles.toList(),
+                        onTap: controller.pickFiles,
                       );
                     }),
                   ]),
+
+                  const SizedBox(height: 10),
+
+                  CreateSubmitButton(
+                    isLoading: controller.isLoading.value,
+                    onPressed: controller.onSubmit,
+                  ),
                 ],
               ),
+            ),
 
-              _contentWrapper([
-                const Text('Assigned to'),
-                Obx(() {
-                  return _dorpdownFieldAssigned(
-                    MediaQuery.of(context).size.width * 0.9,
-                    value: controller.selectedUser.value,
-                    items: usersController.users.toList(),
+            Obx(() {
+              if (!controller.isLoading.value) {
+                return const SizedBox.shrink();
+              }
 
-                    hintText: usersController.hintText,
-
-                    errorText: controller.userError.value,
-
-                    labelBuilder: (user) => user.name,
-
-                    onChanged: (value) {
-                      if (controller.selectedUser.value == value) {
-                        controller.selectedUser.value = null;
-                      } else {
-                        controller.selectedUser.value = value;
-                      }
-                    },
-                  );
-                }),
-              ]),
-
-              _contentWrapper([
-                const Text('Upload files?'),
-
-                Obx(() {
-                  return UploadFilesOrImages(
-                    hintText: 'Browse here',
-                    files: controller.selectedFiles.toList(),
-                    onTap: controller.pickFiles,
-                  );
-                }),
-              ]),
-
-              const SizedBox(height: 10),
-
-              CreateSubmitButton(
-                isLoading: controller.isLoading.value,
-                onPressed: controller.onSubmit,
-              ),
-            ],
-          ),
+              return Container(
+                color: AppColor.grey600.withValues(alpha: 0.2),
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                    color: AppColor.grey900,
+                  ),
+                ),
+              );
+            }),
+          ],
         ),
       ),
     );

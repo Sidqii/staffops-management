@@ -20,11 +20,6 @@ class FormValidator {
 
   static String? validateDate(DateTime? date) {
     if (date == null) return 'Due date is required';
-
-    if (date.isBefore(DateTime.now())) {
-      return 'Due date cannot be in the past';
-    }
-
     return null;
   }
 }
