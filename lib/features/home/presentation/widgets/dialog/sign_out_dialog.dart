@@ -4,9 +4,8 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class SignOutDialog extends StatelessWidget {
   final String name;
-  final Future<void> Function() onConfirm;
 
-  const SignOutDialog({super.key, required this.name, required this.onConfirm});
+  const SignOutDialog({super.key, required this.name});
 
   static const titleTxtStyle = TextStyle(
     fontSize: 25,
@@ -58,8 +57,7 @@ class SignOutDialog extends StatelessWidget {
                     ),
 
                     onPressed: () async {
-                      Get.back();
-                      await onConfirm();
+                      Get.back(result: true);
                     },
 
                     child: const Text('Yes sure!'),

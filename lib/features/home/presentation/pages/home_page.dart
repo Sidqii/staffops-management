@@ -24,92 +24,115 @@ class HomePage extends GetView<FetchCredentialController> {
     final taskController = Get.find<FetchTasksController>();
     final signController = Get.find<SignOutController>();
 
-    return Scaffold(
-      backgroundColor: AppColor.greenPalm,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
 
-      drawer: Drawer(
-        backgroundColor: AppColor.grey900,
-        width: MediaQuery.of(context).size.width * 0.50,
+        if (!await _confirmLogout()) return;
 
-        child: Column(
-          children: [
-            DrawerHeader(
-              margin: EdgeInsets.zero,
-              decoration: const BoxDecoration(color: AppColor.grey900),
+        signController.signOut();
+      },
 
-              child: SizedBox(
-                width: double.infinity,
-                child: Obx(() {
-                  return DrawerMenuHeader(
-                    name: controller.credential.value?.name,
-                    role: controller.credential.value?.role?.name,
-                    mail: controller.credential.value?.email,
-                  );
-                }),
+      child: Scaffold(
+        backgroundColor: AppColor.greenPalm,
+
+        drawer: Drawer(
+          backgroundColor: AppColor.grey900,
+          width: MediaQuery.of(context).size.width * 0.50,
+
+          child: Column(
+            children: [
+              DrawerHeader(
+                margin: EdgeInsets.zero,
+                decoration: const BoxDecoration(color: AppColor.grey900),
+
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Obx(() {
+                    return DrawerMenuHeader(
+                      name: controller.credential.value?.name,
+                      role: controller.credential.value?.role?.name,
+                      mail: controller.credential.value?.email,
+                    );
+                  }),
+                ),
               ),
-            ),
 
-            DrawerMenuBody(),
+              DrawerMenuBody(),
 
-            const Divider(height: 1),
+              const Divider(height: 1),
 
-            DrawerMenuFooter(
-              onTap: () {
-                Get.dialog(
-                  SignOutDialog(
-                    name: controller.credential.value?.role?.name ?? 'Guest',
-                    onConfirm: () async => await signController.signOut(),
-                  ),
-                );
-              },
-            ),
+              DrawerMenuFooter(
+                onTap: () async {
+                  if (!await _confirmLogout()) return;
 
-            const SizedBox(height: 10),
-          ],
+                  signController.signOut();
+                },
+              ),
+
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
-      ),
 
-      body: SafeArea(
-        child: Column(
-          children: [
-            HomeHeaderAction(),
+        body: SafeArea(
+          child: Column(
+            children: [
+              HomeHeaderAction(),
 
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Obx(() {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      UserSummarySection(
-                        name: controller.credential.value?.name ?? 'Guest',
-                        current: taskController.tasks.length.toString(),
-                        total: taskController.total.toString(),
-                      ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Obx(() {
+                    final roleAccess = controller.credential.value?.role?.name;
 
-                      CreateTaskActionBtn(
-                        onPressed: () async {
-                          final result = await Get.toNamed('/task/create');
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        UserSummarySection(
+                          name: controller.credential.value?.name ?? 'Guest',
+                          current: taskController.tasks.length.toString(),
+                          total: taskController.total.toString(),
+                        ),
 
-                          _successNotification(result);
-                        },
-                      ),
-                    ],
-                  );
-                }),
+                        _canCreateTask(roleAccess)
+                            ? CreateTaskActionBtn(
+                                onPressed: () async {
+                                  final result = await Get.toNamed(
+                                    '/task/create',
+                                  );
+                                  _successNotification(result);
+                                },
+                              )
+                            : const SizedBox.shrink(),
+                      ],
+                    );
+                  }),
+                ),
               ),
-            ),
 
-            TaskListContainer(child: const TasksUser(), height: height * 0.6),
-          ],
+              TaskListContainer(child: const TasksUser(), height: height * 0.6),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void _successNotification(bool result) {
+  void _successNotification(bool? result) {
     if (result == true) {
       Get.snackbar('Success', "Task created! You're all set");
     }
+  }
+
+  Future<bool> _confirmLogout() async {
+    final userName = controller.credential.value?.name ?? 'Guest';
+
+    return await Get.dialog<bool>(SignOutDialog(name: userName)) ?? false;
+  }
+
+  bool _canCreateTask(String? role) {
+    return role == 'admin' || role == 'owner' || role == 'pm';
   }
 }

@@ -3,10 +3,12 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class InputTitleTextField extends StatelessWidget {
   final String hintText;
+  final String? errorText;
   final TextEditingController controller;
 
   const InputTitleTextField({
     super.key,
+    this.errorText,
     required this.hintText,
     required this.controller,
   });
@@ -23,6 +25,7 @@ class InputTitleTextField extends StatelessWidget {
 
       decoration: InputDecoration(
         hintText: hintText,
+        errorText: errorText,
         hintStyle: TextStyle(color: AppColor.grey600),
 
         enabledBorder: OutlineInputBorder(

@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
       initialBinding: AppBindings(),
 
       defaultTransition: Transition.fadeIn,
-      transitionDuration: Duration(milliseconds: 200),
+      transitionDuration: Duration(milliseconds: 250),
 
       getPages: AppPages.routes,
       initialRoute: AppRoutes.AUTH,

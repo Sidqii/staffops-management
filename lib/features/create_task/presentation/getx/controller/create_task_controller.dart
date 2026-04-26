@@ -9,6 +9,7 @@ import 'package:mini_project_e2e_app/features/create_task/domain/entities/some_f
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/some_funny_hints/title_hints.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/entities/user_list.dart';
 import 'package:mini_project_e2e_app/features/create_task/domain/usecase/create_task_usecase.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/utils/form_validator.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
 class CreateTaskController extends GetxController {
@@ -24,6 +25,11 @@ class CreateTaskController extends GetxController {
 
   Rxn<PriorityList> selectedPriority = Rxn<PriorityList>();
   RxList<PlatformFile> selectedFiles = RxList<PlatformFile>();
+
+  RxnString titleError = RxnString();
+  RxnString userError = RxnString();
+  RxnString priorityError = RxnString();
+  RxnString dateError = RxnString();
 
   RxBool isLoading = false.obs;
 
@@ -41,27 +47,55 @@ class CreateTaskController extends GetxController {
   }
 
   Future<void> onSubmit() async {
-    final user = selectedUser.value;
-    final prio = selectedPriority.value;
-    final date = selectedDate.value;
+    if (!validateForm()) return;
 
-    if (user == null || prio == null || date == null) {
-      print('data input kosong kocak');
-      return;
+    try {
+      final user = selectedUser.value!;
+      final prio = selectedPriority.value!;
+      final date = selectedDate.value!;
+
+      final request = CreateTaskRequest(
+        title: titleController.text,
+        description: descsController.text,
+        assignedTo: user.id,
+        dueDate: date,
+        priorityId: prio.id,
+
+        filePath: selectedFiles.map((element) {
+          return element.path!;
+        }).toList(),
+      );
+
+      await submitForm(request);
+    } on ServerException catch (e) {
+      _failedNotification(e.message);
     }
+  }
 
-    final request = CreateTaskRequest(
-      title: titleController.text,
-      description: descsController.text,
-      assignedTo: user.id,
-      dueDate: date,
-      priorityId: prio.id,
-      filePath: selectedFiles.map((element) {
-        return element.path!;
-      }).toList(),
+  bool validateForm() {
+    bool isValid = true;
+
+    titleError.value = null;
+    userError.value = null;
+    priorityError.value = null;
+    dateError.value = null;
+
+    titleError.value = FormValidator.validateTitle(titleController.text);
+
+    userError.value = FormValidator.validateUser(selectedUser.value);
+
+    priorityError.value = FormValidator.validatePriority(
+      selectedPriority.value,
     );
 
-    await submitForm(request);
+    dateError.value = FormValidator.validateDate(selectedDate.value);
+
+    if (titleError.value != null) isValid = false;
+    if (userError.value != null) isValid = false;
+    if (priorityError.value != null) isValid = false;
+    if (dateError.value != null) isValid = false;
+
+    return isValid;
   }
 
   Future<void> submitForm(CreateTaskRequest request) async {

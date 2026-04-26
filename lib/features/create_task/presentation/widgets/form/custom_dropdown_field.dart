@@ -8,6 +8,7 @@ class CustomDropdownField<T> extends StatelessWidget {
   final ValueChanged<T?> onChanged;
   final String hintText;
   final double? width;
+  final String? errorText;
 
   const CustomDropdownField({
     super.key,
@@ -17,12 +18,15 @@ class CustomDropdownField<T> extends StatelessWidget {
     required this.hintText,
     required this.onChanged,
     this.width,
+    this.errorText,
   });
 
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
       key: ValueKey(value),
+
+      errorText: errorText,
 
       width: width ?? MediaQuery.of(context).size.width * 0.43,
 
@@ -38,8 +42,27 @@ class CustomDropdownField<T> extends StatelessWidget {
       ),
 
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
         hintStyle: TextStyle(color: AppColor.grey600),
+
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.grey600),
+        ),
+
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.grey900, width: 2),
+        ),
+
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.error),
+        ),
+
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: BorderSide(color: AppColor.error, width: 2),
+        ),
       ),
 
       onSelected: (selected) {

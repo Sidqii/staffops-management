@@ -4,35 +4,65 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class CalendarInputField extends StatelessWidget {
   final DateTime? date;
+  final String? errorText;
+  final VoidCallback onTap;
+  final double? width;
 
-  const CalendarInputField({super.key, this.date});
+  const CalendarInputField({
+    super.key,
+    required this.date,
+    required this.onTap,
+    this.width,
+    this.errorText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.42 - 1.1,
-      padding: const EdgeInsets.only(left: 15, top: 18, bottom: 18),
+    final controller = TextEditingController(text: _formateDate(date));
 
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColor.grey600),
-        borderRadius: BorderRadius.circular(15),
+    return SizedBox(
+      width: width ?? MediaQuery.of(context).size.width * 0.42 - 1.1,
+
+      child: TextField(
+        controller: controller,
+
+        readOnly: true,
+        onTap: onTap,
+
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(vertical: 19, horizontal: 10),
+          errorText: errorText,
+
+          hintText: 'Select due date',
+          hintStyle: TextStyle(color: AppColor.grey600),
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: AppColor.grey600),
+          ),
+
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: AppColor.grey900),
+          ),
+
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: AppColor.warning),
+          ),
+
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(color: AppColor.error),
+          ),
+        ),
       ),
-
-      child: _dateContentText(date),
     );
   }
 
-  Widget _dateContentText(DateTime? value) {
-    if (value == null) {
-      return Text(
-        'Select due date',
-        style: TextStyle(color: AppColor.grey600, fontSize: 16),
-      );
-    }
+  String? _formateDate(DateTime? date) {
+    if (date == null) return null;
 
-    return Text(
-      DateFormat('dd MMM yyyy').format(value),
-      style: TextStyle(color: AppColor.grey900, fontSize: 16),
-    );
+    return DateFormat('dd MMM yyyy').format(date);
   }
 }

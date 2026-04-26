@@ -4,6 +4,7 @@ import 'package:mini_project_e2e_app/features/create_task/presentation/getx/cont
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_priority_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/getx/controller/list_of_user_controller.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/calendar_input_field.dart';
+import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/create_submit_button.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/custom_dropdown_field.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/dialog/date_picker_show_dialog.dart';
 import 'package:mini_project_e2e_app/features/create_task/presentation/widgets/form/input_desc_text_field.dart';
@@ -31,10 +32,13 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
               _contentWrapper([
                 const Text('Title'),
-                InputTitleTextField(
-                  hintText: controller.hintText,
-                  controller: controller.titleController,
-                ),
+                Obx(() {
+                  return InputTitleTextField(
+                    hintText: controller.hintText,
+                    errorText: controller.titleError.value,
+                    controller: controller.titleController,
+                  );
+                }),
               ]),
 
               _contentWrapper([
@@ -46,7 +50,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
               ]),
 
               Row(
-                spacing: 20,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _contentWrapper([
                     const Text('Priority'),
@@ -56,6 +60,8 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                         items: priorityController.priorities.toList(),
 
                         hintText: 'Is this urgent?',
+                        errorText: controller.priorityError.value,
+
                         labelBuilder: (priority) {
                           final name = priority.name;
 
@@ -75,21 +81,23 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
                   _contentWrapper([
                     const Text('Set due date'),
-                    GestureDetector(
-                      onTap: () async {
-                        final result = await DatePickerShowDialog.show(context);
 
-                        if (result != null) {
-                          controller.selectedDate(result);
-                        }
-                      },
+                    Obx(() {
+                      return CalendarInputField(
+                        date: controller.selectedDate.value,
+                        errorText: controller.dateError.value,
 
-                      child: Obx(() {
-                        return CalendarInputField(
-                          date: controller.selectedDate.value,
-                        );
-                      }),
-                    ),
+                        onTap: () async {
+                          final result = await DatePickerShowDialog.show(
+                            context,
+                          );
+
+                          if (result != null) {
+                            controller.selectedDate(result);
+                          }
+                        },
+                      );
+                    }),
                   ]),
                 ],
               ),
@@ -103,6 +111,9 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                     items: usersController.users.toList(),
 
                     hintText: usersController.hintText,
+
+                    errorText: controller.userError.value,
+
                     labelBuilder: (user) => user.name,
 
                     onChanged: (value) {
@@ -130,24 +141,9 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
               const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(20),
-
-                    backgroundColor: AppColor.grey900,
-                    foregroundColor: AppColor.softWhite,
-
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                  ),
-
-                  onPressed: controller.onSubmit,
-
-                  child: const Text('Create Task'),
-                ),
+              CreateSubmitButton(
+                isLoading: controller.isLoading.value,
+                onPressed: controller.onSubmit,
               ),
             ],
           ),
@@ -202,6 +198,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     required String hintText,
     required String Function(T) labelBuilder,
     required Function(T?) onChanged,
+    String? errorText,
   }) {
     return CustomDropdownField<T>(
       value: value,
@@ -209,6 +206,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       hintText: hintText,
       labelBuilder: labelBuilder,
       onChanged: onChanged,
+      errorText: errorText,
     );
   }
 
@@ -219,6 +217,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     required String hintText,
     required String Function(T) labelBuilder,
     required Function(T?) onChanged,
+    String? errorText,
   }) {
     return CustomDropdownField<T>(
       value: value,
@@ -227,6 +226,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       hintText: hintText,
       labelBuilder: labelBuilder,
       onChanged: onChanged,
+      errorText: errorText,
     );
   }
 }
