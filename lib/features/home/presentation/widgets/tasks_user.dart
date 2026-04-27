@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/fetch_tasks_controller.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/dashboard_controller.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
-class TasksUser extends GetView<FetchTasksController> {
+class TasksUser extends GetView<DashboardController> {
   const TasksUser({super.key});
 
   Color _statusColor(String? status) {

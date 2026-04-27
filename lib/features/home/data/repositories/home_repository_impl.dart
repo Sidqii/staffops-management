@@ -1,7 +1,7 @@
 import 'package:mini_project_e2e_app/config/storage/credential/local_data.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/entities/user.dart';
 import 'package:mini_project_e2e_app/features/home/data/datasource/home_datasource.dart';
-import 'package:mini_project_e2e_app/features/home/data/models/request/task_query_params.dart';
+import 'package:mini_project_e2e_app/features/home/data/models/request/filter_query_params.dart';
 import 'package:mini_project_e2e_app/features/home/data/repositories/home_repository.dart';
 import 'package:mini_project_e2e_app/features/home/domain/entities/paginated_view.dart';
 
@@ -21,7 +21,7 @@ class HomeRepositoryImpl implements HomeRepository {
   }
 
   @override
-  Future<PaginatedView> fetchTaskList(TaskQueryParams params) async {
+  Future<PaginatedView> fetchTaskList(FilterQueryParams params) async {
     final result = await datasource.getTaskList(params);
 
     return PaginatedView(

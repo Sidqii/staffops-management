@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_out_controller.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/fetch_tasks_controller.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/fetch_credential_controller.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/dashboard_controller.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/current_session.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/dialog/sign_out_dialog.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/create_task_action_btn.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/home_header_action.dart';
@@ -15,14 +15,14 @@ import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/tasks_user.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
-class HomePage extends GetView<FetchCredentialController> {
+class HomePage extends GetView<CurrentSession> {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    final taskController = Get.find<FetchTasksController>();
+    final taskController = Get.find<DashboardController>();
     final signController = Get.find<SignOutController>();
 
     return PopScope(
@@ -125,7 +125,7 @@ class HomePage extends GetView<FetchCredentialController> {
     );
   }
 
-  void _successNotification(bool? result, FetchTasksController taskController) {
+  void _successNotification(bool? result, DashboardController taskController) {
     if (result == true) {
       taskController.refresh();
 

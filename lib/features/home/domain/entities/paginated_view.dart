@@ -1,7 +1,7 @@
-import 'package:mini_project_e2e_app/features/home/domain/entities/task_view.dart';
+import 'package:mini_project_e2e_app/features/home/domain/entities/dashboard.dart';
 
 class PaginatedView {
-  final List<TaskView> taskList;
+  final List<Dashboard> taskList;
   final int currentPage;
   final int lastPage;
   final int total;
