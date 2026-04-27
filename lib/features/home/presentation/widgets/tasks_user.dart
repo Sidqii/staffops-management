@@ -74,7 +74,7 @@ class TasksUser extends GetView<DashboardController> {
                   contentPadding: EdgeInsets.only(left: 16),
 
                   onTap: () {
-                    print('onTap');
+                    Get.toNamed('/task/detail', arguments: task.id);
                   },
 
                   leading: CircleAvatar(
