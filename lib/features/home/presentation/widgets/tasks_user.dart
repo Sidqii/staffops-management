@@ -9,11 +9,11 @@ class TasksUser extends GetView<DashboardController> {
   Color _statusColor(String? status) {
     switch (status) {
       case 'completed':
-        return Colors.green;
+        return AppColor.success;
       case 'in_progress':
-        return Colors.orange;
+        return AppColor.blueTiran;
       default:
-        return Colors.grey;
+        return AppColor.grey900;
     }
   }
 
@@ -91,7 +91,7 @@ class TasksUser extends GetView<DashboardController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        task.description,
+                        task.description ?? 'no description',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

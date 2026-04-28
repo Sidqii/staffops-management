@@ -3,7 +3,7 @@ import 'package:mini_project_e2e_app/features/home/domain/entities/dashboard.dar
 class HomeListView {
   final int id;
   final String title;
-  final String description;
+  final String? description;
   final String status;
   final String priority;
   final String assignee;

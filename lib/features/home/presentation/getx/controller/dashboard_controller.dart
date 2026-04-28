@@ -88,8 +88,6 @@ class DashboardController extends GetxController {
     } on ServerException catch (e) {
       _failedNotification(e.message);
     } catch (e) {
-      print('Error di method loadMore');
-
       _errorNotification('Something wrong on load more');
     } finally {
       isLoadMore(false);
@@ -113,8 +111,6 @@ class DashboardController extends GetxController {
     } on ServerException catch (e) {
       _failedNotification(e.message);
     } catch (e) {
-      print('Error di method refresh');
-
       _errorNotification('Something wrong on refresh');
     } finally {
       isLoading(false);

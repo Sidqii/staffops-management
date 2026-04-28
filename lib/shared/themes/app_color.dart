@@ -27,4 +27,5 @@ class AppColor {
 
   // SUCCESS
   static const success = Color(0xFF388E3C);
+  static const waiting = Color(0xffFFE97D);
 }

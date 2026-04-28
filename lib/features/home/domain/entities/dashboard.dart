@@ -1,7 +1,7 @@
 class Dashboard {
   final int id;
   final String title;
-  final String description;
+  final String? description;
   final String status;
   final String priority;
   final String assignee;
