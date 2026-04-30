@@ -1,6 +1,6 @@
 # StaffOps Management - Mobile App (Flutter)
 
-A mobile application for task management built with Flutter and integrated with a Laravel-based RESTful API.
+A simple task management mobile application built with Flutter, connected to a Laravel-based REST API.
 
 ---
 
@@ -10,7 +10,6 @@ A mobile application for task management built with Flutter and integrated with 
 * **Language**: Dart
 * **State Management**: GetX
 * **HTTP Client**: Dio
-* **Architecture**: Feature-based layered architecture
 
 ---
 
@@ -33,33 +32,35 @@ A mobile application for task management built with Flutter and integrated with 
 
 ## 🔌 API Integration
 
-The application communicates with a Laravel-based REST API.
+This app consumes a Laravel REST API.
 
-### Base URL
+### Base URL Configuration
 
 ```dart
 class ApiConfig {
-  static const String uri = 'https://10.0.2.2:8000';
+  static const String uri = 'http://10.0.2.2:8000';
 }
 ```
 
-> Note: The base URL can be configured depending on your environment (local, ngrok, or deployed API).
+> The base URL should be adjusted depending on your environment (emulator, physical device, or deployed API).
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Project Structure
 
-This project uses a **feature-based layered structure** inspired by Clean Architecture principles:
+This project uses a **feature-based layered structure** to organize code:
 
-* `features/`
+```
+features/
+  ├── data/           # API calls & models
+  ├── domain/         # entities & basic business logic
+  └── presentation/   # UI & GetX state
 
-  * `data/` → datasource & models
-  * `domain/` → entities & use cases
-  * `presentation/` → UI & state (GetX)
+shared/               # shared utilities
+app/                  # app-level config (routing, DI)
+```
 
-* `shared/` → shared utilities
-
-* `app/` → app configuration (routing, dependency injection)
+> Note: The structure is inspired by layered architecture, but not a strict Clean Architecture implementation.
 
 ---
 
@@ -79,79 +80,58 @@ flutter run
 
 Make sure:
 
-* Emulator or physical device is running
+* Emulator or device is running
 * Backend API server is active
 
 ---
 
 ## ⚠️ Configuration
 
-### API Endpoint
+### Update API Endpoint
 
-Update the API base URL in:
+Edit the base URL:
 
 ```dart
 static const String uri = 'YOUR_BACKEND_URL';
 ```
 
-### ⚠️ Important
-
-Make sure to update the API base URL inside `app/network/dio_client.dart` before running the app:
+Also ensure it's used in:
 
 ```dart
-baseUrl: ApiConfig.url, // <-- change this based on your backend
+baseUrl: ApiConfig.uri,
 ```
 
-For local development:
+---
 
-- Use `10.0.2.2` for Android emulator
-- Use your local IP for physical devices
+## 📱 Local Development (Android)
 
-> ⚠️ Ensure your backend server is running.
+### Emulator
 
-### 📱 Localhost Access (Physical Android Device)
+Use:
 
-If you are using a **physical Android device**, you can access your local backend (`localhost:8000`) without ngrok using `adb reverse`.
+```
+http://10.0.2.2:8000
+```
 
-### 1. Make sure your device is connected
+### Physical Device (ADB Reverse)
+
+1. Connect device:
 
 ```bash
 adb devices
 ```
 
-### 2. Run port reverse
-
-If `adb` is already available in your PATH:
+2. Run:
 
 ```bash
 adb reverse tcp:8000 tcp:8000
 ```
 
-Otherwise, navigate to your Android SDK `platform-tools` directory:
-
-```bash
-cd <your-android-sdk>/platform-tools
-adb reverse tcp:8000 tcp:8000
-```
-
-After that, use the following base URL:
+3. Use:
 
 ```dart
-static const String uri = 'http://127.0.0.1:8000';
+http://127.0.0.1:8000
 ```
-
-### 🔄 (Optional) Remove reverse
-
-```bash
-adb reverse --remove-all
-```
-
-### ⚠️ Notes
-
-* Only works for Android (not supported on iOS)
-* Make sure USB debugging is enabled
-* Backend server must be running on port 8000
-* No need to use local IP or ngrok
 
 ---
 
@@ -163,34 +143,33 @@ The app uses **GetX** for:
 * Dependency injection
 * Navigation
 
-Implemented states:
+Basic states implemented:
 
-* Loading state
-* Error state
-* Empty state
+* Loading
+* Error
+* Empty
 
 ---
 
-## 📦 Main Dependencies
+## 📦 Dependencies
 
 * `get` → state management & navigation
 * `dio` → HTTP client
-* `intl` → data formatting
+* `intl` → formatting
 
 ---
 
 ## 🔗 Related Repository
 
 Backend API:
-
-* [staffops-management-api](https://github.com/Sidqii/staffops-management-api)
+https://github.com/Sidqii/staffops-management-api
 
 ---
 
 ## 🧠 Notes
 
-* Task action endpoints (`start`, `complete`) are available in the backend but not yet integrated into the mobile app.
-* API configuration currently uses a configurable base URL for development purposes.
+* Some backend features (e.g. task actions like `start` and `complete`) are not yet integrated in the mobile app
+* API base URL is configurable for development flexibility
 
 ---
 
