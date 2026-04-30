@@ -15,7 +15,7 @@ class BaseUrlInputWidget extends StatelessWidget {
       cursorColor: AppColor.grey900,
       cursorErrorColor: AppColor.error,
 
-      keyboardType: TextInputType.visiblePassword,
+      keyboardType: TextInputType.url,
 
       decoration: InputDecoration(
         hintText: 'https://your-api-url.com',

@@ -4,10 +4,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/model/request/create_task_request.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/priority_list.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/some_funny_hints/description_hints.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/some_funny_hints/title_hints.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/user_list.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/description_hints.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/title_hints.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/create_task_usecase.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/utils/form_validator.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
@@ -21,9 +21,9 @@ class CreateTaskController extends GetxController {
   final descsController = TextEditingController();
 
   Rxn<DateTime> selectedDate = Rxn<DateTime>();
-  Rxn<UserList> selectedUser = Rxn<UserList>();
+  Rxn<UserResponse> selectedUser = Rxn<UserResponse>();
 
-  Rxn<PriorityList> selectedPriority = Rxn<PriorityList>();
+  Rxn<PriorityResponse> selectedPriority = Rxn<PriorityResponse>();
   RxList<PlatformFile> selectedFiles = RxList<PlatformFile>();
 
   RxnString titleError = RxnString();
@@ -57,9 +57,9 @@ class CreateTaskController extends GetxController {
       final request = CreateTaskRequest(
         title: titleController.text,
         description: descsController.text,
-        assignedTo: user.id,
-        dueDate: date,
-        priorityId: prio.id,
+        assignee: user.id,
+        deadline: date,
+        priority: prio.id,
 
         filePath: selectedFiles.map((element) {
           return element.path!;

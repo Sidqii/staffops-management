@@ -7,9 +7,10 @@ class ConfigHeaderActionBtn extends StatelessWidget {
   const ConfigHeaderActionBtn({super.key, required this.onPressed});
 
   static const title = TextStyle(fontSize: 50, fontWeight: FontWeight.bold);
+
   static const subtitle = TextStyle(letterSpacing: 5);
 
-  static const padding = EdgeInsets.only(top: 120, left: 35, right: 35);
+  static const padding = EdgeInsets.fromLTRB(35, 120, 35, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,11 @@ class ConfigHeaderActionBtn extends StatelessWidget {
       padding: padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
               Text('URL', style: title),
               Text('Configuration', style: subtitle),

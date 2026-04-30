@@ -2,7 +2,7 @@ enum TimelineStatus { done, current, upcoming }
 
 class TimelineItem {
   final String title;
-  final String? date;
+  final DateTime? date;
   final String emptyText;
   final String? prefix;
   final TimelineStatus status;

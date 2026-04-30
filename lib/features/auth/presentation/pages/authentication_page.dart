@@ -84,15 +84,15 @@ class AuthenticationPage extends GetView<SignInController> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(icon: gmailIcon, onPressed: () => print('Icon Button')),
+          IconButton(icon: gmailIcon, onPressed: () {}),
 
           SizedBox(width: 15),
 
-          IconButton(icon: facebookIcon, onPressed: () => print('Icon Button')),
+          IconButton(icon: facebookIcon, onPressed: () {}),
 
           SizedBox(width: 15),
 
-          IconButton(icon: appleIcon, onPressed: () => print('Icon Button')),
+          IconButton(icon: appleIcon, onPressed: () {}),
         ],
       ),
     ]);
@@ -169,8 +169,8 @@ class AuthenticationPage extends GetView<SignInController> {
 
     // 3. recreate core
     final tokenStorage = Get.find<TokenStorage>();
-
     final dioClient = DioClient(tokenStorage);
+
     Get.put(dioClient);
     Get.put(dioClient.dio);
 

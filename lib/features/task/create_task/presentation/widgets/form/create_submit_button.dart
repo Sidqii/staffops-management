@@ -23,7 +23,7 @@ class CreateSubmitButton extends StatelessWidget {
           foregroundColor: AppColor.softWhite,
 
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusGeometry.circular(15),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
 

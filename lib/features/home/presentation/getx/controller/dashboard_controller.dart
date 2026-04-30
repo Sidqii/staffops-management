@@ -81,7 +81,7 @@ class DashboardController extends GetxController {
 
         // Future.delayed(const Duration(seconds: 2), () {
         //   showMore(false);
-        // }); TODO: visible dan invisible showMore.value
+        // }); TODO: visible & invisible feature
 
         return;
       }

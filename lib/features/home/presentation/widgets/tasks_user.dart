@@ -85,7 +85,7 @@ class TasksUser extends GetView<DashboardController> {
                     ),
                   ),
 
-                  title: Text(task.title),
+                  title: Text(task.title, overflow: TextOverflow.ellipsis,),
 
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

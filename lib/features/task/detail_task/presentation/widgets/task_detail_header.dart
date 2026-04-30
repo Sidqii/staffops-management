@@ -16,7 +16,12 @@ class TaskDetailHeader extends GetView<TaskDetailController> {
     fontWeight: FontWeight.w200,
   );
 
-  static const descTitleStyle = TextStyle(
+  static const notNullDescrtion = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+  );
+
+  static const emptyDescription = TextStyle(
     fontSize: 15,
     fontWeight: FontWeight.w300,
   );
@@ -40,10 +45,12 @@ class TaskDetailHeader extends GetView<TaskDetailController> {
           ],
         ),
 
+        const SizedBox(height: 5),
+
         // task content
         Text(task?.title ?? '', style: taskTitleStyle),
 
-        const SizedBox(height: 10),
+        const SizedBox(height: 20),
 
         // description header
         Text(
@@ -64,8 +71,10 @@ class TaskDetailHeader extends GetView<TaskDetailController> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            task?.description ?? 'Nothing here yet… no clues so far',
-            style: descTitleStyle,
+            task?.description ?? 'Nothing here yet… no clues so far 🤔',
+            style: task?.description != null
+                ? notNullDescrtion
+                : emptyDescription,
           ),
         ),
       ],
@@ -95,6 +104,7 @@ class TaskDetailHeader extends GetView<TaskDetailController> {
         style: TextStyle(
           fontSize: 11,
           fontWeight: FontWeight.bold,
+          letterSpacing: 1,
           color: _statusColor(value),
         ),
       ),

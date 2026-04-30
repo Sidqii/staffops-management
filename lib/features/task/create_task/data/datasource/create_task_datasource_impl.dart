@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/datasource/create_task_datasource.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/list_of_priority.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/list_of_user.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
 class CreateTaskDatasourceImpl implements CreateTaskDatasource {
@@ -10,26 +10,26 @@ class CreateTaskDatasourceImpl implements CreateTaskDatasource {
   CreateTaskDatasourceImpl(this.dio);
 
   @override
-  Future<List<ListOfUser>> fetchListOfUsers() async {
+  Future<List<UserResponse>> fetchListOfUsers() async {
     try {
       final response = await dio.get('/users');
 
       final data = response.data['data'];
 
-      return (data as List).map((e) => ListOfUser.fromJson(e)).toList();
+      return (data as List).map((e) => UserResponse.fromJson(e)).toList();
     } on DioException catch (e) {
       throw ServerException.fromDio(e);
     }
   }
 
   @override
-  Future<List<ListOfPriority>> fetchListOfPriority() async {
+  Future<List<PriorityResponse>> fetchListOfPriority() async {
     try {
       final response = await dio.get('/priority');
 
       final data = response.data['data'];
 
-      return (data as List).map((e) => ListOfPriority.fromJson(e)).toList();
+      return (data as List).map((e) => PriorityResponse.fromJson(e)).toList();
     } on DioException catch (e) {
       throw ServerException.fromDio(e);
     }

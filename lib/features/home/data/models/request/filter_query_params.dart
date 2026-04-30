@@ -21,30 +21,6 @@ class FilterQueryParams {
     this.search,
   });
 
-  // FilterQueryParams copyWith({
-  //   int? page,
-  //   int? perPage,
-  //   String? sortBy,
-  //   String? order,
-  //   String? title,
-  //   String? description,
-  //   String? status,
-  //   String? priority,
-  //   String? search,
-  // }) {
-  //   return FilterQueryParams(
-  //     page: page ?? this.page,
-  //     perPage: perPage ?? this.perPage,
-  //     sortBy: sortBy ?? this.sortBy,
-  //     order: order ?? this.order,
-  //     title: title ?? this.title,
-  //     description: description ?? this.description,
-  //     status: status ?? this.status,
-  //     priority: priority ?? this.priority,
-  //     search: search ?? this.search,
-  //   );
-  // }
-
   FilterQueryParams copyWith({
     int? page,
     int? perPage,

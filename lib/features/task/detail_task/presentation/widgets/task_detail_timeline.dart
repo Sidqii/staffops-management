@@ -18,7 +18,7 @@ class TaskDetailTimeline extends GetView<TaskDetailController> {
   Widget build(BuildContext context) {
     final started = controller.taskDetail.value?.timeline?.startedAt;
     final process = controller.taskDetail.value?.timeline?.completedAt;
-    final completed = controller.taskDetail.value?.dueDate;
+    final completed = controller.taskDetail.value?.deadline;
 
     final timelines = [
       TimelineItem(
@@ -76,7 +76,7 @@ class TaskDetailTimeline extends GetView<TaskDetailController> {
         final item = items[index];
 
         final formattedDate = item.date != null
-            ? formatDate(item.date)
+            ? formatDate(item.date.toString())
             : item.emptyText;
 
         return TimelineSetUpWidget(

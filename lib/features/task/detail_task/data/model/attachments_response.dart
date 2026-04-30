@@ -22,6 +22,10 @@ class AttachmentsResponse {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {'id': id, 'file_name': fileName, 'file_type': fileType, 'url': url};
+  }
+
   AttachmentsDetail toEntity() {
     return AttachmentsDetail(
       id: id,

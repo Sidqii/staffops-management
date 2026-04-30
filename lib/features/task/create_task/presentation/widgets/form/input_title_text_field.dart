@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class InputTitleTextField extends StatelessWidget {
-  final String hintText;
+  final String? hintText;
   final String? errorText;
   final TextEditingController controller;
 
   const InputTitleTextField({
     super.key,
+    this.hintText,
     this.errorText,
-    required this.hintText,
     required this.controller,
   });
 

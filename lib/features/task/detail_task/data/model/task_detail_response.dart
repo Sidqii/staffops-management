@@ -9,8 +9,8 @@ class TaskDetailResponse {
   final String status;
   final String priority;
   final String assignee;
-  final String createdBy;
-  final String dueDate;
+  final String creator;
+  final DateTime deadline;
 
   final TimelineResponse? timeline;
   final List<AttachmentsResponse> attachments;
@@ -22,8 +22,8 @@ class TaskDetailResponse {
     required this.status,
     required this.priority,
     required this.assignee,
-    required this.createdBy,
-    required this.dueDate,
+    required this.creator,
+    required this.deadline,
     this.timeline,
     required this.attachments,
   });
@@ -36,16 +36,18 @@ class TaskDetailResponse {
       status: json['status']['name'],
       priority: json['priority']['name'],
       assignee: json['assignee']['name'],
-      createdBy: json['created_by']['name'],
-      dueDate: json['due_date'],
+      creator: json['created_by']['name'],
+      deadline: json['due_date'] != null
+          ? DateTime.parse(json['due_date'])
+          : json['due_date'],
 
       timeline: json['timeline'] != null
           ? TimelineResponse.fromJson(json['timeline'])
           : null,
 
-      attachments: (json['attachments'] as List? ?? []).map((response) {
-        return AttachmentsResponse.fromJson(response);
-      }).toList(),
+      attachments: (json['attachments'] as List? ?? [])
+          .map((e) => AttachmentsResponse.fromJson(e))
+          .toList(),
     );
   }
 
@@ -57,8 +59,8 @@ class TaskDetailResponse {
       status: status,
       priority: priority,
       assignee: assignee,
-      createdBy: createdBy,
-      dueDate: dueDate,
+      creator: creator,
+      deadline: deadline,
       timeline: timeline?.toEntity(),
       attachments: attachments.map((e) => e.toEntity()).toList(),
     );

@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/priority_list.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/some_funny_hints/priority_hints.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/priority_hints.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_priority.dart';
 
 class ListOfPriorityController extends GetxController {
@@ -10,7 +10,7 @@ class ListOfPriorityController extends GetxController {
 
   ListOfPriorityController(this.usecase);
 
-  RxList<PriorityList> priorities = <PriorityList>[].obs;
+  RxList<PriorityResponse> priorities = <PriorityResponse>[].obs;
   RxBool isLoading = false.obs;
 
   final priorHint = PriorityHints.values;

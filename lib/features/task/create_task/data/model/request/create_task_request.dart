@@ -3,18 +3,18 @@ import 'package:dio/dio.dart';
 class CreateTaskRequest {
   final String title;
   final String description;
-  final int assignedTo;
-  final DateTime dueDate;
-  final int priorityId;
+  final int assignee;
+  final DateTime deadline;
+  final int priority;
 
   final List<String> filePath;
 
   CreateTaskRequest({
     required this.title,
     required this.description,
-    required this.assignedTo,
-    required this.dueDate,
-    required this.priorityId,
+    required this.assignee,
+    required this.deadline,
+    required this.priority,
 
     required this.filePath,
   });
@@ -25,9 +25,9 @@ class CreateTaskRequest {
     formData.fields.addAll([
       MapEntry('title', title),
       MapEntry('description', description),
-      MapEntry('assigned_to', assignedTo.toString()),
-      MapEntry('due_date', dueDate.toIso8601String()),
-      MapEntry('priority_id', priorityId.toString()),
+      MapEntry('assigned_to', assignee.toString()),
+      MapEntry('due_date', deadline.toIso8601String()),
+      MapEntry('priority_id', priority.toString()),
     ]);
 
     for (final path in filePath) {

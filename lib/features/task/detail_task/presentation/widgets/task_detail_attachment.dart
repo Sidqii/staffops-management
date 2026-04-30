@@ -17,15 +17,30 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
     fontWeight: FontWeight.w500,
   );
 
+  static const attachmentEmpty = TextStyle(
+    fontSize: 15,
+    color: AppColor.grey900,
+    fontWeight: FontWeight.w400,
+  );
+
   @override
   Widget build(BuildContext context) {
     final attachment = controller.taskDetail.value?.attachments;
+    final isNull = (attachment == null || attachment.isEmpty);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 5,
       children: [
-        Text('Attachment', style: titleStyle),
+        Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(text: '${attachment?.length.toString() ?? 0}'),
+
+              TextSpan(text: ' Attachments', style: titleStyle),
+            ],
+          ),
+        ),
 
         Container(
           height: 75,
@@ -39,23 +54,19 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
           child: ListView.builder(
             shrinkWrap: true,
 
-            itemCount: (attachment == null || attachment.isEmpty)
-                ? 1
-                : attachment.length,
+            itemCount: isNull ? 1 : attachment.length,
 
             itemBuilder: (context, index) {
-              if (attachment == null || attachment.isEmpty) {
+              if (isNull) {
                 return ListTile(
                   // numbering empty file
-                  leading: Text((index).toString(), style: attachmentStyle),
+                  leading: Text((index).toString(), style: attachmentEmpty),
 
                   // text content on empty file
                   title: Text(
-                    'No files have been attached yet.',
-                    style: attachmentStyle,
+                    'No files were included by the creator',
+                    style: attachmentEmpty,
                   ),
-
-                  onTap: () {},
                 );
               }
 
@@ -70,7 +81,9 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
                 // file content
                 title: Text(task.fileName, style: attachmentStyle),
 
-                onTap: () {},
+                onTap: () {
+                  // TODO: open files feature
+                },
               );
             },
           ),

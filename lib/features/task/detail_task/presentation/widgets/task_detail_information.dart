@@ -23,18 +23,43 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
         children: [
           Text('Task Information', style: titleStyle),
 
-          const SizedBox(height: 6),
+          const SizedBox(height: 5),
 
           Row(
+            spacing: 5,
             children: [
-              Icon(Icons.computer_rounded, size: 12),
-              const SizedBox(width: 4),
+              Icon(Icons.person_outline_rounded, size: 12),
+
+              Expanded(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Created by ',
+                        style: textInformation,
+                      ),
+                      TextSpan(
+                        text: task?.creator ?? '....',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          Row(
+            spacing: 5,
+            children: [
+              Icon(Icons.person_rounded, size: 12),
+
               Expanded(
                 child: Text.rich(
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: task?.assignee ?? '-',
+                        text: task?.assignee ?? '....',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const TextSpan(
@@ -45,31 +70,7 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
                   ),
                 ),
               ),
-            ],
-          ),
 
-          const SizedBox(height: 4),
-
-          Row(
-            children: [
-              Icon(Icons.create_rounded, size: 12),
-              const SizedBox(width: 4),
-              Expanded(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: 'Created by ',
-                        style: textInformation,
-                      ),
-                      TextSpan(
-                        text: task?.createdBy ?? '-',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               Text.rich(
                 TextSpan(
                   children: [
@@ -78,7 +79,7 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
                       style: textInformation,
                     ),
                     TextSpan(
-                      text: task?.priority ?? '-',
+                      text: task?.priority ?? '....',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],

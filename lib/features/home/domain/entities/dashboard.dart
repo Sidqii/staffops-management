@@ -5,10 +5,10 @@ class Dashboard {
   final String status;
   final String priority;
   final String assignee;
-  final String createdBy;
-  final String dueDate;
-  final String? startedAt;
-  final String? completedAt;
+  final String creator;
+  final String deadline;
+  final String? started;
+  final String? completed;
 
   Dashboard({
     required this.id,
@@ -17,9 +17,9 @@ class Dashboard {
     required this.status,
     required this.priority,
     required this.assignee,
-    required this.createdBy,
-    required this.dueDate,
-    required this.startedAt,
-    required this.completedAt,
+    required this.creator,
+    required this.deadline,
+    required this.started,
+    required this.completed,
   });
 }

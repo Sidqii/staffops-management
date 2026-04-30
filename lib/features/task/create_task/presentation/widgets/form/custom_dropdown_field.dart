@@ -6,7 +6,7 @@ class CustomDropdownField<T> extends StatelessWidget {
   final List<T> items;
   final String Function(T) labelBuilder;
   final ValueChanged<T?> onChanged;
-  final String hintText;
+  final String? hintText;
   final double? width;
   final String? errorText;
 
@@ -15,7 +15,7 @@ class CustomDropdownField<T> extends StatelessWidget {
     required this.value,
     required this.items,
     required this.labelBuilder,
-    required this.hintText,
+    this.hintText,
     required this.onChanged,
     this.width,
     this.errorText,

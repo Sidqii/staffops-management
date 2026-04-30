@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/list_of_priority_controller.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/list_of_user_controller.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/app_bar_create_task.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/calendar_input_field.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/create_submit_button.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/custom_dropdown_field.dart';
@@ -17,10 +18,22 @@ class CreateTaskForm extends GetView<CreateTaskController> {
 
   @override
   Widget build(BuildContext context) {
-    final priorityController = Get.find<ListOfPriorityController>();
+    final priorController = Get.find<ListOfPriorityController>();
     final usersController = Get.find<ListOfUserController>();
 
     return Scaffold(
+      appBar: const AppBarCreateTask(),
+
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Obx(() {
+          return CreateSubmitButton(
+            isLoading: controller.isLoading.value,
+            onPressed: controller.onSubmit,
+          );
+        }),
+      ),
+
       body: SafeArea(
         child: Stack(
           children: [
@@ -30,8 +43,6 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 20,
                 children: [
-                  _headerContent(),
-
                   _contentWrapper([
                     const Text('Title'),
                     Obx(() {
@@ -59,7 +70,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                         Obx(() {
                           return _dorpdownFieldPriority(
                             value: controller.selectedPriority.value,
-                            items: priorityController.priorities.toList(),
+                            items: priorController.priorities.toList(),
 
                             hintText: 'Is this urgent?',
                             errorText: controller.priorityError.value,
@@ -108,7 +119,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                     const Text('Assigned to'),
                     Obx(() {
                       return _dorpdownFieldAssigned(
-                        MediaQuery.of(context).size.width * 0.9,
+                        MediaQuery.of(context).size.width * 0.9, // fullwidth
                         value: controller.selectedUser.value,
                         items: usersController.users.toList(),
 
@@ -141,11 +152,6 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                   ]),
 
                   const SizedBox(height: 10),
-
-                  CreateSubmitButton(
-                    isLoading: controller.isLoading.value,
-                    onPressed: controller.onSubmit,
-                  ),
                 ],
               ),
             ),
@@ -176,38 +182,6 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       spacing: 5,
       children: child,
-    );
-  }
-
-  Widget _headerContent() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        spacing: 10,
-        children: [
-          const Icon(Icons.assignment_outlined, color: AppColor.grey600),
-
-          const Text(
-            'Define your task',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: AppColor.grey600,
-            ),
-          ),
-
-          const Spacer(),
-
-          IconButton(
-            padding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            onPressed: () => Get.back(),
-
-            icon: const Icon(Icons.close_rounded),
-          ),
-        ],
-      ),
     );
   }
 

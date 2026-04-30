@@ -39,7 +39,7 @@ The application communicates with a Laravel-based REST API.
 
 ```dart
 class ApiConfig {
-  static const String uri = 'https://10.0.2.2:8000/api';
+  static const String uri = 'https://10.0.2.2:8000';
 }
 ```
 
@@ -71,8 +71,6 @@ This project uses a **feature-based layered structure** inspired by Clean Archit
 flutter pub get
 ```
 
----
-
 ### 2. Run the App
 
 ```bash
@@ -93,7 +91,7 @@ Make sure:
 Update the API base URL in:
 
 ```dart
-static const String uri = 'YOUR_BACKEND_URL/api';
+static const String uri = 'YOUR_BACKEND_URL';
 ```
 
 ### ⚠️ Important
@@ -110,6 +108,50 @@ For local development:
 - Use your local IP for physical devices
 
 > ⚠️ Ensure your backend server is running.
+
+### 📱 Localhost Access (Physical Android Device)
+
+If you are using a **physical Android device**, you can access your local backend (`localhost:8000`) without ngrok using `adb reverse`.
+
+### 1. Make sure your device is connected
+
+```bash
+adb devices
+```
+
+### 2. Run port reverse
+
+If `adb` is already available in your PATH:
+
+```bash
+adb reverse tcp:8000 tcp:8000
+```
+
+Otherwise, navigate to your Android SDK `platform-tools` directory:
+
+```bash
+cd <your-android-sdk>/platform-tools
+adb reverse tcp:8000 tcp:8000
+```
+
+After that, use the following base URL:
+
+```dart
+static const String uri = 'http://127.0.0.1:8000';
+```
+
+### 🔄 (Optional) Remove reverse
+
+```bash
+adb reverse --remove-all
+```
+
+### ⚠️ Notes
+
+* Only works for Android (not supported on iOS)
+* Make sure USB debugging is enabled
+* Backend server must be running on port 8000
+* No need to use local IP or ngrok
 
 ---
 

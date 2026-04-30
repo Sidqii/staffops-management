@@ -7,10 +7,10 @@ class HomeListView {
   final String status;
   final String priority;
   final String assignee;
-  final String createdBy;
-  final String dueDate;
-  final String? startedAt;
-  final String? completedAt;
+  final String creator;
+  final String deadline;
+  final String? started;
+  final String? completed;
 
   HomeListView({
     required this.id,
@@ -19,10 +19,10 @@ class HomeListView {
     required this.status,
     required this.priority,
     required this.assignee,
-    required this.createdBy,
-    required this.dueDate,
-    required this.startedAt,
-    required this.completedAt,
+    required this.creator,
+    required this.deadline,
+    required this.started,
+    required this.completed,
   });
 
   factory HomeListView.fromJson(Map<String, dynamic> json) {
@@ -33,10 +33,10 @@ class HomeListView {
       status: json['status']['name'],
       priority: json['priority']['name'],
       assignee: json['assignee']['name'],
-      createdBy: json['created_by']['name'],
-      dueDate: json['due_date'],
-      startedAt: json['timeline']['started_at'],
-      completedAt: json['timeline']['completed_at'],
+      creator: json['created_by']['name'],
+      deadline: json['due_date'],
+      started: json['timeline']['started_at'],
+      completed: json['timeline']['completed_at'],
     );
   }
 
@@ -48,10 +48,10 @@ class HomeListView {
       status: status,
       priority: priority,
       assignee: assignee,
-      createdBy: createdBy,
-      dueDate: dueDate,
-      startedAt: startedAt,
-      completedAt: completedAt,
+      creator: creator,
+      deadline: deadline,
+      started: started,
+      completed: completed,
     );
   }
 }

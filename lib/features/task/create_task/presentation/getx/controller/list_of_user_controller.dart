@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/some_funny_hints/assigned_to_hints.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/user_list.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/assigned_to_hints.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_user.dart';
 
 class ListOfUserController extends GetxController {
@@ -10,7 +10,7 @@ class ListOfUserController extends GetxController {
 
   ListOfUserController(this.usecase);
 
-  RxList<UserList> users = <UserList>[].obs;
+  RxList<UserResponse> users = <UserResponse>[].obs;
   RxBool isLoading = false.obs;
 
   final assignHint = AssignedToHints.values;
