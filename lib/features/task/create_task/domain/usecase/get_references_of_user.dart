@@ -1,12 +1,12 @@
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/repositories/create_task_repository.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
 
 class GetReferencesOfUser {
   final CreateTaskRepository repository;
 
   GetReferencesOfUser(this.repository);
 
-  Future<List<UserResponse>> execute() async {
+  Future<List<ActorModel>> execute() async {
     return repository.listOfUser();
   }
 }

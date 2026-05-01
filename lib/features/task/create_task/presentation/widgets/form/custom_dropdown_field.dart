@@ -4,7 +4,7 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 class CustomDropdownField<T> extends StatelessWidget {
   final T? value;
   final List<T> items;
-  final String Function(T) labelBuilder;
+  final String Function(T) label;
   final ValueChanged<T?> onChanged;
   final String? hintText;
   final double? width;
@@ -14,7 +14,7 @@ class CustomDropdownField<T> extends StatelessWidget {
     super.key,
     required this.value,
     required this.items,
-    required this.labelBuilder,
+    required this.label,
     this.hintText,
     required this.onChanged,
     this.width,
@@ -61,7 +61,7 @@ class CustomDropdownField<T> extends StatelessWidget {
       },
 
       dropdownMenuEntries: items.map((item) {
-        return DropdownMenuEntry<T>(value: item, label: labelBuilder(item));
+        return DropdownMenuEntry<T>(value: item, label: label(item));
       }).toList(),
     );
   }

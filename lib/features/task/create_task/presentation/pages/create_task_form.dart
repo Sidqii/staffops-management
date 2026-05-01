@@ -75,7 +75,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                             hintText: 'Is this urgent?',
                             errorText: controller.priorityError.value,
 
-                            labelBuilder: (priority) {
+                            label: (priority) {
                               final name = priority.name;
 
                               return name[0].toUpperCase() + name.substring(1);
@@ -126,7 +126,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                         hintText: usersController.hintText,
                         errorText: controller.userError.value,
 
-                        labelBuilder: (user) => user.name,
+                        label: (user) => user.name,
 
                         onChanged: (value) {
                           if (controller.selectedUser.value == value) {
@@ -189,7 +189,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     required T? value,
     required List<T> items,
     required String hintText,
-    required String Function(T) labelBuilder,
+    required String Function(T) label,
     required Function(T?) onChanged,
     String? errorText,
   }) {
@@ -197,7 +197,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       value: value,
       items: items,
       hintText: hintText,
-      labelBuilder: labelBuilder,
+      label: label,
       onChanged: onChanged,
       errorText: errorText,
     );
@@ -208,7 +208,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
     required T? value,
     required List<T> items,
     required String hintText,
-    required String Function(T) labelBuilder,
+    required String Function(T) label,
     required Function(T?) onChanged,
     String? errorText,
   }) {
@@ -217,7 +217,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       width: width,
       items: items,
       hintText: hintText,
-      labelBuilder: labelBuilder,
+      label: label,
       onChanged: onChanged,
       errorText: errorText,
     );

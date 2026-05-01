@@ -41,7 +41,7 @@ class TaskDetailHeader extends GetView<TaskDetailController> {
             Text('Task', style: titleStyle),
 
             // status banner
-            _bannerStatusContainer(task?.status ?? ''),
+            _bannerStatusContainer(task?.status.name ?? ''),
           ],
         ),
 

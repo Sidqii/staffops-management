@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/entities/user.dart';
 import 'package:mini_project_e2e_app/features/home/domain/usecase/session_usecase.dart';
+import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
 import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
 class CurrentSession extends GetxController {

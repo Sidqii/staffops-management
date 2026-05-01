@@ -139,7 +139,7 @@ class AuthenticationPage extends GetView<SignInController> {
               right: 20,
               bottom: 20,
               child: GestureDetector(
-                onTap: () async {
+                onLongPress: () async {
                   final result = await Get.toNamed('/configuration');
 
                   if (result == true) {

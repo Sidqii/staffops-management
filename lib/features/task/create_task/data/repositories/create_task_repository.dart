@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
 
 abstract class CreateTaskRepository {
-  Future<List<UserResponse>> listOfUser();
+  Future<List<ActorModel>> listOfUser();
 
-  Future<List<PriorityResponse>> listOfPriority();
+  Future<List<PriorityModel>> listOfPriority();
 
   Future<void> createTask(FormData formData);
 }

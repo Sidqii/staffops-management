@@ -3,7 +3,7 @@ import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasour
 import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_in_request.dart';
 import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_up_request.dart';
 import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/entities/user.dart';
+import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDatasource datasource;

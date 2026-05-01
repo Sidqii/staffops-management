@@ -16,8 +16,8 @@ class TaskDetailTimeline extends GetView<TaskDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final started = controller.taskDetail.value?.timeline?.startedAt;
-    final process = controller.taskDetail.value?.timeline?.completedAt;
+    final started = controller.taskDetail.value?.timeline?.started;
+    final process = controller.taskDetail.value?.timeline?.completed;
     final completed = controller.taskDetail.value?.deadline;
 
     final timelines = [

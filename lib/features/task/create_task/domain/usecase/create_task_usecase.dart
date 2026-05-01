@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/request/create_task_request.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/data/model/create_task_request.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/repositories/create_task_repository.dart';
 
 class CreateTaskUsecase {

@@ -1,8 +1,8 @@
 import 'package:dio/src/form_data.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/datasource/create_task_datasource.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/repositories/create_task_repository.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
 
 class CreateTaskRepositoryImpl implements CreateTaskRepository {
   final CreateTaskDatasource datasource;
@@ -10,12 +10,12 @@ class CreateTaskRepositoryImpl implements CreateTaskRepository {
   CreateTaskRepositoryImpl(this.datasource);
 
   @override
-  Future<List<UserResponse>> listOfUser() async {
+  Future<List<ActorModel>> listOfUser() async {
     return await datasource.fetchListOfUsers();
   }
 
   @override
-  Future<List<PriorityResponse>> listOfPriority() async {
+  Future<List<PriorityModel>> listOfPriority() async {
     return await datasource.fetchListOfPriority();
   }
 

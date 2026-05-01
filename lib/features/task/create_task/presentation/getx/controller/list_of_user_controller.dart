@@ -1,16 +1,16 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/assigned_to_hints.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_user.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
 
 class ListOfUserController extends GetxController {
   final GetReferencesOfUser usecase;
 
   ListOfUserController(this.usecase);
 
-  RxList<UserResponse> users = <UserResponse>[].obs;
+  RxList<ActorModel> users = <ActorModel>[].obs;
   RxBool isLoading = false.obs;
 
   final assignHint = AssignedToHints.values;

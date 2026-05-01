@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/domain/entities/task_detail.dart';
 import 'package:mini_project_e2e_app/features/task/detail_task/domain/usecase/get_task_detail.dart';
+import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
 
 class TaskDetailController extends GetxController {
   final GetTaskDetail usecase;
 
   TaskDetailController(this.usecase);
 
-  Rxn<TaskDetail> taskDetail = Rxn<TaskDetail>();
+  Rxn<Task> taskDetail = Rxn<Task>();
 
   RxBool isLoading = RxBool(false);
 

@@ -39,7 +39,7 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
                         style: textInformation,
                       ),
                       TextSpan(
-                        text: task?.creator ?? '....',
+                        text: task?.creator.name ?? '....',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -59,7 +59,7 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: task?.assignee ?? '....',
+                        text: task?.assignee.name ?? '....',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const TextSpan(
@@ -79,7 +79,7 @@ class TaskDetailInformation extends GetView<TaskDetailController> {
                       style: textInformation,
                     ),
                     TextSpan(
-                      text: task?.priority ?? '....',
+                      text: task?.priority.name ?? '....',
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],

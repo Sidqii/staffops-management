@@ -17,8 +17,6 @@ class AppBarCreateTask extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      titleSpacing: 0,
-
       leading: IconButton(
         onPressed: () => Get.back(),
         icon: const Icon(Icons.arrow_back_ios_new_rounded),

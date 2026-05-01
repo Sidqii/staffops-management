@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/attachments_response.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/attachment_model.dart';
 
 class EditedBody {
   final String? title;
@@ -7,7 +7,7 @@ class EditedBody {
   final int? priority;
   final DateTime? deadline;
 
-  final List<AttachmentsResponse>? attachment;
+  final List<AttachmentModel>? attachment;
 
   EditedBody({
     this.title,

@@ -25,7 +25,7 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final attachment = controller.taskDetail.value?.attachments;
+    final attachment = controller.taskDetail.value?.attachment;
     final isNull = (attachment == null || attachment.isEmpty);
 
     return Column(

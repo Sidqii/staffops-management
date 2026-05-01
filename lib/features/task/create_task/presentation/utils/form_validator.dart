@@ -1,5 +1,5 @@
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/priority_response.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/response/user_response.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
 
 class FormValidator {
   static String? validateTitle(String value) {
@@ -8,12 +8,12 @@ class FormValidator {
     return null;
   }
 
-  static String? validateUser(UserResponse? user) {
+  static String? validateUser(ActorModel? user) {
     if (user == null) return 'Assignee must be selected';
     return null;
   }
 
-  static String? validatePriority(PriorityResponse? prio) {
+  static String? validatePriority(PriorityModel? prio) {
     if (prio == null) return 'Priority must be selected';
     return null;
   }

@@ -1,6 +1,6 @@
 import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
 import 'package:mini_project_e2e_app/features/auth/domain/dto/sign_in_params.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/entities/user.dart';
+import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
 
 class SignInUsecase {
   final AuthRepository repository;

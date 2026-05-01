@@ -1,5 +1,5 @@
-import 'package:mini_project_e2e_app/features/task/detail_task/domain/entities/task_detail.dart';
+import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
 
 abstract class DetailTaskRepository {
-  Future<TaskDetail> fetchTaskDetail(int id);
+  Future<Task> fetchTaskDetail(int id);
 }
