@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
-class TaskListContainer extends StatelessWidget {
+class PanelListContainer extends StatelessWidget {
   final Widget child;
   final double height;
 
-  const TaskListContainer({
+  const PanelListContainer({
     super.key,
     required this.child,
     required this.height,

@@ -1,4 +1,4 @@
-class TitleHints {
+class HintTitle {
   static const values = [
     "e.g. fix-auth-bug-before-coffee ☕",
     "e.g. works-on-my-machine 🧠",

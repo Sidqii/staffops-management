@@ -13,15 +13,16 @@ class DashboardController extends GetxController {
   Rx<FilterQueryParams> query = FilterQueryParams().obs;
   RxList<Dashboard> tasks = <Dashboard>[].obs;
 
-  RxBool isLoading = false.obs;
-  RxBool isLoadMore = false.obs;
-  RxBool showMore = false.obs;
+  RxBool showMore = RxBool(false);
+  RxBool isLoading = RxBool(false);
+  RxBool isLoadMore = RxBool(false);
 
   RxInt currentPage = 1.obs;
   RxInt lastPage = 1.obs;
   RxInt total = 0.obs;
 
   final scrollController = ScrollController();
+  final searchController = TextEditingController();
 
   @override
   void onInit() {
@@ -106,6 +107,7 @@ class DashboardController extends GetxController {
 
       currentPage.value = result.currentPage;
       lastPage.value = result.lastPage;
+      total.value = result.total;
 
       _refreshNotification('Everything is up to date!');
     } on ServerException catch (e) {

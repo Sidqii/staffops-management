@@ -8,7 +8,7 @@ class CustomDropdownField<T> extends StatelessWidget {
   final ValueChanged<T?> onChanged;
   final String? hintText;
   final double? width;
-  final String? errorText;
+  final String? error;
 
   const CustomDropdownField({
     super.key,
@@ -18,12 +18,12 @@ class CustomDropdownField<T> extends StatelessWidget {
     this.hintText,
     required this.onChanged,
     this.width,
-    this.errorText,
+    this.error,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isError = errorText != null;
+    final isError = error != null;
 
     return DropdownMenu(
       key: ValueKey(value),

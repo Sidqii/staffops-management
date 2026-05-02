@@ -3,22 +3,22 @@ import 'package:intl/intl.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class CalendarInputField extends StatelessWidget {
-  final DateTime? date;
-  final String? errorText;
-  final VoidCallback onTap;
   final double? width;
+  final String? error;
+  final DateTime? date;
+  final VoidCallback onTap;
 
   const CalendarInputField({
     super.key,
     required this.date,
     required this.onTap,
     this.width,
-    this.errorText,
+    this.error,
   });
 
   @override
   Widget build(BuildContext context) {
-    final isError = errorText != null;
+    final isError = error != null;
     final controller = TextEditingController(text: _formateDate(date));
 
     return SizedBox(

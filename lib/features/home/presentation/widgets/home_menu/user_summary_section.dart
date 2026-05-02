@@ -3,8 +3,8 @@ import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class UserSummarySection extends StatelessWidget {
   final String name;
-  final String current;
-  final String total;
+  final int current;
+  final int total;
 
   const UserSummarySection({
     super.key,
@@ -16,12 +16,12 @@ class UserSummarySection extends StatelessWidget {
   static const TextStyle titleText = TextStyle(
     color: AppColor.grey900,
     fontSize: 45,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w900,
   );
 
   static const TextStyle subtitleText = TextStyle(
     color: AppColor.grey900,
-    fontSize: 12,
+    fontWeight: FontWeight.bold,
   );
 
   @override
@@ -33,7 +33,17 @@ class UserSummarySection extends StatelessWidget {
       children: [
         Text(name, style: titleText),
 
-        Text('Loaded $current out of $total task.', style: subtitleText),
+        Text.rich(
+          TextSpan(
+            children: [
+              const TextSpan(text: 'Showing '),
+              TextSpan(text: current.toString(), style: subtitleText),
+              const TextSpan(text: ' of '),
+              TextSpan(text: total.toString(), style: subtitleText),
+              const TextSpan(text: ' tasks.'),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -1,4 +1,4 @@
-class DescriptionHints {
+class HintDescription {
   static const values = [
     "Describe what needs to be done...",
     "Explain the task so future you won't be confused 🤔",

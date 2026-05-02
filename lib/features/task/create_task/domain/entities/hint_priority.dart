@@ -1,4 +1,4 @@
-class PriorityHints {
+class HintPriority {
   static const values = [
     "How urgent is this? 🤔",
     "Is this a chill task or panic mode? 😅",

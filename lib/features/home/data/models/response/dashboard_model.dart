@@ -1,20 +1,20 @@
 import 'package:mini_project_e2e_app/features/home/domain/entities/dashboard.dart';
 
-class HomeListView {
+class DashboardModel {
   final int id;
   final String title;
   final String? description;
   final String status;
 
-  HomeListView({
+  DashboardModel({
     required this.id,
     required this.title,
     required this.description,
     required this.status,
   });
 
-  factory HomeListView.fromJson(Map<String, dynamic> json) {
-    return HomeListView(
+  factory DashboardModel.fromJson(Map<String, dynamic> json) {
+    return DashboardModel(
       id: json['id'],
       title: json['title'],
       description: json['description'],

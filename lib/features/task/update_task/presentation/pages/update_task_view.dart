@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/dialog/date_picker_show_dialog.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/calendar_input_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/custom_dropdown_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/input_desc_text_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/input_title_text_field.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/component/calendar_input_field.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/component/custom_dropdown_field.dart';
 import 'package:mini_project_e2e_app/features/task/update_task/presentation/getx/controller/update_task_controller.dart';
 import 'package:mini_project_e2e_app/features/task/update_task/presentation/widgets/updated_appbar_widget.dart';
 import 'package:mini_project_e2e_app/shared/entities/task/priority.dart';
@@ -22,13 +20,13 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
           _contentWrapper([
             const Text('Title'),
 
-            InputTitleTextField(controller: controller.titleController),
+            // InputTitleTextField(controller: controller.titleController),
           ]),
 
           _contentWrapper([
             const Text('Description'),
 
-            InputDescTextField(controller: controller.descsController),
+            // InputDescTextField(controller: controller.descsController),
           ]),
 
           Row(
@@ -41,7 +39,11 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
                   items: controller.priorities.toList(),
 
                   hintText: controller.selectedPrio.value?.name,
-                  label: (prior) => prior.name,
+                  label: (prior) {
+                    final label = prior.name;
+
+                    return label[0].toUpperCase() + label.substring(1);
+                  },
 
                   onChanged: (value) {
                     if (controller.selectedPrio.value == value) {
@@ -58,7 +60,10 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
                 CalendarInputField(
                   date: controller.selectedDate.value,
                   onTap: () async {
-                    final result = await DatePickerShowDialog.show(context);
+                    final result = await DatePickerShowDialog.show(
+                      context,
+                      controller.selectedDate.value,
+                    );
 
                     if (result != null) {
                       controller.selectedDate.value = result;

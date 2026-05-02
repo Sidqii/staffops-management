@@ -1,4 +1,4 @@
-class AssignedToHints {
+class HintAssignee {
   static const values = [
     "Assign to a team member...",
     "Who’s responsible for this task?",

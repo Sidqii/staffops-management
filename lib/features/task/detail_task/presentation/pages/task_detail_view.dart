@@ -21,7 +21,7 @@ class TaskDetailView extends GetView<TaskDetailController> {
 
         decoration: BoxDecoration(color: AppColor.softWhite),
 
-        child: TaskDetailInformation(),
+        child: const TaskDetailInformation(),
       ),
 
       body: SafeArea(

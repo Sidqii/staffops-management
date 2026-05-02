@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
-class InputDescTextField extends StatelessWidget {
-  final String? descText;
-  final TextEditingController controller;
-
-  const InputDescTextField({
-    super.key,
-    this.descText,
-    required this.controller,
-  });
+class InputDescTextField extends GetView<CreateTaskController> {
+  const InputDescTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: controller,
+      controller: controller.descsController,
       textCapitalization: TextCapitalization.sentences,
 
       maxLines: 5,
@@ -24,7 +19,7 @@ class InputDescTextField extends StatelessWidget {
       cursorErrorColor: AppColor.error,
 
       decoration: InputDecoration(
-        hintText: descText,
+        hintText: controller.descText,
         hintStyle: TextStyle(color: AppColor.grey600),
 
         enabledBorder: OutlineInputBorder(
@@ -39,7 +34,7 @@ class InputDescTextField extends StatelessWidget {
 
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: AppColor.warning),
+          borderSide: BorderSide(color: AppColor.error),
         ),
 
         focusedErrorBorder: OutlineInputBorder(

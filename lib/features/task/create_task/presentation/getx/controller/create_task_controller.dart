@@ -4,9 +4,12 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/data/model/create_task_request.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/description_hints.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/title_hints.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_assignee.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_description.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_title.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/create_task_usecase.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_priority.dart';
+import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_user.dart';
 import 'package:mini_project_e2e_app/features/task/create_task/presentation/utils/form_validator.dart';
 import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
 import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
@@ -14,9 +17,16 @@ import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
 
 class CreateTaskController extends GetxController {
   final CreateTaskUsecase usecase;
+  final GetReferencesOfPriority priorUsecase;
+  final GetReferencesOfUser usersUsecase;
 
-  CreateTaskController(this.usecase);
+  CreateTaskController(this.usecase, this.priorUsecase, this.usersUsecase);
 
+  // load option
+  RxList<PriorityModel> prio = <PriorityModel>[].obs;
+  RxList<ActorModel> user = <ActorModel>[].obs;
+
+  // controller
   final titleController = TextEditingController();
   final descsController = TextEditingController();
 
@@ -31,19 +41,27 @@ class CreateTaskController extends GetxController {
   RxnString priorityError = RxnString();
   RxnString dateError = RxnString();
 
+  // flag
   RxBool isLoading = false.obs;
 
-  final title = TitleHints.values;
-  final descs = DescriptionHints.values;
+  // hint
+  final hintTitle = HintTitle.values;
+  final hintDescs = HintDescription.values;
+  final hintUsers = HintAssignee.values;
 
   late final String hintText;
   late final String descText;
+  late final String assignee;
 
   @override
   void onInit() {
     super.onInit();
-    hintText = title[Random().nextInt(title.length)];
-    descText = descs[Random().nextInt(descs.length)];
+
+    loadOption();
+
+    hintText = hintTitle[Random().nextInt(hintTitle.length)];
+    descText = hintDescs[Random().nextInt(hintDescs.length)];
+    assignee = hintUsers[Random().nextInt(hintUsers.length)];
   }
 
   Future<void> onSubmit() async {
@@ -112,6 +130,11 @@ class CreateTaskController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  void loadOption() async {
+    prio.value = await priorUsecase.execute();
+    user.value = await usersUsecase.execute();
   }
 
   Future<void> pickFiles() async {

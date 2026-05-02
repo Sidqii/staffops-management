@@ -1,23 +1,23 @@
-import 'package:mini_project_e2e_app/features/home/data/models/response/home_list_view.dart';
+import 'package:mini_project_e2e_app/features/home/data/models/response/dashboard_model.dart';
 import 'package:mini_project_e2e_app/features/home/domain/entities/paginated_view.dart';
 
-class PaginationResponse {
-  final List<HomeListView> taskList;
+class DashboardPaginate {
+  final List<DashboardModel> taskList;
   final int currentPage;
   final int lastPage;
   final int total;
 
-  PaginationResponse({
+  DashboardPaginate({
     required this.taskList,
     required this.currentPage,
     required this.lastPage,
     required this.total,
   });
 
-  factory PaginationResponse.fromJson(Map<String, dynamic> json) {
-    return PaginationResponse(
+  factory DashboardPaginate.fromJson(Map<String, dynamic> json) {
+    return DashboardPaginate(
       taskList: (json['data'] as List)
-          .map((e) => HomeListView.fromJson(e))
+          .map((e) => DashboardModel.fromJson(e))
           .toList(),
 
       currentPage: json['meta']['current_page'],

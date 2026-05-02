@@ -6,13 +6,13 @@ import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/dialog/sign_out_dialog.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/create_task_action_btn.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/home_header_action.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/task_list_container.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/widgets/panel/panel_list_container.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/total_task_completed.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/home_menu/user_summary_section.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar/drawer_menu_body.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar/drawer_menu_footer.dart';
 import 'package:mini_project_e2e_app/features/home/presentation/widgets/side_bar/drawer_menu_header.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/widgets/tasks_user.dart';
+import 'package:mini_project_e2e_app/features/home/presentation/widgets/task_vertical_view.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class HomePage extends GetView<CurrentSession> {
@@ -93,8 +93,8 @@ class HomePage extends GetView<CurrentSession> {
                       children: [
                         UserSummarySection(
                           name: controller.credential.value?.name ?? 'Guest',
-                          current: taskController.tasks.length.toString(),
-                          total: taskController.total.toString(),
+                          current: taskController.tasks.length,
+                          total: taskController.total.value,
                         ),
 
                         _canCreateTask(roleAccess)
@@ -117,7 +117,10 @@ class HomePage extends GetView<CurrentSession> {
                 ),
               ),
 
-              TaskListContainer(child: const TasksUser(), height: height * 0.6),
+              PanelListContainer(
+                child: const TaskVerticalView(),
+                height: height * 0.6,
+              ),
             ],
           ),
         ),

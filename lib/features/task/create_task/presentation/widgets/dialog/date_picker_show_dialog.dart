@@ -1,11 +1,17 @@
 import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
 
 class DatePickerShowDialog {
-  static Future<DateTime?> show(BuildContext context) async {
+  static Future<DateTime?> show(
+    BuildContext context,
+    DateTime? initDate,
+  ) async {
     final current = DateTime.now();
     final today = DateTime(current.year, current.month, current.day);
+
+    final selected = initDate ?? today;
 
     return await showDialog<DateTime>(
       context: context,
@@ -25,7 +31,15 @@ class DatePickerShowDialog {
               data: Theme.of(context).copyWith(
                 colorScheme: ColorScheme.light(primary: AppColor.blueTiran),
               ),
+
               child: DatePicker(
+                key: ValueKey(selected),
+
+                minDate: today,
+                maxDate: DateTime(2100),
+
+                selectedDate: selected,
+
                 theme: DatePickerPlusTheme(
                   headerTheme: HeaderTheme(
                     leadingDateTextStyle: TextStyle(fontSize: 50),
@@ -33,12 +47,7 @@ class DatePickerShowDialog {
                   ),
                 ),
 
-                maxDate: DateTime(2100),
-                minDate: today,
-
-                onDateSelected: (value) {
-                  Navigator.pop(context, value);
-                },
+                onDateSelected: (value) => Get.back(result: value),
               ),
             ),
           ),
