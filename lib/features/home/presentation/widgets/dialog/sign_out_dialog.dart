@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class SignOutDialog extends StatelessWidget {
   final String name;

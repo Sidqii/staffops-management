@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/getx/controller/dashboard_controller.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/features/home/presentation/getx/controller/dashboard_controller.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class TaskVerticalView extends GetView<DashboardController> {
   const TaskVerticalView({super.key});

@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/shared/entities/user/role.dart';
+import 'package:staffops/shared/entities/user/role.dart';
 
 class User {
   final int id;

@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/shared/entities/task/attachment.dart';
+import 'package:staffops/shared/entities/task/attachment.dart';
 
 class AttachmentModel {
   final int id;

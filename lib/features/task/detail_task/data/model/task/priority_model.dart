@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/shared/entities/task/priority.dart';
+import 'package:staffops/shared/entities/task/priority.dart';
 
 class PriorityModel {
   final int id;

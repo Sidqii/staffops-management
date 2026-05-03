@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class TotalTaskCompleted extends StatelessWidget {
   final int totalCompleted;

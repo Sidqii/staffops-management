@@ -1,8 +1,8 @@
-import 'package:mini_project_e2e_app/shared/entities/task/attachment.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/priority.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/status.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/timeline.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/shared/entities/task/attachment.dart';
+import 'package:staffops/shared/entities/task/priority.dart';
+import 'package:staffops/shared/entities/task/status.dart';
+import 'package:staffops/shared/entities/task/timeline.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 class Task {
   final int id;

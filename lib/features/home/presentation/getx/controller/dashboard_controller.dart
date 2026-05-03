@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/home/data/models/request/filter_query_params.dart';
-import 'package:mini_project_e2e_app/features/home/domain/entities/dashboard.dart';
-import 'package:mini_project_e2e_app/features/home/domain/usecase/dashboard_usecase.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/features/home/data/models/request/filter_query_params.dart';
+import 'package:staffops/features/home/domain/entities/dashboard.dart';
+import 'package:staffops/features/home/domain/usecase/dashboard_usecase.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class DashboardController extends GetxController {
   final DashboardUsecase usecase;

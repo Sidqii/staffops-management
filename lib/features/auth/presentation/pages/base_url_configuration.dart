@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/config/network/api_config.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/base_url_controller.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/url_config/base_url_input_widget.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/url_config/config_header_action_btn.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/url_config/submit_url_button.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/config/network/api_config.dart';
+import 'package:staffops/features/auth/presentation/getx/controller/base_url_controller.dart';
+import 'package:staffops/features/auth/presentation/widgets/url_config/base_url_input_widget.dart';
+import 'package:staffops/features/auth/presentation/widgets/url_config/config_header_action_btn.dart';
+import 'package:staffops/features/auth/presentation/widgets/url_config/submit_url_button.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class BaseUrlConfiguration extends GetView<BaseUrlController> {

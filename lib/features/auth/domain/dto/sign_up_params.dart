@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_up_request.dart';
+import 'package:staffops/features/auth/data/models/request/sign_up_request.dart';
 
 class SignUpParams {
   final String name;

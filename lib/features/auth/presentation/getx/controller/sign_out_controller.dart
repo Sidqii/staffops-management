@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_out_usecase.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/features/auth/domain/usecase/sign_out_usecase.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class SignOutController extends GetxController {
   final SignOutUsecase usecase;

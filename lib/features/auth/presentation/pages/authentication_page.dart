@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/config/network/dio_client.dart';
-import 'package:mini_project_e2e_app/config/storage/token/token_storage.dart';
-import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasource.dart';
-import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/dto/sign_in_params.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/getx/binding/auth_bindings.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/sign_in_controller.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/email_input_widget.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/button/login_button_widget.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/widgets/password_input_widget.dart';
-import 'package:mini_project_e2e_app/shared/ops_logo.dart';
+import 'package:staffops/config/network/dio_client.dart';
+import 'package:staffops/config/storage/token/token_storage.dart';
+import 'package:staffops/features/auth/data/datasource/auth_datasource.dart';
+import 'package:staffops/features/auth/data/repositories/auth_repository.dart';
+import 'package:staffops/features/auth/domain/dto/sign_in_params.dart';
+import 'package:staffops/features/auth/domain/usecase/sign_in_usecase.dart';
+import 'package:staffops/features/auth/presentation/getx/binding/auth_bindings.dart';
+import 'package:staffops/features/auth/presentation/getx/controller/sign_in_controller.dart';
+import 'package:staffops/features/auth/presentation/widgets/email_input_widget.dart';
+import 'package:staffops/features/auth/presentation/widgets/button/login_button_widget.dart';
+import 'package:staffops/features/auth/presentation/widgets/password_input_widget.dart';
+import 'package:staffops/shared/ops_logo.dart';
 
 class AuthenticationPage extends GetView<SignInController> {
   AuthenticationPage({super.key});

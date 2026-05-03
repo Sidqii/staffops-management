@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/widgets/task_detail_appbar.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/widgets/task_detail_attachment.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/widgets/task_detail_header.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/widgets/task_detail_information.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/widgets/task_detail_timeline.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
+import 'package:staffops/features/task/detail_task/presentation/widgets/task_detail_appbar.dart';
+import 'package:staffops/features/task/detail_task/presentation/widgets/task_detail_attachment.dart';
+import 'package:staffops/features/task/detail_task/presentation/widgets/task_detail_header.dart';
+import 'package:staffops/features/task/detail_task/presentation/widgets/task_detail_information.dart';
+import 'package:staffops/features/task/detail_task/presentation/widgets/task_detail_timeline.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class TaskDetailView extends GetView<TaskDetailController> {
   const TaskDetailView({super.key});

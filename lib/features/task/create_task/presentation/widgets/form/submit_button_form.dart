@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class SubmitButtonForm extends GetView<CreateTaskController> {
   const SubmitButtonForm({super.key});

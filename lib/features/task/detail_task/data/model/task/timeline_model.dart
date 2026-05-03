@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/shared/entities/task/timeline.dart';
+import 'package:staffops/shared/entities/task/timeline.dart';
 
 class TimelineModel {
   final DateTime? started;

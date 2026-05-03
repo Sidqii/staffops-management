@@ -1,7 +1,7 @@
 import 'package:date_picker_plus/date_picker_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class DatePickerShowDialog {
   static Future<DateTime?> show(

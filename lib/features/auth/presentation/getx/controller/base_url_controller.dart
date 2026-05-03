@@ -11,7 +11,6 @@ class BaseUrlController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // textInputController.text = ApiConfig.baseUrl;
   }
 
   bool validate() {

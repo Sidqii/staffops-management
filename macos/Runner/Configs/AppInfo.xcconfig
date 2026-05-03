@@ -5,7 +5,7 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = mini_project_e2e_app
+PRODUCT_NAME = staffops
 
 // The application's bundle identifier
 PRODUCT_BUNDLE_IDENTIFIER = com.example.miniProjectE2eApp

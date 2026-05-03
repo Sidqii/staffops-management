@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:mini_project_e2e_app/config/storage/token/token_storage.dart';
-import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasource.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_in_request.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_up_request.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/response/auth_response.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/config/storage/token/token_storage.dart';
+import 'package:staffops/features/auth/data/datasource/auth_datasource.dart';
+import 'package:staffops/features/auth/data/models/request/sign_in_request.dart';
+import 'package:staffops/features/auth/data/models/request/sign_up_request.dart';
+import 'package:staffops/features/auth/data/models/response/auth_response.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class AuthDatasourceImpl implements AuthDatasource {
   final Dio dio;

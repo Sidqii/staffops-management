@@ -3,17 +3,17 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/model/create_task_request.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_assignee.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_description.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/entities/hint_title.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/create_task_usecase.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_priority.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/domain/usecase/get_references_of_user.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/utils/form_validator.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/features/task/create_task/data/model/create_task_request.dart';
+import 'package:staffops/features/task/create_task/domain/entities/hint_assignee.dart';
+import 'package:staffops/features/task/create_task/domain/entities/hint_description.dart';
+import 'package:staffops/features/task/create_task/domain/entities/hint_title.dart';
+import 'package:staffops/features/task/create_task/domain/usecase/create_task_usecase.dart';
+import 'package:staffops/features/task/create_task/domain/usecase/get_references_of_priority.dart';
+import 'package:staffops/features/task/create_task/domain/usecase/get_references_of_user.dart';
+import 'package:staffops/features/task/create_task/presentation/utils/form_validator.dart';
+import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class CreateTaskController extends GetxController {
   final CreateTaskUsecase usecase;

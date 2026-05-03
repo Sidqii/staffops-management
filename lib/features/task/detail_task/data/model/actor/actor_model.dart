@@ -1,5 +1,5 @@
-import 'package:mini_project_e2e_app/shared/entities/user/role.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/shared/entities/user/role.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 class ActorModel {
   final int id;

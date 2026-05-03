@@ -1,8 +1,8 @@
-import 'package:mini_project_e2e_app/features/task/update_task/data/datasource/update_task_datasource.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/data/model/edited_body.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/priority.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/features/task/update_task/data/datasource/update_task_datasource.dart';
+import 'package:staffops/features/task/update_task/data/model/edited_body.dart';
+import 'package:staffops/shared/entities/task/priority.dart';
+import 'package:staffops/shared/entities/task/task.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 abstract class UpdateTaskRepository {
   Future<Task> previewEdited(int id);

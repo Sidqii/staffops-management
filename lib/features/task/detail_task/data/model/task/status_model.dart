@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/shared/entities/task/status.dart';
+import 'package:staffops/shared/entities/task/status.dart';
 
 class StatusModel {
   final int id;

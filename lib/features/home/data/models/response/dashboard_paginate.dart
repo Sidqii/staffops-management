@@ -1,5 +1,5 @@
-import 'package:mini_project_e2e_app/features/home/data/models/response/dashboard_model.dart';
-import 'package:mini_project_e2e_app/features/home/domain/entities/paginated_view.dart';
+import 'package:staffops/features/home/data/models/response/dashboard_model.dart';
+import 'package:staffops/features/home/domain/entities/paginated_view.dart';
 
 class DashboardPaginate {
   final List<DashboardModel> taskList;

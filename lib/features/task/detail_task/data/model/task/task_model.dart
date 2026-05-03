@@ -1,9 +1,9 @@
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/attachment_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/status_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/timeline_model.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
+import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/attachment_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/status_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/timeline_model.dart';
+import 'package:staffops/shared/entities/task/task.dart';
 
 class TaskModel {
   final int id;

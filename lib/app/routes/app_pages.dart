@@ -1,20 +1,30 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/app/binding/app_bindings.dart';
+// app binding
+import 'package:staffops/app/binding/app_bindings.dart';
 
-import 'package:mini_project_e2e_app/features/home/presentation/pages/home_page.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/pages/authentication_page.dart';
-import 'package:mini_project_e2e_app/features/home/presentation/getx/binding/home_bindings.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/getx/binding/auth_bindings.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/pages/base_url_configuration.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/pages/create_task_form.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/pages/task_detail_view.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/presentation/pages/update_task_view.dart';
-import 'package:mini_project_e2e_app/features/auth/presentation/getx/controller/base_url_controller.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/binding/data_layer_bindings.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/presentation/getx/binding/update_task_bindings.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/getx/binding/task_detail_bindings.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/binding/create_binding_usecases.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/binding/create_binding_controllers.dart';
+// auth
+import 'package:staffops/features/auth/presentation/getx/binding/auth_bindings.dart';
+import 'package:staffops/features/auth/presentation/pages/authentication_page.dart';
+
+// url config
+import 'package:staffops/features/auth/presentation/pages/base_url_configuration.dart';
+import 'package:staffops/features/auth/presentation/getx/controller/base_url_controller.dart';
+
+// home
+import 'package:staffops/features/home/presentation/pages/home_page.dart';
+import 'package:staffops/features/home/presentation/getx/binding/home_bindings.dart';
+
+// task -> create
+import 'package:staffops/features/task/create_task/presentation/pages/create_task_form.dart';
+import 'package:staffops/features/task/create_task/presentation/getx/binding/create_task_bindings.dart';
+import 'package:staffops/features/task/detail_task/presentation/getx/binding/detail_task_bindings.dart';
+
+// task -> detail
+import 'package:staffops/features/task/detail_task/presentation/pages/task_detail_view.dart';
+
+// task -> update
+import 'package:staffops/features/task/update_task/presentation/pages/update_task_view.dart';
+import 'package:staffops/features/task/update_task/presentation/getx/binding/update_task_bindings.dart';
 
 part 'app_routes.dart';
 
@@ -33,7 +43,7 @@ class AppPages {
       name: AppRoutes.CONFIGURATION,
       page: () => BaseUrlConfiguration(),
       binding: BindingsBuilder(() {
-        Get.lazyPut<BaseUrlController>(() => BaseUrlController());
+        Get.lazyPut(() => BaseUrlController());
       }),
     ),
 
@@ -42,7 +52,6 @@ class AppPages {
       page: () => HomePage(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
-        TaskDetailBindings().dependencies();
         HomeBindings().dependencies();
       }),
     ),
@@ -52,10 +61,7 @@ class AppPages {
       page: () => CreateTaskForm(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
-        DataLayerBindings().dependencies();
-
-        CreateBindingUsecases().dependencies();
-        CreateBindingControllers().dependencies();
+        CreateTaskBindings().dependencies();
       }),
     ),
 
@@ -64,7 +70,7 @@ class AppPages {
       page: () => TaskDetailView(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
-        TaskDetailBindings().dependencies();
+        DetailTaskBindings().dependencies();
       }),
     ),
 
@@ -73,11 +79,6 @@ class AppPages {
       page: () => UpdateTaskView(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
-
-        DataLayerBindings().dependencies();
-        CreateBindingUsecases().dependencies();
-
-        CreateBindingControllers().dependencies();
         UpdateTaskBindings().dependencies();
       }),
     ),

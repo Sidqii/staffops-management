@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/domain/usecase/get_task_detail.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
+import 'package:staffops/features/task/detail_task/domain/usecase/get_task_detail.dart';
+import 'package:staffops/shared/entities/task/task.dart';
 
 class TaskDetailController extends GetxController {
   final GetTaskDetail usecase;

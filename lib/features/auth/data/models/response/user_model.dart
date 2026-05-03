@@ -1,5 +1,5 @@
-import 'package:mini_project_e2e_app/features/auth/data/models/response/role_model.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/features/auth/data/models/response/role_model.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 class UserModel {
   int id;

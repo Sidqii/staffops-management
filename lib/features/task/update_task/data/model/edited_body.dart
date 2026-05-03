@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/attachment_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/attachment_model.dart';
 
 class EditedBody {
   final String? title;

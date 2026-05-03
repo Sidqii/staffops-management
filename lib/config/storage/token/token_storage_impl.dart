@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mini_project_e2e_app/config/storage/token/token_storage.dart';
+import 'package:staffops/config/storage/token/token_storage.dart';
 
 class TokenStorageImpl implements TokenStorage {
   final FlutterSecureStorage secureStorage;

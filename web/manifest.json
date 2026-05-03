@@ -1,6 +1,6 @@
 {
-    "name": "mini_project_e2e_app",
-    "short_name": "mini_project_e2e_app",
+    "name": "staffops",
+    "short_name": "staffops",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

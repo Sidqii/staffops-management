@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
+import 'package:staffops/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
 
 class TaskDetailInformation extends GetView<TaskDetailController> {
   const TaskDetailInformation({super.key});

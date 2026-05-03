@@ -1,9 +1,9 @@
-import 'package:mini_project_e2e_app/config/storage/credential/local_data.dart';
-import 'package:mini_project_e2e_app/features/auth/data/datasource/auth_datasource.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_in_request.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/request/sign_up_request.dart';
-import 'package:mini_project_e2e_app/features/auth/data/repositories/auth_repository.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/config/storage/credential/local_data.dart';
+import 'package:staffops/features/auth/data/datasource/auth_datasource.dart';
+import 'package:staffops/features/auth/data/models/request/sign_in_request.dart';
+import 'package:staffops/features/auth/data/models/request/sign_up_request.dart';
+import 'package:staffops/features/auth/data/repositories/auth_repository.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDatasource datasource;

@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/home/domain/entities/dashboard.dart';
+import 'package:staffops/features/home/domain/entities/dashboard.dart';
 
 class DashboardModel {
   final int id;

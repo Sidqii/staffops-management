@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/dto/sign_in_params.dart';
-import 'package:mini_project_e2e_app/features/auth/domain/usecase/sign_in_usecase.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/features/auth/domain/dto/sign_in_params.dart';
+import 'package:staffops/features/auth/domain/usecase/sign_in_usecase.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class SignInController extends GetxController {
   final SignInUsecase signInUsecase;

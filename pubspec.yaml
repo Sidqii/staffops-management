@@ -1,4 +1,4 @@
-name: mini_project_e2e_app
+name: staffops
 description: "A new Flutter project."
 publish_to: 'none'
 version: 0.1.0+1
@@ -31,10 +31,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/icons/
+    - assets/image/
 
 flutter_launcher_icons:
   android: true
-  image_path: "assets/icons/mini_project_e2e.png"
+  image_path: "assets/image/logo.png"
 
-  adaptive_icon_background: "#ffffff"
-  adaptive_icon_foreground: "assets/icons/mini_project_e2e.png"
+  adaptive_icon_background: "#000000"
+  adaptive_icon_foreground: "assets/image/logo.png"

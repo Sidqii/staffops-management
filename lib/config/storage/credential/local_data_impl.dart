@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:mini_project_e2e_app/config/storage/credential/local_data.dart';
-import 'package:mini_project_e2e_app/features/auth/data/models/response/user_model.dart';
+import 'package:staffops/config/storage/credential/local_data.dart';
+import 'package:staffops/features/auth/data/models/response/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalDataImpl implements LocalData {

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "mini_project_e2e_app" "\0"
+            VALUE "FileDescription", "staffops" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "mini_project_e2e_app" "\0"
+            VALUE "InternalName", "staffops" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "mini_project_e2e_app.exe" "\0"
-            VALUE "ProductName", "mini_project_e2e_app" "\0"
+            VALUE "OriginalFilename", "staffops.exe" "\0"
+            VALUE "ProductName", "staffops" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

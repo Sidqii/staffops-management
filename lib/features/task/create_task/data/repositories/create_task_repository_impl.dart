@@ -1,8 +1,8 @@
 import 'package:dio/src/form_data.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/datasource/create_task_datasource.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/data/repositories/create_task_repository.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
+import 'package:staffops/features/task/create_task/data/datasource/create_task_datasource.dart';
+import 'package:staffops/features/task/create_task/data/repositories/create_task_repository.dart';
+import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
 
 class CreateTaskRepositoryImpl implements CreateTaskRepository {
   final CreateTaskDatasource datasource;

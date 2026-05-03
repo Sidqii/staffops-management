@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/app_bar_create_task.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/dropdown_prio_task.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/dropdown_user_task.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/input_calendar_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/submit_button_form.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/input_desc_text_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/form/input_title_text_field.dart';
-import 'package:mini_project_e2e_app/features/task/create_task/presentation/widgets/component/upload_files_or_images.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/features/task/create_task/presentation/getx/controller/create_task_controller.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/app_bar_create_task.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/dropdown_prio_task.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/dropdown_user_task.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/input_calendar_field.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/submit_button_form.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/input_desc_text_field.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/form/input_title_text_field.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/component/upload_files_or_images.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class CreateTaskForm extends GetView<CreateTaskController> {
   const CreateTaskForm({super.key});

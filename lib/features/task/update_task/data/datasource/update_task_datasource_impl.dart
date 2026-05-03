@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/actor/actor_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/priority_model.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/data/model/task/task_model.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/data/datasource/update_task_datasource.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/data/model/edited_body.dart';
-import 'package:mini_project_e2e_app/shared/exception/server_exception.dart';
+import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
+import 'package:staffops/features/task/detail_task/data/model/task/task_model.dart';
+import 'package:staffops/features/task/update_task/data/datasource/update_task_datasource.dart';
+import 'package:staffops/features/task/update_task/data/model/edited_body.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class UpdateTaskDatasourceImpl implements UpdateTaskDatasource {
   final Dio dio;

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:mini_project_e2e_app/config/network/api_config.dart';
-import 'package:mini_project_e2e_app/config/storage/token/token_storage.dart';
+import 'package:staffops/config/network/api_config.dart';
+import 'package:staffops/config/storage/token/token_storage.dart';
 
 class DioClient {
   final TokenStorage tokenStorage;

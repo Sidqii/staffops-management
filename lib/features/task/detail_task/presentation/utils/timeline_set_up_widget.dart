@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mini_project_e2e_app/features/task/detail_task/domain/entities/some_timeline/timeline_item.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_color.dart';
+import 'package:staffops/features/task/detail_task/domain/entities/some_timeline/timeline_item.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class TimelineSetUpWidget extends StatelessWidget {

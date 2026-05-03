@@ -1,4 +1,4 @@
-import 'package:mini_project_e2e_app/features/auth/data/models/response/user_model.dart';
+import 'package:staffops/features/auth/data/models/response/user_model.dart';
 
 class AuthResponse {
   final String token;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:mini_project_e2e_app/app/binding/app_bindings.dart';
-import 'package:mini_project_e2e_app/app/routes/app_pages.dart';
-import 'package:mini_project_e2e_app/shared/themes/app_theme.dart';
-import 'package:mini_project_e2e_app/shared/themes/dismiss_keyboard.dart';
+import 'package:staffops/app/binding/app_bindings.dart';
+import 'package:staffops/app/routes/app_pages.dart';
+import 'package:staffops/shared/themes/app_theme.dart';
+import 'package:staffops/shared/themes/dismiss_keyboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {

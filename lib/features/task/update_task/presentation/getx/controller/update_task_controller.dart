@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/data/repositories/update_task_repository.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/domain/usecase/prio_list_usecase.dart';
-import 'package:mini_project_e2e_app/features/task/update_task/domain/usecase/user_list_usecase.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/priority.dart';
-import 'package:mini_project_e2e_app/shared/entities/task/task.dart';
-import 'package:mini_project_e2e_app/shared/entities/user/user.dart';
+import 'package:staffops/features/task/update_task/data/repositories/update_task_repository.dart';
+import 'package:staffops/features/task/update_task/domain/usecase/prio_list_usecase.dart';
+import 'package:staffops/features/task/update_task/domain/usecase/user_list_usecase.dart';
+import 'package:staffops/shared/entities/task/priority.dart';
+import 'package:staffops/shared/entities/task/task.dart';
+import 'package:staffops/shared/entities/user/user.dart';
 
 class UpdateTaskController extends GetxController {
   final UpdateTaskRepository repository;
