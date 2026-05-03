@@ -25,7 +25,7 @@ class UpdatedAppbarWidget extends StatelessWidget implements SizeWidget {
       ),
 
       title: Text(
-        'Update task',
+        'Update task form',
         overflow: TextOverflow.ellipsis,
         style: titleAppbar,
       ),

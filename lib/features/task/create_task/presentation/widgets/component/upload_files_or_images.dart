@@ -1,17 +1,19 @@
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:staffops/features/task/create_task/presentation/utils/file_item.dart';
 import 'package:staffops/shared/themes/app_color.dart';
 
 class UploadFilesOrImages extends StatelessWidget {
   final String hintText;
-  final List<PlatformFile> files;
+  final List<FileItem> files;
   final VoidCallback onTap;
+  final Function(FileItem file)? onRemove;
 
   const UploadFilesOrImages({
     super.key,
     required this.hintText,
-    required this.onTap,
     required this.files,
+    required this.onTap,
+    this.onRemove,
   });
 
   static const uploadFiles = Icon(Icons.cloud_upload_rounded);
@@ -19,43 +21,57 @@ class UploadFilesOrImages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEmpty = files.isEmpty;
+    if (files.isEmpty) {
+      return GestureDetector(onTap: onTap, child: _containerUploadPanel());
+    }
 
-    return GestureDetector(
-      onTap: onTap,
+    return _fileListPanel();
+  }
 
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 12),
+  Widget _containerUploadPanel() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 15),
 
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColor.grey600),
-          borderRadius: BorderRadius.circular(15),
-        ),
+      decoration: BoxDecoration(
+        border: Border.all(color: AppColor.grey900),
+        borderRadius: BorderRadius.circular(15),
+      ),
 
-        child: isEmpty ? _uploadFilesContent() : _uploadedFilesContent(),
+      child: Column(
+        children: [
+          Icon(uploadFiles.icon, color: AppColor.grey600, size: 30),
+          Text(hintText),
+        ],
       ),
     );
   }
 
-  Widget _uploadFilesContent() {
-    return Column(
-      children: [
-        Icon(uploadFiles.icon, color: AppColor.grey600, size: 30),
+  Widget _fileItemPanel(FileItem file) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
 
-        Text(hintText),
-      ],
+      leading: const Icon(Icons.insert_drive_file_rounded),
+
+      title: Text(file.name, overflow: TextOverflow.ellipsis),
+
+      trailing: IconButton(
+        icon: const Icon(Icons.remove_outlined),
+        onPressed: () => onRemove?.call(file),
+      ),
     );
   }
 
-  Widget _uploadedFilesContent() {
+  Widget _fileListPanel() {
     return Column(
       children: [
-        Icon(uploadedFiles.icon, color: AppColor.success, size: 30),
+        ...files.map((e) => _fileItemPanel(e)),
 
-        ...files.map((file) {
-          return Text(file.name, overflow: TextOverflow.ellipsis);
-        },)
+        ListTile(
+          leading: const Icon(Icons.add),
+          title: const Text('Add more files.'),
+          onTap: onTap,
+        ),
       ],
     );
   }

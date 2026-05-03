@@ -1,33 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:staffops/features/task/create_task/presentation/widgets/component/upload_files_or_images.dart';
 import 'package:staffops/features/task/create_task/presentation/widgets/dialog/date_picker_show_dialog.dart';
 import 'package:staffops/features/task/create_task/presentation/widgets/component/calendar_input_field.dart';
 import 'package:staffops/features/task/create_task/presentation/widgets/component/custom_dropdown_field.dart';
 import 'package:staffops/features/task/update_task/presentation/getx/controller/update_task_controller.dart';
+import 'package:staffops/features/task/update_task/presentation/widgets/update_desc_text.dart';
+import 'package:staffops/features/task/update_task/presentation/widgets/update_title_text.dart';
 import 'package:staffops/features/task/update_task/presentation/widgets/updated_appbar_widget.dart';
 import 'package:staffops/shared/entities/task/priority.dart';
 
-class UpdateTaskView extends GetView<UpdateTaskController> {
-  const UpdateTaskView({super.key});
+class UpdateTaskForm extends GetView<UpdateTaskController> {
+  const UpdateTaskForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const UpdatedAppbarWidget(),
 
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsetsGeometry.symmetric(
+          horizontal: 20,
+          vertical: 5,
+        ),
+        child: ElevatedButton(
+          onPressed: () => controller.onSubmit(controller.task.value!.id),
+          child: const Text('Update task'),
+        ),
+      ),
+
       body: Obx(() {
         return _contentPanel([
-          _contentWrapper([
-            const Text('Title'),
+          _contentWrapper([const Text('Title'), const UpdateTitleText()]),
 
-            // InputTitleTextField(controller: controller.titleController),
-          ]),
-
-          _contentWrapper([
-            const Text('Description'),
-
-            // InputDescTextField(controller: controller.descsController),
-          ]),
+          _contentWrapper([const Text('Description'), const UpdateDescText()]),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,14 +42,10 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
                 const Text('Priority'),
                 CustomDropdownField<Priority>(
                   value: controller.selectedPrio.value,
-                  items: controller.priorities.toList(),
+                  items: controller.prior.toList(),
 
                   hintText: controller.selectedPrio.value?.name,
-                  label: (prior) {
-                    final label = prior.name;
-
-                    return label[0].toUpperCase() + label.substring(1);
-                  },
+                  label: (prior) => _upperCaseLabel(prior.name),
 
                   onChanged: (value) {
                     if (controller.selectedPrio.value == value) {
@@ -78,7 +80,7 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
             const Text('Assignee task'),
 
             CustomDropdownField(
-              width: MediaQuery.of(context).size.width * 0.9, // fullwidth
+              width: MediaQuery.of(context).size.width * 0.9,
               value: controller.selectedUser.value,
 
               hintText: controller.selectedUser.value?.name,
@@ -92,6 +94,16 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
                   controller.selectedUser.value = value;
                 }
               },
+            ),
+          ]),
+
+          _contentWrapper([
+            const Text('Files'),
+            UploadFilesOrImages(
+              hintText: 'Browse here',
+              files: controller.fileItems,
+              onTap: controller.pickFiles,
+              onRemove: controller.removeFile,
             ),
           ]),
         ]);
@@ -122,5 +134,9 @@ class UpdateTaskView extends GetView<UpdateTaskController> {
       spacing: 5,
       children: child,
     );
+  }
+
+  String _upperCaseLabel(String text) {
+    return text[0].toUpperCase() + text.substring(1);
   }
 }

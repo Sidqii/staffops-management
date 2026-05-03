@@ -10,6 +10,7 @@ import 'package:staffops/features/task/create_task/domain/entities/hint_title.da
 import 'package:staffops/features/task/create_task/domain/usecase/create_task_usecase.dart';
 import 'package:staffops/features/task/create_task/domain/usecase/get_references_of_priority.dart';
 import 'package:staffops/features/task/create_task/domain/usecase/get_references_of_user.dart';
+import 'package:staffops/features/task/create_task/presentation/utils/file_item.dart';
 import 'package:staffops/features/task/create_task/presentation/utils/form_validator.dart';
 import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
@@ -23,8 +24,8 @@ class CreateTaskController extends GetxController {
   CreateTaskController(this.usecase, this.priorUsecase, this.usersUsecase);
 
   // load option
-  RxList<PriorityModel> prio = <PriorityModel>[].obs;
-  RxList<ActorModel> user = <ActorModel>[].obs;
+  RxList<PriorityModel> prio = RxList<PriorityModel>();
+  RxList<ActorModel> user = RxList<ActorModel>();
 
   // controller
   final titleController = TextEditingController();
@@ -40,6 +41,13 @@ class CreateTaskController extends GetxController {
   RxnString userError = RxnString();
   RxnString priorityError = RxnString();
   RxnString dateError = RxnString();
+
+  // getter files
+  List<FileItem> get fileItems {
+    return selectedFiles.map((element) {
+      return FileItem(name: element.name, file: element);
+    }).toList();
+  }
 
   // flag
   RxBool isLoading = false.obs;
@@ -141,12 +149,20 @@ class CreateTaskController extends GetxController {
     final result = await FilePicker.pickFiles(allowMultiple: true);
 
     if (result != null) {
-      selectedFiles.assignAll(result.files);
+      final currentFile = result.files;
+
+      for (final file in currentFile) {
+        final isExist = selectedFiles.any((e) => e.name == file.name);
+
+        if (!isExist) {
+          selectedFiles.add(file);
+        }
+      }
     }
   }
 
-  Future<void> removeFiles(PlatformFile file) async {
-    selectedFiles.remove(file);
+  Future<void> removeFile(FileItem file) async {
+    selectedFiles.remove(file.file);
   }
 
   void _failedNotification(String message) {

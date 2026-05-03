@@ -5,10 +5,10 @@ import 'package:staffops/shared/themes/app_color.dart';
 class AppBarCreateTask extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCreateTask({super.key});
 
-  static const barTitle = TextStyle(
-    fontSize: 20,
+  static const titleAppbar = TextStyle(
     color: AppColor.grey900,
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
   );
 
   @override
@@ -17,15 +17,27 @@ class AppBarCreateTask extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
-        onPressed: () => Get.back(),
-        icon: const Icon(Icons.arrow_back_ios_new_rounded),
+      automaticallyImplyLeading: false,
+
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          spacing: 15,
+          children: [
+            Icon(Icons.assignment, size: 20, color: AppColor.grey900),
+
+            Text('Create task form', style: titleAppbar),
+          ],
+        ),
       ),
 
       actions: [
         Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-          child: Text('Create new task', style: barTitle),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
+          child: IconButton(
+            onPressed: () => Get.back(),
+            icon: const Icon(Icons.close_rounded),
+          ),
         ),
       ],
     );

@@ -1,4 +1,5 @@
-import 'package:staffops/features/task/detail_task/data/model/task/attachment_model.dart';
+import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 
 class EditedBody {
   final String? title;
@@ -6,8 +7,7 @@ class EditedBody {
   final int? assignee;
   final int? priority;
   final DateTime? deadline;
-
-  final List<AttachmentModel>? attachment;
+  final List<PlatformFile>? files;
 
   EditedBody({
     this.title,
@@ -15,21 +15,31 @@ class EditedBody {
     this.assignee,
     this.priority,
     this.deadline,
-    this.attachment,
+    this.files,
   });
 
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+  Future<FormData> toFormData(List<PlatformFile> files) async {
+    final formData = FormData();
 
-    if (title != null) data['title'] = title;
-    if (description != null) data['description'] = description;
-    if (assignee != null) data['assignee'] = assignee;
-    if (priority != null) data['priority'] = priority;
-    if (deadline != null) data['due_date'] = deadline?.toIso8601String();
-    if (attachment != null) {
-      data['attachment'] = attachment!.map((e) => e.toJson()).toList();
+    formData.fields.addAll([
+      MapEntry('title', title!),
+      MapEntry('description', description!),
+      MapEntry('assigned_to', assignee.toString()),
+      MapEntry('due_date', deadline!.toIso8601String()),
+      MapEntry('priority_id', priority.toString()),
+    ]);
+
+    for (final file in files) {
+      if (file.path != null) {
+        final multipart = await MultipartFile.fromFile(
+          file.path!,
+          filename: file.name,
+        );
+
+        formData.files.add(MapEntry('files[]', multipart));
+      }
     }
 
-    return data;
+    return formData;
   }
 }

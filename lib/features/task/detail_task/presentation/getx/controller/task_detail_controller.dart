@@ -16,6 +16,7 @@ class TaskDetailController extends GetxController {
     super.onInit();
 
     final int id = Get.arguments;
+
     fetchTaskDetail(id);
   }
 
@@ -23,9 +24,17 @@ class TaskDetailController extends GetxController {
     isLoading(true);
 
     try {
-        final result = await usecase.execute(id);
+      taskDetail.value = await usecase.execute(id);
+    } finally {
+      isLoading(false);
+    }
+  }
 
-        taskDetail.value = result;
+  Future<void> refresh() async {
+    isLoading(true);
+
+    try {
+      await fetchTaskDetail(Get.arguments);
     } finally {
       isLoading(false);
     }

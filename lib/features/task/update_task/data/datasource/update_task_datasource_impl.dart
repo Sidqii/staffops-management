@@ -25,7 +25,7 @@ class UpdateTaskDatasourceImpl implements UpdateTaskDatasource {
   @override
   Future<void> updateTask(EditedBody body, int id) async {
     try {
-      await dio.put('/tasks/$id', data: body.toJson());
+      await dio.put('/tasks/$id', data: body.toFormData);
     } on ServerException catch (e) {
       throw ServerException.fromDio(e);
     }

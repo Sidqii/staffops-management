@@ -72,11 +72,14 @@ class CreateTaskForm extends GetView<CreateTaskController> {
                   // updload file or image (WIP)
                   _contentWrapper([
                     const Text('Upload files?'),
-                    UploadFilesOrImages(
-                      hintText: 'Browse here',
-                      files: controller.selectedFiles.toList(),
-                      onTap: controller.pickFiles,
-                    ),
+                    Obx(() {
+                      return UploadFilesOrImages(
+                        hintText: 'Browse here',
+                        files: controller.fileItems,
+                        onTap: controller.pickFiles,
+                        onRemove: controller.removeFile,
+                      );
+                    }),
                   ]),
 
                   const SizedBox(height: 10),

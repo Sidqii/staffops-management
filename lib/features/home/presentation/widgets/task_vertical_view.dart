@@ -61,6 +61,7 @@ class TaskVerticalView extends GetView<DashboardController> {
         onRefresh: () async => await controller.refresh(),
 
         child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
           controller: controller.scrollController,
 
           slivers: [

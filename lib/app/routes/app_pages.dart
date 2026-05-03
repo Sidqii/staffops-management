@@ -17,13 +17,13 @@ import 'package:staffops/features/home/presentation/getx/binding/home_bindings.d
 // task -> create
 import 'package:staffops/features/task/create_task/presentation/pages/create_task_form.dart';
 import 'package:staffops/features/task/create_task/presentation/getx/binding/create_task_bindings.dart';
-import 'package:staffops/features/task/detail_task/presentation/getx/binding/detail_task_bindings.dart';
 
 // task -> detail
 import 'package:staffops/features/task/detail_task/presentation/pages/task_detail_view.dart';
+import 'package:staffops/features/task/detail_task/presentation/getx/binding/detail_task_bindings.dart';
 
 // task -> update
-import 'package:staffops/features/task/update_task/presentation/pages/update_task_view.dart';
+import 'package:staffops/features/task/update_task/presentation/pages/update_task_form.dart';
 import 'package:staffops/features/task/update_task/presentation/getx/binding/update_task_bindings.dart';
 
 part 'app_routes.dart';
@@ -76,7 +76,7 @@ class AppPages {
 
     GetPage(
       name: AppRoutes.TASK_UPDATE,
-      page: () => UpdateTaskView(),
+      page: () => UpdateTaskForm(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
         UpdateTaskBindings().dependencies();

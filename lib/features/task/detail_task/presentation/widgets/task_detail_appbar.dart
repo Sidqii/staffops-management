@@ -41,11 +41,14 @@ class TaskDetailAppbar extends Controller implements PreferredSizeWidget {
           icon: const Icon(Icons.edit_outlined),
           color: AppColor.grey900,
 
-          onPressed: () {
-            Get.toNamed(
-              '/task/update',
-              arguments: controller.taskDetail.value,
-            );
+          onPressed: () async {
+            final detail = controller.taskDetail.value;
+
+            final result = await Get.toNamed('/task/update', arguments: detail);
+
+            if (result == true) {
+              controller.refresh();
+            }
           },
         ),
 
