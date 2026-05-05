@@ -30,6 +30,6 @@ class HomeBindings extends Bindings {
     Get.lazyPut(() => CurrentSession(Get.find<SessionUsecase>()));
 
     // controller
-    Get.lazyPut(() => DashboardController(Get.find<DashboardUsecase>()));
+    Get.lazyPut(() => DashboardController(Get.find<DashboardUsecase>(), Get.find()));
   }
 }

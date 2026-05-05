@@ -17,6 +17,7 @@ import 'package:staffops/features/home/presentation/getx/binding/home_bindings.d
 // task -> create
 import 'package:staffops/features/task/create_task/presentation/pages/create_task_form.dart';
 import 'package:staffops/features/task/create_task/presentation/getx/binding/create_task_bindings.dart';
+import 'package:staffops/features/task/delete_task/presentation/getx/binding/delete_task_bindings.dart';
 
 // task -> detail
 import 'package:staffops/features/task/detail_task/presentation/pages/task_detail_view.dart';
@@ -52,6 +53,7 @@ class AppPages {
       page: () => HomePage(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
+        DeleteTaskBindings().dependencies();
         HomeBindings().dependencies();
       }),
     ),

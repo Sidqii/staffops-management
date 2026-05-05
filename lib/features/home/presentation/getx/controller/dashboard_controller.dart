@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 import 'package:staffops/features/home/data/models/request/filter_query_params.dart';
 import 'package:staffops/features/home/domain/entities/dashboard.dart';
 import 'package:staffops/features/home/domain/usecase/dashboard_usecase.dart';
+import 'package:staffops/features/task/delete_task/domain/usecase/delete_task_usecase.dart';
 import 'package:staffops/shared/exception/server_exception.dart';
 
 class DashboardController extends GetxController {
   final DashboardUsecase usecase;
+  final DeleteTaskUsecase deleteUsecase;
 
-  DashboardController(this.usecase);
+  DashboardController(this.usecase, this.deleteUsecase);
 
   Rx<FilterQueryParams> query = FilterQueryParams().obs;
   RxList<Dashboard> tasks = <Dashboard>[].obs;
@@ -40,6 +42,12 @@ class DashboardController extends GetxController {
     fetchTasks(query.value);
   }
 
+  Future<void> deleteTask(int id) async {
+    await deleteUsecase.execute(id);
+
+    await refresh(resetPage: false, showNotification: false);
+  }
+
   Future<void> fetchTasks(FilterQueryParams params) async {
     try {
       isLoading(true);
@@ -48,8 +56,11 @@ class DashboardController extends GetxController {
 
       tasks.assignAll(result.taskList);
 
+      // current page value
       currentPage.value = result.currentPage;
+      // last page value
       lastPage.value = result.lastPage;
+      // total value
       total.value = result.total;
     } on ServerException catch (e) {
       _failedNotification(e.message);
@@ -95,21 +106,31 @@ class DashboardController extends GetxController {
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({
+    bool showNotification = true,
+    bool resetPage = true,
+  }) async {
     isLoading(true);
 
     try {
-      query.value = query.value.copyWith(page: 1);
+      if (resetPage) {
+        query.value = query.value.copyWith(page: 1);
+      }
 
       final result = await usecase.execute(query.value);
 
       tasks.assignAll(result.taskList);
 
+      // current page value
       currentPage.value = result.currentPage;
+      // last page value
       lastPage.value = result.lastPage;
+      // total value
       total.value = result.total;
 
-      _refreshNotification('Everything is up to date!');
+      if (showNotification) {
+        _refreshNotification('Everything is up to date!');
+      }
     } on ServerException catch (e) {
       _failedNotification(e.message);
     } catch (e) {

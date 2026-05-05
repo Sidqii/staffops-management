@@ -12,7 +12,7 @@ import 'package:staffops/features/home/presentation/widgets/home_menu/user_summa
 import 'package:staffops/features/home/presentation/widgets/side_bar/drawer_menu_body.dart';
 import 'package:staffops/features/home/presentation/widgets/side_bar/drawer_menu_footer.dart';
 import 'package:staffops/features/home/presentation/widgets/side_bar/drawer_menu_header.dart';
-import 'package:staffops/features/home/presentation/widgets/task_vertical_view.dart';
+import 'package:staffops/features/home/presentation/widgets/task_widget/task_vertical_view.dart';
 import 'package:staffops/shared/themes/app_color.dart';
 
 class HomePage extends GetView<CurrentSession> {

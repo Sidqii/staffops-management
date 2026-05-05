@@ -113,6 +113,8 @@ class BaseUrlConfiguration extends GetView<BaseUrlController> {
 
         GestureDetector(
           behavior: HitTestBehavior.opaque,
+
+          // copy path
           onLongPress: () async {
             const url = 'https://github.com/Sidqii/staffops-management';
 
@@ -125,14 +127,11 @@ class BaseUrlConfiguration extends GetView<BaseUrlController> {
             );
           },
 
+          // go to link
           onTap: () async {
             final uri = Uri.parse(
               'https://github.com/Sidqii/staffops-management',
             );
-
-            final canLaunch = await canLaunchUrl(uri);
-
-            print('CAN LAUNCH: $canLaunch');
 
             if (await canLaunchUrl(uri)) {
               await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -140,6 +139,7 @@ class BaseUrlConfiguration extends GetView<BaseUrlController> {
               Get.snackbar('Failed', 'Could not open the link');
             }
           },
+
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(

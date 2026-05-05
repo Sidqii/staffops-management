@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:staffops/features/home/presentation/getx/controller/dashboard_controller.dart';
+import 'package:staffops/shared/themes/app_color.dart';
+
 class TasksUser extends GetView<DashboardController> {
   const TasksUser({super.key});
 
@@ -50,16 +55,6 @@ class TasksUser extends GetView<DashboardController> {
         controller: controller.scrollController,
 
         slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: InputTitleTextField(
-                hintText: 'Seacrh task...',
-                controller: controller.searchController,
-              ),
-            ),
-          ),
-
           SliverToBoxAdapter(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16, 16, 16, 8),

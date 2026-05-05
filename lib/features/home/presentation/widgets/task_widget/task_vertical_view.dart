@@ -86,28 +86,32 @@ class TaskVerticalView extends GetView<DashboardController> {
                     ),
                   ),
 
-                  title: Text(task.title, overflow: TextOverflow.ellipsis,),
+                  title: Text(task.title, overflow: TextOverflow.ellipsis),
 
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        task.description ?? 'no description',
+                        task.description ?? 'No description',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
+
                       const SizedBox(height: 6),
+
                       Container(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 8,
                           vertical: 2,
                         ),
+
                         decoration: BoxDecoration(
                           color: _statusColor(
                             task.status,
                           ).withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(6),
                         ),
+
                         child: Text(
                           task.status,
                           style: TextStyle(
@@ -122,12 +126,17 @@ class TaskVerticalView extends GetView<DashboardController> {
 
                   trailing: PopupMenuButton<String>(
                     onSelected: (value) {
-                      if (value == 'edit') {
-                        // edit
-                      } else if (value == 'delete') {
-                        // delete
+                      switch (value) {
+                        case 'edit':
+                          // controller.deleteTask(task.id);
+                          break;
+                        case 'delete':
+                          controller.deleteTask(task.id);
+                          break;
+                        default:
                       }
                     },
+
                     itemBuilder: (context) => [
                       const PopupMenuItem(value: 'edit', child: Text('Edit')),
                       const PopupMenuItem(
