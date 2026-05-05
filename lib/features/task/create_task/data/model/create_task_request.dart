@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:file_picker/file_picker.dart';
 
 class CreateTaskRequest {
   final String title;
@@ -7,7 +8,7 @@ class CreateTaskRequest {
   final DateTime deadline;
   final int priority;
 
-  final List<String> filePath;
+  final List<PlatformFile> files;
 
   CreateTaskRequest({
     required this.title,
@@ -16,7 +17,7 @@ class CreateTaskRequest {
     required this.deadline,
     required this.priority,
 
-    required this.filePath,
+    required this.files,
   });
 
   Future<FormData> toFormData() async {
@@ -30,10 +31,13 @@ class CreateTaskRequest {
       MapEntry('priority_id', priority.toString()),
     ]);
 
-    for (final path in filePath) {
-      formData.files.add(
-        MapEntry('files[]', await MultipartFile.fromFile(path)),
+    for (final file in files) {
+      final multipart = await MultipartFile.fromFile(
+        file.path!,
+        filename: file.name,
       );
+
+      formData.files.add(MapEntry('files[]', multipart));
     }
 
     return formData;

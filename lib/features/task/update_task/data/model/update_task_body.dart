@@ -1,25 +1,31 @@
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 
-class EditedBody {
+class UpdateTaskBody {
   final String? title;
   final String? description;
   final int? assignee;
-  final int? priority;
   final DateTime? deadline;
-  final List<PlatformFile>? files;
+  final int? priority;
 
-  EditedBody({
+  final List<PlatformFile> files;
+  final List<String> deleteId;
+
+  UpdateTaskBody({
     this.title,
     this.description,
     this.assignee,
     this.priority,
     this.deadline,
-    this.files,
+
+    required this.files,
+    required this.deleteId,
   });
 
-  Future<FormData> toFormData(List<PlatformFile> files) async {
+  Future<FormData> toFormData() async {
     final formData = FormData();
+
+    formData.fields.add(MapEntry('_method', 'PUT'));
 
     formData.fields.addAll([
       MapEntry('title', title!),
@@ -29,15 +35,17 @@ class EditedBody {
       MapEntry('priority_id', priority.toString()),
     ]);
 
-    for (final file in files) {
-      if (file.path != null) {
-        final multipart = await MultipartFile.fromFile(
-          file.path!,
-          filename: file.name,
-        );
+    for (var id in deleteId) {
+      formData.fields.add(MapEntry('delete_id[]', id));
+    }
 
-        formData.files.add(MapEntry('files[]', multipart));
-      }
+    for (final file in files) {
+      final multipart = await MultipartFile.fromFile(
+        file.path!,
+        filename: file.name,
+      );
+
+      formData.files.add(MapEntry('files[]', multipart));
     }
 
     return formData;

@@ -22,7 +22,11 @@ class UploadFilesOrImages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (files.isEmpty) {
-      return GestureDetector(onTap: onTap, child: _containerUploadPanel());
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: _containerUploadPanel(),
+      );
     }
 
     return _fileListPanel();
@@ -51,7 +55,7 @@ class UploadFilesOrImages extends StatelessWidget {
     return ListTile(
       contentPadding: EdgeInsets.zero,
 
-      leading: const Icon(Icons.insert_drive_file_rounded),
+      leading: _getIcon(file),
 
       title: Text(file.name, overflow: TextOverflow.ellipsis),
 
@@ -65,7 +69,7 @@ class UploadFilesOrImages extends StatelessWidget {
   Widget _fileListPanel() {
     return Column(
       children: [
-        ...files.map((e) => _fileItemPanel(e)),
+        ...files.map((e) => _fileItemPanel(e)).toList(),
 
         ListTile(
           leading: const Icon(Icons.add),
@@ -74,5 +78,23 @@ class UploadFilesOrImages extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Icon _getIcon(FileItem file) {
+    final ext = file.name.split('.').last.toLowerCase();
+
+    if (['jpg', 'png'].contains(ext)) {
+      return Icon(Icons.image);
+    }
+
+    if (ext == 'pdf') {
+      return Icon(Icons.picture_as_pdf_rounded);
+    }
+
+    if (['doc', 'docx'].contains(ext)) {
+      return Icon(Icons.description);
+    }
+
+    return Icon(Icons.insert_drive_file);
   }
 }

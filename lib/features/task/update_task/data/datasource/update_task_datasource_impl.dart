@@ -3,7 +3,6 @@ import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.
 import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/task_model.dart';
 import 'package:staffops/features/task/update_task/data/datasource/update_task_datasource.dart';
-import 'package:staffops/features/task/update_task/data/model/edited_body.dart';
 import 'package:staffops/shared/exception/server_exception.dart';
 
 class UpdateTaskDatasourceImpl implements UpdateTaskDatasource {
@@ -23,9 +22,9 @@ class UpdateTaskDatasourceImpl implements UpdateTaskDatasource {
   }
 
   @override
-  Future<void> updateTask(EditedBody body, int id) async {
+  Future<void> updateTask(FormData formData, int id) async {
     try {
-      await dio.put('/tasks/$id', data: body.toFormData);
+      await dio.post('/tasks/$id', data: formData);
     } on ServerException catch (e) {
       throw ServerException.fromDio(e);
     }

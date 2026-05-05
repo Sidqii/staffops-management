@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:staffops/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
+import 'package:staffops/shared/entities/task/attachment.dart';
 import 'package:staffops/shared/themes/app_color.dart';
 
 class TaskDetailAttachment extends GetView<TaskDetailController> {
@@ -42,53 +43,63 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
           ),
         ),
 
-        Container(
-          height: 75,
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
 
-          decoration: BoxDecoration(
-            color: AppColor.blueWhale,
-            borderRadius: BorderRadius.circular(15),
-          ),
+          itemCount: isNull ? 1 : attachment.length,
 
-          child: ListView.builder(
-            shrinkWrap: true,
+          itemBuilder: (context, index) {
+            if (isNull) {
+              return _emptyFiles();
+            }
 
-            itemCount: isNull ? 1 : attachment.length,
-
-            itemBuilder: (context, index) {
-              if (isNull) {
-                return ListTile(
-                  // numbering empty file
-                  leading: Text((index).toString(), style: attachmentEmpty),
-
-                  // text content on empty file
-                  title: Text(
-                    'No files were included by the creator',
-                    style: attachmentEmpty,
-                  ),
-                );
-              }
-
-              final task = attachment[index];
-
-              return ListTile(
-                key: ValueKey(task.id),
-
-                // numbering file index
-                leading: Text((index + 1).toString(), style: attachmentStyle),
-
-                // file content
-                title: Text(task.fileName, style: attachmentStyle),
-
-                onTap: () {
-                  // TODO: open files feature
-                },
-              );
-            },
-          ),
+            return _attachmentList(attachment[index]);
+          },
         ),
       ],
     );
+  }
+
+  Widget _emptyFiles() {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+
+      leading: Icon(Icons.folder_outlined),
+      title: Text('No attachment included', style: attachmentEmpty),
+    );
+  }
+
+  Widget _attachmentList(Attachment attachment) {
+    return ListTile(
+      key: ValueKey(attachment.id),
+
+      contentPadding: EdgeInsets.zero,
+
+      leading: _setIcon(attachment),
+      title: Text(attachment.fileName, style: attachmentStyle),
+
+      onTap: () {
+        // TODO: open files feature
+      },
+    );
+  }
+
+  Icon _setIcon(Attachment attachment) {
+    final ext = attachment.fileName.split('.').last.toLowerCase();
+
+    if (['jpg', 'png'].contains(ext)) {
+      return Icon(Icons.image);
+    }
+
+    if (ext == 'pdf') {
+      return Icon(Icons.picture_as_pdf);
+    }
+
+    if (['doc', 'docx'].contains(ext)) {
+      return Icon(Icons.description);
+    }
+
+    return Icon(Icons.insert_drive_file);
   }
 }

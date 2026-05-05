@@ -2,7 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:staffops/features/task/create_task/presentation/utils/file_item.dart';
-import 'package:staffops/features/task/update_task/data/model/edited_body.dart';
+import 'package:staffops/features/task/update_task/data/model/update_task_body.dart';
 import 'package:staffops/features/task/update_task/domain/usecase/prio_list_usecase.dart';
 import 'package:staffops/features/task/update_task/domain/usecase/task_update_usecase.dart';
 import 'package:staffops/features/task/update_task/domain/usecase/user_list_usecase.dart';
@@ -28,11 +28,12 @@ class UpdateTaskController extends GetxController {
   Rxn<Priority> selectedPrio = Rxn<Priority>();
   Rxn<DateTime> selectedDate = Rxn<DateTime>();
 
-  RxList<Attachment> fileSelected = RxList<Attachment>();
-  RxList<PlatformFile> selectedFile = RxList<PlatformFile>();
+  RxList<Attachment> fileSelected = RxList<Attachment>(); // existing file
+  RxList<PlatformFile> selectedFile = RxList<PlatformFile>(); // local file
 
   RxList<Priority> prior = RxList<Priority>();
   RxList<User> users = RxList<User>();
+
   RxList<String> deletedId = RxList<String>();
 
   // getter files
@@ -53,9 +54,8 @@ class UpdateTaskController extends GetxController {
   void onInit() {
     super.onInit();
 
-    final args = Get.arguments;
+    _previewTask(Get.arguments);
 
-    _previewTask(args);
     _loadOptions();
   }
 
@@ -81,21 +81,23 @@ class UpdateTaskController extends GetxController {
     isLoading(true);
 
     try {
-      final requestBody = EditedBody(
+      final requestBody = UpdateTaskBody(
         title: titleController.text,
         description: descsController.text,
         assignee: selectedUser.value!.id,
         priority: selectedPrio.value!.id,
         deadline: selectedDate.value,
+        files: selectedFile,
+        deleteId: deletedId,
       );
 
-      print(requestBody.priority);
+      // print('file deleted: ${requestBody.deleteId}');
 
       await usecase.execute(requestBody, id);
 
       Get.back(result: true);
     } catch (e) {
-      print(e);
+      // print(e);
     } finally {
       isLoading(false);
     }

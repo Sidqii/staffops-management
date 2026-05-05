@@ -1,5 +1,5 @@
+import 'package:dio/dio.dart';
 import 'package:staffops/features/task/update_task/data/datasource/update_task_datasource.dart';
-import 'package:staffops/features/task/update_task/data/model/edited_body.dart';
 import 'package:staffops/shared/entities/task/priority.dart';
 import 'package:staffops/shared/entities/task/task.dart';
 import 'package:staffops/shared/entities/user/user.dart';
@@ -11,7 +11,7 @@ abstract class UpdateTaskRepository {
 
   Future<List<Priority>> prioList();
 
-  Future<void> editedTask(EditedBody body, int id);
+  Future<void> editedTask(FormData formData, int id);
 }
 
 class UpdateTaskRepositoryImpl implements UpdateTaskRepository {
@@ -27,8 +27,8 @@ class UpdateTaskRepositoryImpl implements UpdateTaskRepository {
   }
 
   @override
-  Future<void> editedTask(EditedBody body, int id) async {
-    await datasource.updateTask(body, id);
+  Future<void> editedTask(FormData formData, int id) async {
+    await datasource.updateTask(formData, id);
   }
 
   @override

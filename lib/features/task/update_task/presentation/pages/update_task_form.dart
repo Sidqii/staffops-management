@@ -103,7 +103,7 @@ class UpdateTaskForm extends GetView<UpdateTaskController> {
               hintText: 'Browse here',
               files: controller.fileItems,
               onTap: controller.pickFiles,
-              onRemove: controller.removeFile,
+              onRemove: (file) => controller.removeFile(file),
             ),
           ]),
         ]);

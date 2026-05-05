@@ -11,7 +11,7 @@ class DropdownPrioTask extends GetView<CreateTaskController> {
     return Obx(() {
       return CustomDropdownField(
         value: controller.selectedPriority.value,
-        error: controller.priorityError.value,
+        error: controller.prioError.value,
 
         items: controller.prio.toList(),
         label: (prio) => _upperCaseLabel(prio.name),

@@ -39,7 +39,7 @@ class CreateTaskController extends GetxController {
 
   RxnString titleError = RxnString();
   RxnString userError = RxnString();
-  RxnString priorityError = RxnString();
+  RxnString prioError = RxnString();
   RxnString dateError = RxnString();
 
   // getter files
@@ -87,9 +87,7 @@ class CreateTaskController extends GetxController {
         deadline: date,
         priority: prio.id,
 
-        filePath: selectedFiles.map((element) {
-          return element.path!;
-        }).toList(),
+        files: selectedFiles
       );
 
       await submitForm(request);
@@ -103,22 +101,20 @@ class CreateTaskController extends GetxController {
 
     titleError.value = null;
     userError.value = null;
-    priorityError.value = null;
+    prioError.value = null;
     dateError.value = null;
 
     titleError.value = FormValidator.validateTitle(titleController.text);
 
     userError.value = FormValidator.validateUser(selectedUser.value);
 
-    priorityError.value = FormValidator.validatePriority(
-      selectedPriority.value,
-    );
+    prioError.value = FormValidator.validatePriority(selectedPriority.value);
 
     dateError.value = FormValidator.validateDate(selectedDate.value);
 
     if (titleError.value != null) isValid = false;
     if (userError.value != null) isValid = false;
-    if (priorityError.value != null) isValid = false;
+    if (prioError.value != null) isValid = false;
     if (dateError.value != null) isValid = false;
 
     return isValid;
@@ -140,7 +136,7 @@ class CreateTaskController extends GetxController {
     }
   }
 
-  void loadOption() async {
+  Future<void> loadOption() async {
     prio.value = await priorUsecase.execute();
     user.value = await usersUsecase.execute();
   }
