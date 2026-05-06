@@ -53,7 +53,10 @@ class AppPages {
       page: () => HomePage(),
       binding: BindingsBuilder(() {
         AppBindings().dependencies();
+
+        DetailTaskBindings().dependencies();
         DeleteTaskBindings().dependencies();
+
         HomeBindings().dependencies();
       }),
     ),

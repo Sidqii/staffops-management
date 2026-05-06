@@ -1,11 +1,14 @@
 import 'package:get/get.dart';
+import 'package:staffops/features/task/delete_task/domain/usecase/delete_task_usecase.dart';
 import 'package:staffops/features/task/detail_task/domain/usecase/get_task_detail.dart';
 import 'package:staffops/shared/entities/task/task.dart';
+import 'package:staffops/shared/exception/server_exception.dart';
 
 class TaskDetailController extends GetxController {
   final GetTaskDetail usecase;
+  final DeleteTaskUsecase deleteUsecase;
 
-  TaskDetailController(this.usecase);
+  TaskDetailController(this.usecase, this.deleteUsecase);
 
   Rxn<Task> taskDetail = Rxn<Task>();
 
@@ -37,6 +40,16 @@ class TaskDetailController extends GetxController {
       await fetchTaskDetail(Get.arguments);
     } finally {
       isLoading(false);
+    }
+  }
+
+  Future<void> deleteTask(int id) async {
+    try {
+      await deleteUsecase.execute(id);
+
+      Get.back(result: true);
+    } on ServerException catch (e) {
+      throw ServerException.fromDio(e);
     }
   }
 }

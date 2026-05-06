@@ -13,7 +13,7 @@ class DropdownUserTask extends GetView<CreateTaskController> {
         width: MediaQuery.of(context).size.width * 0.9,
         value: controller.selectedUser.value,
 
-        items: controller.user.toList(),
+        items: (controller.user.toList()),
         label: (user) => user.name,
 
         error: controller.userError.value,

@@ -66,15 +66,11 @@ class BaseUrlConfiguration extends GetView<BaseUrlController> {
                             return;
                           }
 
-                          try {
-                            final url = controller.normalizeUrl(controller.url);
+                          ApiConfig.setUrl(
+                            controller.normalizeUrl(controller.url),
+                          );
 
-                            ApiConfig.setUrl(url);
-
-                            Get.back(result: true);
-                          } catch (e) {
-                            print('Error submit: $e');
-                          }
+                          Get.back(result: true);
                         },
                       ),
 

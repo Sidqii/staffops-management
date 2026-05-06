@@ -9,6 +9,7 @@ import 'package:staffops/features/task/update_task/presentation/widgets/update_d
 import 'package:staffops/features/task/update_task/presentation/widgets/update_title_text.dart';
 import 'package:staffops/features/task/update_task/presentation/widgets/updated_appbar_widget.dart';
 import 'package:staffops/shared/entities/task/priority.dart';
+import 'package:staffops/shared/themes/app_color.dart';
 
 class UpdateTaskForm extends GetView<UpdateTaskController> {
   const UpdateTaskForm({super.key});
@@ -20,93 +21,124 @@ class UpdateTaskForm extends GetView<UpdateTaskController> {
 
       bottomNavigationBar: Padding(
         padding: const EdgeInsetsGeometry.symmetric(
-          horizontal: 20,
-          vertical: 5,
+          horizontal: 15,
+          vertical: 10,
         ),
         child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.all(20),
+
+            backgroundColor: AppColor.grey900,
+            foregroundColor: AppColor.softWhite,
+
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+          ),
           onPressed: () => controller.onSubmit(controller.task.value!.id),
           child: const Text('Update task'),
         ),
       ),
 
       body: Obx(() {
-        return _contentPanel([
-          _contentWrapper([const Text('Title'), const UpdateTitleText()]),
+        return Stack(
+          children: [
+            _contentPanel([
+              _contentWrapper([const Text('Title'), const UpdateTitleText()]),
 
-          _contentWrapper([const Text('Description'), const UpdateDescText()]),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
               _contentWrapper([
-                const Text('Priority'),
-                CustomDropdownField<Priority>(
-                  value: controller.selectedPrio.value,
-                  items: controller.prior.toList(),
+                const Text('Description'),
+                const UpdateDescText(),
+              ]),
 
-                  hintText: controller.selectedPrio.value?.name,
-                  label: (prior) => _upperCaseLabel(prior.name),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _contentWrapper([
+                    const Text('Priority'),
+                    CustomDropdownField<Priority>(
+                      value: controller.selectedPrio.value,
+                      items: controller.prior.toList(),
+
+                      hintText: _upperCaseLabel(
+                        controller.selectedPrio.value?.name ?? '',
+                      ),
+                      label: (prior) => _upperCaseLabel(prior.name),
+
+                      onChanged: (value) {
+                        if (controller.selectedPrio.value == value) {
+                          controller.selectedPrio.value = null;
+                        } else {
+                          controller.selectedPrio.value = value;
+                        }
+                      },
+                    ),
+                  ]),
+
+                  _contentWrapper([
+                    const Text('Deadline'),
+                    CalendarInputField(
+                      date: controller.selectedDate.value,
+                      onTap: () async {
+                        final result = await DatePickerShowDialog.show(
+                          context,
+                          controller.selectedDate.value,
+                        );
+
+                        if (result != null) {
+                          controller.selectedDate.value = result;
+                        }
+                      },
+                    ),
+                  ]),
+                ],
+              ),
+
+              _contentWrapper([
+                const Text('Assignee task'),
+
+                CustomDropdownField(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  value: controller.selectedUser.value,
+
+                  hintText: controller.selectedUser.value?.name,
+                  items: controller.users.toList(),
+                  label: (user) => user.name,
 
                   onChanged: (value) {
-                    if (controller.selectedPrio.value == value) {
-                      controller.selectedPrio.value = null;
+                    if (controller.selectedUser.value == value) {
+                      controller.selectedUser.value = null;
                     } else {
-                      controller.selectedPrio.value = value;
+                      controller.selectedUser.value = value;
                     }
                   },
                 ),
               ]),
 
               _contentWrapper([
-                const Text('Deadline'),
-                CalendarInputField(
-                  date: controller.selectedDate.value,
-                  onTap: () async {
-                    final result = await DatePickerShowDialog.show(
-                      context,
-                      controller.selectedDate.value,
-                    );
-
-                    if (result != null) {
-                      controller.selectedDate.value = result;
-                    }
-                  },
+                const Text('Files'),
+                UploadFilesOrImages(
+                  hintText: 'Browse here',
+                  files: controller.fileItems,
+                  onTap: controller.pickFiles,
+                  onRemove: (file) => controller.removeFile(file),
                 ),
               ]),
-            ],
-          ),
+            ]),
 
-          _contentWrapper([
-            const Text('Assignee task'),
+            if (controller.isLoading.value)
+              Container(
+                color: AppColor.softWhite.withValues(alpha: 10),
 
-            CustomDropdownField(
-              width: MediaQuery.of(context).size.width * 0.9,
-              value: controller.selectedUser.value,
-
-              hintText: controller.selectedUser.value?.name,
-              items: controller.users.toList(),
-              label: (user) => user.name,
-
-              onChanged: (value) {
-                if (controller.selectedUser.value == value) {
-                  controller.selectedUser.value = null;
-                } else {
-                  controller.selectedUser.value = value;
-                }
-              },
-            ),
-          ]),
-
-          _contentWrapper([
-            const Text('Files'),
-            UploadFilesOrImages(
-              hintText: 'Browse here',
-              files: controller.fileItems,
-              onTap: controller.pickFiles,
-              onRemove: (file) => controller.removeFile(file),
-            ),
-          ]),
-        ]);
+                child: const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1,
+                    color: AppColor.grey900,
+                  ),
+                ),
+              ),
+          ],
+        );
       }),
     );
   }
@@ -137,6 +169,8 @@ class UpdateTaskForm extends GetView<UpdateTaskController> {
   }
 
   String _upperCaseLabel(String text) {
+    if (text.isEmpty) return '';
+
     return text[0].toUpperCase() + text.substring(1);
   }
 }

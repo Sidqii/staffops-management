@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/auth/data/models/response/user_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/task_model.dart';
 import 'package:staffops/features/task/update_task/data/datasource/update_task_datasource.dart';
@@ -44,13 +44,13 @@ class UpdateTaskDatasourceImpl implements UpdateTaskDatasource {
   }
 
   @override
-  Future<List<ActorModel>> getUsersList() async {
+  Future<List<UserModel>> getUsersList() async {
     try {
       final response = await dio.get('/users');
 
       final userList = response.data['data'] as List;
 
-      return userList.map((e) => ActorModel.fromJson(e)).toList();
+      return userList.map((e) => UserModel.fromJson(e)).toList();
     } on ServerException catch (e) {
       throw ServerException.fromDio(e);
     }

@@ -41,6 +41,7 @@ class TaskDetailAppbar extends Controller implements PreferredSizeWidget {
           icon: const Icon(Icons.edit_outlined),
           color: AppColor.grey900,
 
+          // TODO: for high level only
           onPressed: () async {
             final detail = controller.taskDetail.value;
 
@@ -55,12 +56,8 @@ class TaskDetailAppbar extends Controller implements PreferredSizeWidget {
         PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert),
 
-          onSelected: (value) {
-            switch (value) {
-              case 'delete':
-                // TODO: delete logic
-                break;
-            }
+          onSelected: (value) async {
+            await controller.deleteTask(controller.taskDetail.value!.id);
           },
 
           itemBuilder: (context) => [

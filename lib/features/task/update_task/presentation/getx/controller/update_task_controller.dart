@@ -1,7 +1,9 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:staffops/features/home/presentation/getx/controller/current_session.dart';
 import 'package:staffops/features/task/create_task/presentation/utils/file_item.dart';
+import 'package:staffops/features/task/detail_task/domain/usecase/get_task_detail.dart';
 import 'package:staffops/features/task/update_task/data/model/update_task_body.dart';
 import 'package:staffops/features/task/update_task/domain/usecase/prio_list_usecase.dart';
 import 'package:staffops/features/task/update_task/domain/usecase/task_update_usecase.dart';
@@ -15,8 +17,18 @@ class UpdateTaskController extends GetxController {
   final TaskUpdateUsecase usecase;
   final PrioListUsecase prioList;
   final UserListUsecase userList;
+  final GetTaskDetail getTaskUsecase;
 
-  UpdateTaskController(this.usecase, this.prioList, this.userList);
+  UpdateTaskController(
+    this.usecase,
+    this.prioList,
+    this.userList,
+    this.getTaskUsecase,
+  );
+
+  // current user
+  final currentUser = Get.find<CurrentSession>();
+
   // task
   Rxn<Task> task = Rxn<Task>();
 
@@ -54,9 +66,27 @@ class UpdateTaskController extends GetxController {
   void onInit() {
     super.onInit();
 
-    _previewTask(Get.arguments);
+    final args = Get.arguments;
+
+    if (args is Task) {
+      _previewTask(args);
+    } else if (args is int) {
+      _previewTaskById(args);
+    }
 
     _loadOptions();
+  }
+
+  Future<void> _previewTaskById(int id) async {
+    isLoading(true);
+
+    try {
+      final result = await getTaskUsecase.execute(id);
+
+      _previewTask(result);
+    } finally {
+      isLoading(false);
+    }
   }
 
   void _previewTask(Task data) {
@@ -73,8 +103,14 @@ class UpdateTaskController extends GetxController {
   }
 
   void _loadOptions() async {
-    users.value = await userList.execute();
     prior.value = await prioList.execute();
+    final option = await userList.execute();
+
+    final current = currentUser.credential.value!.id;
+
+    users.value = option.where((e) {
+      return e.role!.name == 'user' && e.id != current;
+    }).toList();
   }
 
   Future<void> onSubmit(int id) async {
@@ -90,8 +126,6 @@ class UpdateTaskController extends GetxController {
         files: selectedFile,
         deleteId: deletedId,
       );
-
-      // print('file deleted: ${requestBody.deleteId}');
 
       await usecase.execute(requestBody, id);
 

@@ -17,15 +17,18 @@ class DetailTaskBindings extends Bindings {
     // data layer
     Get.lazyPut<DetailTaskDatasource>(() {
       return DetailTaskDatasourceImpl(Get.find<Dio>());
-    });
+    }, fenix: true);
     Get.lazyPut<DetailTaskRepository>(() {
       return DetailTaskRepositoryImpl(Get.find<DetailTaskDatasource>());
-    });
+    }, fenix: true);
 
     // usecase
-    Get.lazyPut(() => GetTaskDetail(Get.find<DetailTaskRepository>()));
+    Get.lazyPut(
+      () => GetTaskDetail(Get.find<DetailTaskRepository>()),
+      fenix: true,
+    );
 
     // controller
-    Get.lazyPut(() => TaskDetailController(Get.find<GetTaskDetail>()));
+    Get.lazyPut(() => TaskDetailController(Get.find(), Get.find()));
   }
 }

@@ -12,7 +12,7 @@ class UpdateDescText extends GetView<UpdateTaskController> {
       controller: controller.descsController,
       textCapitalization: TextCapitalization.sentences,
 
-      maxLines: 5,
+      maxLines: null,
 
       cursorWidth: 1,
       cursorColor: AppColor.grey900,

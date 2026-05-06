@@ -74,8 +74,15 @@ class TaskVerticalView extends GetView<DashboardController> {
 
                   contentPadding: EdgeInsets.only(left: 16),
 
-                  onTap: () {
-                    Get.toNamed('/task/detail', arguments: task.id);
+                  onTap: () async {
+                    final result = await Get.toNamed(
+                      '/task/detail',
+                      arguments: task.id,
+                    );
+
+                    if (result == true) {
+                      controller.refresh(showNotification: false);
+                    }
                   },
 
                   leading: CircleAvatar(
@@ -125,10 +132,10 @@ class TaskVerticalView extends GetView<DashboardController> {
                   ),
 
                   trailing: PopupMenuButton<String>(
-                    onSelected: (value) {
+                    onSelected: (value) async {
                       switch (value) {
                         case 'edit':
-                          // controller.deleteTask(task.id);
+                          await Get.toNamed('/task/update', arguments: task.id);
                           break;
                         case 'delete':
                           controller.deleteTask(task.id);

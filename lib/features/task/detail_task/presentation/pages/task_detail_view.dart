@@ -40,13 +40,9 @@ class TaskDetailView extends GetView<TaskDetailController> {
 
             if (task == null) {
               return Center(
-                child: GestureDetector(
-                  onTap: () => print('retry function (WIP)'),
-
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text('Failed to load task details. Tap to retry.'),
-                  ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text('Failed to load task details. Tap to retry.'),
                 ),
               );
             }

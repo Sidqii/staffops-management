@@ -25,7 +25,12 @@ class UpdateTaskBindings extends Bindings {
 
     // controller
     Get.lazyPut(() {
-      return UpdateTaskController(Get.find(), Get.find(), Get.find());
+      return UpdateTaskController(
+        Get.find(),
+        Get.find(),
+        Get.find(),
+        Get.find(),
+      );
     });
   }
 }

@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:staffops/features/auth/data/models/response/user_model.dart';
+import 'package:staffops/features/home/presentation/getx/controller/current_session.dart';
 import 'package:staffops/features/task/create_task/data/model/create_task_request.dart';
 import 'package:staffops/features/task/create_task/domain/entities/hint_assignee.dart';
 import 'package:staffops/features/task/create_task/domain/entities/hint_description.dart';
@@ -12,7 +14,6 @@ import 'package:staffops/features/task/create_task/domain/usecase/get_references
 import 'package:staffops/features/task/create_task/domain/usecase/get_references_of_user.dart';
 import 'package:staffops/features/task/create_task/presentation/utils/file_item.dart';
 import 'package:staffops/features/task/create_task/presentation/utils/form_validator.dart';
-import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
 import 'package:staffops/shared/exception/server_exception.dart';
 
@@ -23,16 +24,18 @@ class CreateTaskController extends GetxController {
 
   CreateTaskController(this.usecase, this.priorUsecase, this.usersUsecase);
 
+  final currentUser = Get.find<CurrentSession>();
+
   // load option
   RxList<PriorityModel> prio = RxList<PriorityModel>();
-  RxList<ActorModel> user = RxList<ActorModel>();
+  RxList<UserModel> user = RxList<UserModel>();
 
   // controller
   final titleController = TextEditingController();
   final descsController = TextEditingController();
 
   Rxn<DateTime> selectedDate = Rxn<DateTime>();
-  Rxn<ActorModel> selectedUser = Rxn<ActorModel>();
+  Rxn<UserModel> selectedUser = Rxn<UserModel>();
 
   Rxn<PriorityModel> selectedPriority = Rxn<PriorityModel>();
   RxList<PlatformFile> selectedFiles = RxList<PlatformFile>();
@@ -87,7 +90,7 @@ class CreateTaskController extends GetxController {
         deadline: date,
         priority: prio.id,
 
-        files: selectedFiles
+        files: selectedFiles,
       );
 
       await submitForm(request);
@@ -138,7 +141,14 @@ class CreateTaskController extends GetxController {
 
   Future<void> loadOption() async {
     prio.value = await priorUsecase.execute();
-    user.value = await usersUsecase.execute();
+
+    final users = await usersUsecase.execute();
+
+    final current = currentUser.credential.value!.id;
+
+    user.value = users.where((element) {
+      return element.role!.name == 'user' && element.id != current;
+    }).toList();
   }
 
   Future<void> pickFiles() async {

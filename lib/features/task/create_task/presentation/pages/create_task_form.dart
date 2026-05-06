@@ -20,7 +20,7 @@ class CreateTaskForm extends GetView<CreateTaskController> {
       appBar: const AppBarCreateTask(),
 
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: const SubmitButtonForm(),
       ),
 

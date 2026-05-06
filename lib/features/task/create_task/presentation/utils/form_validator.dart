@@ -1,4 +1,4 @@
-import 'package:staffops/features/task/detail_task/data/model/actor/actor_model.dart';
+import 'package:staffops/features/auth/data/models/response/user_model.dart';
 import 'package:staffops/features/task/detail_task/data/model/task/priority_model.dart';
 
 class FormValidator {
@@ -8,7 +8,7 @@ class FormValidator {
     return null;
   }
 
-  static String? validateUser(ActorModel? user) {
+  static String? validateUser(UserModel? user) {
     if (user == null) return 'Assignee must be selected';
     return null;
   }
