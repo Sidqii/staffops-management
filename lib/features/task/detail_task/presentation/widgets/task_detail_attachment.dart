@@ -79,8 +79,11 @@ class TaskDetailAttachment extends GetView<TaskDetailController> {
       leading: _setIcon(attachment),
       title: Text(attachment.fileName, style: attachmentStyle),
 
-      onTap: () {
-        // TODO: open files feature
+      onTap: () async {
+        await controller.openFiles(
+          fileName: attachment.fileName,
+          filePath: attachment.filePath,
+        );
       },
     );
   }

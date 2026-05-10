@@ -29,6 +29,6 @@ class DetailTaskBindings extends Bindings {
     );
 
     // controller
-    Get.lazyPut(() => TaskDetailController(Get.find(), Get.find()));
+    Get.lazyPut(() => TaskDetailController(Get.find(), Get.find(), Get.find()));
   }
 }
