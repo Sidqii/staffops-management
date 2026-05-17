@@ -23,19 +23,19 @@ class AuthenticationPage extends GetView<SignInController> {
   final textStyle = const TextStyle(fontSize: 14);
 
   final facebookIcon = Image.asset(
-    'assets/icons/facebook.png',
+    'assets/icons/auth/facebook.png',
     width: 24,
     height: 24,
   );
 
   final gmailIcon = Image.asset(
-    'assets/icons/gmail.png',
+    'assets/icons/auth/gmail.png',
     width: 24,
     height: 24,
   );
 
   final appleIcon = Image.asset(
-    'assets/icons/apple.png',
+    'assets/icons/auth/apple.png',
     width: 24,
     height: 24,
   );
