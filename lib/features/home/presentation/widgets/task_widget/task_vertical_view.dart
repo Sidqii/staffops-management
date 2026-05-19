@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:staffops/features/home/presentation/getx/controller/current_session.dart';
 import 'package:staffops/features/home/presentation/getx/controller/dashboard_controller.dart';
 import 'package:staffops/shared/themes/app_color.dart';
 
@@ -19,6 +20,8 @@ class TaskVerticalView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<CurrentSession>();
+
     return Obx(() {
       final isLoading = controller.isLoading.value;
       final isEmpty = controller.tasks.isEmpty;
@@ -131,27 +134,39 @@ class TaskVerticalView extends GetView<DashboardController> {
                     ],
                   ),
 
-                  trailing: PopupMenuButton<String>(
-                    onSelected: (value) async {
-                      switch (value) {
-                        case 'edit':
-                          await Get.toNamed('/task/update', arguments: task.id);
-                          break;
-                        case 'delete':
-                          controller.deleteTask(task.id);
-                          break;
-                        default:
-                      }
-                    },
+                  trailing: Obx(() {
+                    final roleAccess =
+                        userController.credential.value?.role?.name;
 
-                    itemBuilder: (context) => [
-                      const PopupMenuItem(value: 'edit', child: Text('Edit')),
-                      const PopupMenuItem(
-                        value: 'delete',
-                        child: Text('Delete'),
-                      ),
-                    ],
-                  ),
+                    if (roleAccess != 'admin' && roleAccess != 'owner') {
+                      return SizedBox.shrink();
+                    }
+
+                    return PopupMenuButton<String>(
+                      onSelected: (value) async {
+                        switch (value) {
+                          case 'edit':
+                            await Get.toNamed(
+                              '/task/update',
+                              arguments: task.id,
+                            );
+                            break;
+                          case 'delete':
+                            controller.deleteTask(task.id);
+                            break;
+                          default:
+                        }
+                      },
+
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(value: 'edit', child: Text('Edit')),
+                        const PopupMenuItem(
+                          value: 'delete',
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    );
+                  }),
                 );
               }, childCount: controller.tasks.length),
             ),

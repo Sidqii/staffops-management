@@ -1,4 +1,4 @@
-package com.example.staffops
+package com.portfolio.staffops
 
 import io.flutter.embedding.android.FlutterActivity
 

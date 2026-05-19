@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:staffops/features/home/presentation/getx/controller/current_session.dart';
 import 'package:staffops/features/task/detail_task/presentation/getx/controller/task_detail_controller.dart';
 import 'package:staffops/shared/themes/app_color.dart';
 
@@ -19,6 +20,8 @@ class TaskDetailAppbar extends Controller implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userController = Get.find<CurrentSession>();
+
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new_rounded),
@@ -37,21 +40,31 @@ class TaskDetailAppbar extends Controller implements PreferredSizeWidget {
       }),
 
       actions: [
-        IconButton(
-          icon: const Icon(Icons.edit_outlined),
-          color: AppColor.grey900,
+        Obx(() {
+          final roleAccess = userController.credential.value?.role?.name;
 
-          // TODO: for high level only
-          onPressed: () async {
-            final detail = controller.taskDetail.value;
+          if (roleAccess != 'admin' && roleAccess != 'owner') {
+            return SizedBox.shrink();
+          }
 
-            final result = await Get.toNamed('/task/update', arguments: detail);
+          return IconButton(
+            icon: const Icon(Icons.edit_outlined),
+            color: AppColor.grey900,
 
-            if (result == true) {
-              controller.refresh();
-            }
-          },
-        ),
+            onPressed: () async {
+              final detail = controller.taskDetail.value;
+
+              final result = await Get.toNamed(
+                '/task/update',
+                arguments: detail,
+              );
+
+              if (result == true) {
+                controller.refresh();
+              }
+            },
+          );
+        }),
 
         PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert),
